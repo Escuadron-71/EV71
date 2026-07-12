@@ -4,67 +4,217 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
 <BaseLayout
   title="Postulacion | Escuadron 71"
-  description="Modulo de postulacion para aspirantes del Escuadron 71."
+  description="Formulario de postulacion para ingreso al Escuadron 71."
 >
-  <main class="page">
-    <section class="panel">
-      <span>Modulo de aspirante</span>
-      <h1>Postulacion de ingreso</h1>
-      <p>
-        Esta ruta ya esta preparada en Astro. El formulario legado de postulacion
-        sera migrado aqui por secciones para conservar validaciones, datos y flujo
-        de revision del Estado Mayor.
-      </p>
-      <a href="/">Volver al inicio</a>
-    </section>
+  <main class="postulacion-page">
+    <div class="postulacion-wrap">
+      <div class="postulacion-shell">
+        <div class="postulacion-banner">
+          <div class="eyebrow">Modulo de aspirante</div>
+          <h1>Postulacion de Ingreso - Escuadron 71</h1>
+          <p>Bienvenido piloto. Completa tu proceso de inscripcion para iniciar la evaluacion de ingreso al Escuadron 71. La informacion suministrada sera revisada por el Estado Mayor del Escuadron.</p>
+        </div>
+
+        <form id="applicationForm" novalidate>
+          {/* Datos personales */}
+          <div class="form-section">
+            <h2>Datos personales</h2>
+            <div class="form-grid">
+              <div class="field">
+                <label for="nombre">Nombre completo <span>*</span></label>
+                <input id="nombre" name="nombre" type="text" required placeholder="Ej. Camilo Estrada" />
+              </div>
+              <div class="field">
+                <label for="callsign">Callsign <span>*</span></label>
+                <input id="callsign" name="callsign" type="text" required placeholder="Ej. HAWK-1" />
+              </div>
+              <div class="field">
+                <label for="nacimiento">Fecha de nacimiento <span>*</span></label>
+                <input id="nacimiento" name="nacimiento" type="date" required />
+              </div>
+              <div class="field">
+                <label for="edad">Edad</label>
+                <input id="edad" name="edad" type="number" min="16" max="80" placeholder="Se calcula automaticamente" />
+              </div>
+              <div class="field">
+                <label for="pais">Pais <span>*</span></label>
+                <input id="pais" name="pais" type="text" required placeholder="Ej. Colombia" />
+              </div>
+              <div class="field">
+                <label for="ciudad">Ciudad</label>
+                <input id="ciudad" name="ciudad" type="text" placeholder="Ciudad de residencia" />
+              </div>
+              <div class="field">
+                <label for="correo">Correo electronico <span>*</span></label>
+                <input id="correo" name="correo" type="email" required placeholder="pilot@correo.com" />
+              </div>
+              <div class="field">
+                <label for="contacto">Numero de contacto</label>
+                <input id="contacto" name="contacto" type="tel" placeholder="+57 300 000 0000" />
+              </div>
+            </div>
+          </div>
+
+          {/* Experiencia de vuelo virtual */}
+          <div class="form-section">
+            <h2>Experiencia de vuelo virtual</h2>
+            <div class="field full">
+              <label>Tienes experiencia previa en simuladores?</label>
+              <div class="choice-grid">
+                <label class="choice-card"><input type="radio" name="experiencia" value="Sin experiencia" /> <span>Sin experiencia</span></label>
+                <label class="choice-card"><input type="radio" name="experiencia" value="Basico" /> <span>Basico</span></label>
+                <label class="choice-card"><input type="radio" name="experiencia" value="Intermedio" /> <span>Intermedio</span></label>
+                <label class="choice-card"><input type="radio" name="experiencia" value="Avanzado" /> <span>Avanzado</span></label>
+                <label class="choice-card"><input type="radio" name="experiencia" value="Piloto virtual experimentado" /> <span>Piloto virtual experimentado</span></label>
+              </div>
+            </div>
+
+            <div class="field full">
+              <label>Simuladores utilizados (seleccion multiple)</label>
+              <div class="chip-group">
+                <label class="chip-option"><input type="checkbox" name="simuladores" value="DCS World" /> DCS World</label>
+                <label class="chip-option"><input type="checkbox" name="simuladores" value="Microsoft Flight Simulator" /> Microsoft Flight Simulator</label>
+                <label class="chip-option"><input type="checkbox" name="simuladores" value="X-Plane" /> X-Plane</label>
+                <label class="chip-option"><input type="checkbox" name="simuladores" value="Falcon BMS" /> Falcon BMS</label>
+                <label class="chip-option"><input type="checkbox" name="simuladores" value="Otro" /> Otro</label>
+              </div>
+            </div>
+
+            <div class="field full">
+              <label for="experienciaTexto">Describe tu experiencia de vuelo virtual</label>
+              <textarea id="experienciaTexto" name="experienciaTexto" placeholder="Cuenta tu trayectoria, roles, operaciones y nivel de familiaridad con la simulacion aerea."></textarea>
+            </div>
+          </div>
+
+          {/* Experiencia en DCS World */}
+          <div class="form-section">
+            <h2>Experiencia en DCS World</h2>
+            <div class="form-grid">
+              <div class="field">
+                <label for="horasVuelo">Horas aproximadas de vuelo</label>
+                <select id="horasVuelo" name="horasVuelo">
+                  <option value="">Selecciona una opcion</option>
+                  <option value="Menos de 50 horas">Menos de 50 horas</option>
+                  <option value="50 - 200 horas">50 - 200 horas</option>
+                  <option value="200 - 500 horas">200 - 500 horas</option>
+                  <option value="Mas de 500 horas">Mas de 500 horas</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="nivelOperacion">Nivel de operacion</label>
+                <select id="nivelOperacion" name="nivelOperacion">
+                  <option value="">Selecciona una opcion</option>
+                  <option value="Aprendiz">Aprendiz</option>
+                  <option value="Operacional basico">Operacional basico</option>
+                  <option value="Combate aire-aire">Combate aire-aire</option>
+                  <option value="Combate aire-tierra">Combate aire-tierra</option>
+                  <option value="Instructor">Instructor</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field full">
+              <label>Modulos que opera</label>
+              <div class="chip-group">
+                <label class="chip-option"><input type="checkbox" name="modulos" value="F/A-18C Hornet" /> F/A-18C Hornet</label>
+                <label class="chip-option"><input type="checkbox" name="modulos" value="F-16C Viper" /> F-16C Viper</label>
+                <label class="chip-option"><input type="checkbox" name="modulos" value="F-14 Tomcat" /> F-14 Tomcat</label>
+                <label class="chip-option"><input type="checkbox" name="modulos" value="A-10C" /> A-10C</label>
+                <label class="chip-option"><input type="checkbox" name="modulos" value="AH-64 Apache" /> AH-64 Apache</label>
+                <label class="chip-option"><input type="checkbox" name="modulos" value="UH-1H Huey" /> UH-1H Huey</label>
+                <label class="chip-option"><input type="checkbox" name="modulos" value="UH-60 Blackhawk" /> UH-60 Blackhawk</label>
+                <label class="chip-option"><input type="checkbox" name="modulos" value="T-45 Goshawk" /> T-45 Goshawk</label>
+                <label class="chip-option"><input type="checkbox" name="modulos" value="C-130 Hercules" /> C-130 Hercules</label>
+                <label class="chip-option"><input type="checkbox" name="modulos" value="Otro" /> Otro</label>
+              </div>
+            </div>
+          </div>
+
+          {/* Requisitos minimos */}
+          <div class="form-section">
+            <h2>Requisitos minimos para ejecutar DCS World</h2>
+            <ul class="req-list">
+              <li><strong><a href="https://www.digitalcombatsimulator.com/" target="_blank" rel="noopener noreferrer">DCS World</a> (Instalado):</strong> Requerido para participar en la simulacion y operaciones del Escuadron.</li>
+              <li><strong>Sistema operativo:</strong> Windows 10 / 11 de 64 bits.</li>
+              <li><strong>Procesador:</strong> Intel o AMD de 3.0 GHz o superior, preferiblemente 4 nucleos o mas.</li>
+              <li><strong>Memoria RAM:</strong> 16 GB RAM como minimo.</li>
+              <li><strong>Tarjeta grafica:</strong> NVIDIA / AMD dedicada, GTX 1060 6 GB como referencia aproximada, con VRAM recomendada de 6 GB minimo.</li>
+              <li><strong>DirectX:</strong> 11.</li>
+              <li><strong>Disco:</strong> SSD obligatorio recomendado, con al menos 250 GB de espacio libre.</li>
+              <li><strong>Internet:</strong> Requerido para descargas, actualizaciones y operaciones en linea.</li>
+              <li><strong>Controles:</strong> El teclado y mouse funcionan, pero se recomienda el uso de Joystick.</li>
+            </ul>
+          </div>
+
+          {/* Disponibilidad operacional */}
+          <div class="form-section">
+            <h2>Disponibilidad operacional</h2>
+            <div class="form-grid">
+              <div class="field">
+                <label>Disponibilidad semanal</label>
+                <div class="choice-grid">
+                  <label class="choice-card"><input type="radio" name="disponibilidad" value="1 dia por semana" /> <span>1 dia por semana</span></label>
+                  <label class="choice-card"><input type="radio" name="disponibilidad" value="2 a 3 dias por semana" /> <span>2 a 3 dias por semana</span></label>
+                  <label class="choice-card"><input type="radio" name="disponibilidad" value="Mas de 3 dias" /> <span>Mas de 3 dias</span></label>
+                </div>
+              </div>
+              <div class="field">
+                <label>Horario preferido</label>
+                <div class="choice-grid">
+                  <label class="choice-card"><input type="radio" name="horario" value="Manana" /> <span>Manana</span></label>
+                  <label class="choice-card"><input type="radio" name="horario" value="Tarde" /> <span>Tarde</span></label>
+                  <label class="choice-card"><input type="radio" name="horario" value="Noche" /> <span>Noche</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Avion de interes */}
+          <div class="form-section">
+            <h2>Avion de interes</h2>
+            <div class="form-grid">
+              <div class="field">
+                <label>Seleccionar avion de preferencia</label>
+                <div class="choice-grid">
+                  <label class="choice-card"><input type="radio" name="areaInteres" value="F/A-18C Hornet" /> <span>F/A-18C Hornet</span></label>
+                  <label class="choice-card"><input type="radio" name="areaInteres" value="F-16C Viper" /> <span>F-16C Viper</span></label>
+                  <label class="choice-card"><input type="radio" name="areaInteres" value="F-14 Tomcat" /> <span>F-14 Tomcat</span></label>
+                  <label class="choice-card"><input type="radio" name="areaInteres" value="A-10C" /> <span>A-10C</span></label>
+                  <label class="choice-card"><input type="radio" name="areaInteres" value="AH-64 Apache" /> <span>AH-64 Apache</span></label>
+                  <label class="choice-card"><input type="radio" name="areaInteres" value="UH-1H Huey" /> <span>UH-1H Huey</span></label>
+                  <label class="choice-card"><input type="radio" name="areaInteres" value="UH-60 Blackhawk" /> <span>UH-60 Blackhawk</span></label>
+                  <label class="choice-card"><input type="radio" name="areaInteres" value="T-45 Goshawk" /> <span>T-45 Goshawk</span></label>
+                  <label class="choice-card"><input type="radio" name="areaInteres" value="C-130 Hercules" /> <span>C-130 Hercules</span></label>
+                  <label class="choice-card"><input type="radio" name="areaInteres" value="Otro" /> <span>Otro</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Compromiso */}
+          <div class="form-section">
+            <h2>Compromiso del aspirante</h2>
+            <label class="checkbox-card" for="compromiso">
+              <input id="compromiso" name="compromiso" type="checkbox" required />
+              <span>Confirmo que deseo pertenecer al Escuadron 71, acepto sus normas internas, estructura operacional, entrenamientos y procedimientos de vuelo.</span>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn" type="submit">Enviar Postulacion</button>
+            <div id="formMessage" class="message" role="status" aria-live="polite"></div>
+          </div>
+        </form>
+      </div>
+    </div>
   </main>
+
+  {/* Modal de exito */}
+  <div class="modal-backdrop" id="successModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">GRACIAS POR POSTULARTE</h3>
+      <p>Te notificaremos por correo electronico la aceptacion al Escuadron 71.</p>
+      <button id="closeModalBtn" type="button">ACEPTAR</button>
+    </div>
+  </div>
 </BaseLayout>
-
-<style>
-  .page {
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 32px;
-    background:
-      linear-gradient(135deg, rgba(5, 8, 12, 0.82), rgba(18, 25, 34, 0.92)),
-      url("/assets/images/entrenamiento-t45.png") center/cover no-repeat;
-  }
-
-  .panel {
-    width: min(100%, 760px);
-    padding: 34px;
-    background: rgba(17, 24, 33, 0.92);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    box-shadow: var(--shadow-panel);
-  }
-
-  span,
-  a {
-    color: var(--color-accent);
-    font-weight: 800;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    margin: 12px 0;
-    font-family: "Oswald", sans-serif;
-    font-size: clamp(2.6rem, 7vw, 5rem);
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  p {
-    max-width: 620px;
-    color: var(--color-muted);
-    font-size: 1.2rem;
-    line-height: 1.6;
-  }
-
-  a {
-    display: inline-block;
-    margin-top: 16px;
-    text-decoration: none;
-  }
-</style>

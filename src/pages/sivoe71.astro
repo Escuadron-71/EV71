@@ -6,9 +6,9 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   title="SIVOE-71 | Escuadron 71"
   description="Sistema Integral de Vuelo y Operaciones del Escuadron 71."
 >
-  <main class="page">
-    <section class="panel">
-      <span>Centro de mando</span>
+  <main class="sivoe71-page">
+    <section class="sivoe71-panel">
+      <span class="eyebrow">Centro de mando</span>
       <h1>SIVOE-71</h1>
       <p>
         Esta ruta queda reservada para la migracion del sistema SIVOE-71 a Astro.
@@ -19,52 +19,3 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     </section>
   </main>
 </BaseLayout>
-
-<style>
-  .page {
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 32px;
-    background:
-      linear-gradient(135deg, rgba(5, 8, 12, 0.82), rgba(11, 45, 79, 0.72)),
-      url("/assets/images/ScreenF18.jpg") center/cover no-repeat;
-  }
-
-  .panel {
-    width: min(100%, 820px);
-    padding: 34px;
-    background: rgba(17, 24, 33, 0.92);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    box-shadow: var(--shadow-panel);
-  }
-
-  span,
-  a {
-    color: var(--color-gold);
-    font-weight: 800;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    margin: 12px 0;
-    font-family: "Oswald", sans-serif;
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  p {
-    max-width: 660px;
-    color: var(--color-muted);
-    font-size: 1.2rem;
-    line-height: 1.6;
-  }
-
-  a {
-    display: inline-block;
-    margin-top: 16px;
-    text-decoration: none;
-  }
-</style>
