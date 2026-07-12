@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escuadrón 71 | Simulación Aérea Militar DCS World</title>
+  <meta name="description" content="Escuadrón virtual latinoamericano dedicado al entrenamiento táctico y operaciones conjuntas en DCS World." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #0c1117;
+      --panel: #111821;
+      --accent: #7f8d58;
+      --accent-hover: #95a56a;
+      --orange-71: #ff7a00;
+      --text: #f5f5f5;
+      --muted: #b7b7b7;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 10px 25px rgba(0,0,0,0.45);
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: linear-gradient(to bottom, #0a0f14, #111821);
+      color: var(--text);
+      overflow-x: hidden;
+      scrollbar-color: var(--orange-71) #111821;
+    }
+
+    body::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background: var(--orange-71);
+      border-radius: 20px;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+      background: #000;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.95rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .squadron-logo {
+      width: 72px;
+      height: auto;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .text-71 {
+      color: #ffffff !important;
+    }
+
+    .text-squadron {
+      color: #ffffff !important;
+      text-shadow:
+        0 2px 4px rgba(0,0,0,0.95),
+        0 0 12px rgba(255,255,255,0.65);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-size: 1.08rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: .3s;
+      letter-spacing: 1px;
+    }
+
+    nav a:hover {
+      color: var(--orange-71);
+    }
+
+    .hero {
+      min-height: 78vh;
+      position: relative;
+      isolation: isolate;
+      background:
+        linear-gradient(rgba(5,10,15,0.03), rgba(5,10,15,0.08)),
+        url('Banner1.jpg') center/100% 100% no-repeat;
+      display: flex;
+      align-items: flex-start;
+      padding-top: 90px;
+    }
+
+    .hero-content {
+      max-width: 750px;
+      margin-left: 19px;
+      margin-right: auto;
+      margin-top: 30vh;
+    }
+
+    .hero h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 6rem;
+      line-height: 1;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      text-shadow: 0 5px 25px rgba(0,0,0,.5);
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      line-height: 1.6;
+      color: white;
+      margin-bottom: 35px;
+      max-width: 650px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--orange-71);
+      color: white;
+      padding: 16px 38px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      transition: .3s;
+      box-shadow: var(--shadow);
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      background: #ff922b;
+    }
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 3.4rem;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      max-width: 800px;
+      margin: auto;
+      font-size: 1.2rem;
+    }
+
+    .fleet-grid,
+    .gallery-grid,
+    .ops-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      border-radius: 12px;
+      transition: .35s;
+      box-shadow: var(--shadow);
+    }
+
+    .card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 25px;
+    }
+
+    .card h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 1.05rem;
+    }
+
+    .operations {
+      background: linear-gradient(rgba(7,12,18,0.05), rgba(7,12,18,0.05)),
+      url('DCS1.png') center/cover fixed;
+    }
+
+    .operation-box {
+      background: rgba(17,24,33,0.92);
+      border: 1px solid var(--border);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .operation-box h3 {
+      font-family: 'Oswald', sans-serif;
+      margin-bottom: 18px;
+      font-size: 2rem;
+      text-transform: uppercase;
+    }
+
+    .operation-box ul {
+      list-style: none;
+    }
+
+    .operation-box li {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .operation-box li strong {
+      color: white;
+    }
+
+    .join {
+      text-align: center;
+      background: linear-gradient(to right, rgba(127,141,88,.12), rgba(255,255,255,.03));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .join h2 {
+      font-size: 4rem;
+      font-family: 'Oswald', sans-serif;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .join p {
+      font-size: 1.3rem;
+      color: var(--muted);
+      margin-bottom: 35px;
+    }
+
+    footer {
+      background: #070b10;
+      padding: 60px 0 25px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-box h3 {
+      font-family: 'Oswald', sans-serif;
+      margin-bottom: 18px;
+      font-size: 2rem;
+      text-transform: uppercase;
+    }
+
+    .footer-box p,
+    .footer-box a {
+      color: var(--muted);
+      text-decoration: none;
+      line-height: 1.9;
+      font-size: 1.05rem;
+    }
+
+    .footer-box a:hover {
+      color: white;
+    }
+
+    .footer-box .contact-email {
+      color: #ff8c00;
+    }
+
+    .footer-box .contact-email:hover {
+      color: #ffb347;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .social-icon {
+      display: inline-flex;
+      width: 50px;
+      height: 50px;
+      padding: 8px;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 50%;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      transition: transform .25s ease, background .25s ease, border-color .25s ease;
+    }
+
+    .social-icon:hover {
+      transform: translateY(-3px) scale(1.05);
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .social-icon img {
+      width: 78%;
+      height: 78%;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+    }
+
+    @media(max-width: 992px) {
+      .hero h1 { font-size: 4.5rem; }
+      nav ul { position: absolute; top: 82px; left: 0; width: 100%; background: #0d141c; flex-direction: column; text-align: center; padding: 25px 0; display: none; }
+      nav ul.active { display: flex; }
+      .mobile-toggle { display: block; }
+    }
+
+    @media(max-width: 768px) {
+      .hero h1 { font-size: 3.2rem; }
+      .hero p { font-size: 1.1rem; }
+      .section-title h2, .join h2 { font-size: 2.5rem; }
+      .social-links { gap: 14px; }
+      .social-icon {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo">
+      <img class="squadron-logo" src="ev71.jpg" alt="Escudo EV71">
+      Escuadrón <span>71</span>
+    </div>
+
+    <nav>
+      <div class="mobile-toggle" id="toggle">☰</div>
+      <ul id="menu">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#escuela">Escuela</a></li>
+        <li><a href="sivoe71.html?view=pilotos" onclick="window.open('sivoe71.html?view=pilotos','EV71Pilotos','width=900,height=700,resizable=yes,scrollbars=yes');return false;" rel="noopener">PILOTOS</a></li>
+        <li><a href="#flota">Flota</a></li>
+        <li><a href="#operaciones">Operaciones</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <!-- reloj eliminado según solicitud -->
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="container hero-content">
+    <h1>Escuadrón 71</h1>
+    <p>
+      Bienvenido al Escuadrón 71 — Comunidad de vuelo virtual en DCS dedicada a la
+      simulación aérea, el entrenamiento táctico y la camaradería.
+    </p>
+
+    <a href="postulacion.html" class="btn" target="_blank" rel="noopener">ÚNETE AL ESCUADRÓN</a>
+  </div>
+</section>
+
+<section id="nosotros">
+  <div class="container">
+    <div class="section-title">
+      <h2>¿Quiénes Somos?</h2>
+      <p>
+          El Escuadrón 71 es una comunidad de aviadores virtuales dedicada a la simulación aérea avanzada dentro de DCS World. Nuestro propósito es desarrollar pilotos altamente capacitados mediante entrenamiento estructurado, procedimientos estandarizados y operaciones coordinadas que reproduzcan de manera realista el entorno de combate aéreo moderno.
+        </p>
+    </div>
+
+    <div class="ops-grid">
+      <div class="card">
+        <img src="https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/0711/64625/1000w_q95.jpg" alt="Pilotos de la comunidad en formación" />
+        <div class="card-content">
+          <h3>Entrenamiento</h3>
+          <p>FR1, Teoria y Practica, Principios basicos de aviacion militar, navegacion, maniobras, etc. en el Avion de entrenamiento T-45 Goshawk</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="entrenamiento.png" alt="Operaciones de entrenamiento en DCS" />
+        <div class="card-content">
+          <h3>Operaciones</h3>
+          <p>Misiones cooperativas dinámicas con planificación militar y roles especializados. CAP, CAS, SEAD, CSAR.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="ScreenF18.jpg" alt="Imagen screenf18 de la comunidad" />
+        <div class="card-content">
+          <h3>Comunidad</h3>
+          <p>Una comunidad virtual de pilotos virtuales en un entorno organizado, competitivo y colaborativo para pilotos de toda Latinoamerica.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flota">
+  <div class="container">
+    <div class="section-title">
+      <h2>Nuestra Flota</h2>
+      <p>
+        Operamos múltiples plataformas aéreas para entrenamiento y combate combinado.
+      </p>
+    </div>
+
+    <div class="fleet-grid">
+      <div class="card">
+        <img src="ScreenF18.jpg" alt="F-A-18C Hornet DCS" />
+        <div class="card-content">
+          <h3>F/A-18C Hornet</h3>
+          <p>Superioridad aérea, interdicción naval y capacidad multirole en DCS.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="f16.png" alt="F-16C Viper" />
+        <div class="card-content">
+          <h3>F-16C Viper</h3>
+          <p>Combate aire-aire, SEAD y apoyo táctico moderno.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="F14.jpg" alt="F-14 Tomcat" />
+        <div class="card-content">
+          <h3>F-14 Tomcat</h3>
+          <p>Intercepción de largo alcance, superioridad aérea y operaciones embarcadas.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="A10.jpg" alt="A-10C II Tank Killer" />
+        <div class="card-content">
+          <h3>A-10C II Tank Killer</h3>
+          <p>Close Air Support con potencia de destrucción contra blindados.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="UH60.JPG" alt="UH-60 Black Hawk" />
+        <div class="card-content">
+          <h3>UH-60 Black Hawk</h3>
+          <p>Inserción de tropas, CSAR y operaciones helitransportadas.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="APACHE.JPG" alt="AH-64D Apache" />
+        <div class="card-content">
+          <h3>AH-64D Apache</h3>
+          <p>Apoyo de fuego, reconocimiento armado y ataque antitanque.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="HUEY.PNG" alt="UH-1H Huey" />
+        <div class="card-content">
+          <h3>UH-1H Huey</h3>
+          <p>Transporte utilitario, evacuación médica y apoyo aéreo ligero.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="operations" id="operaciones">
+  <div class="container">
+    <div class="section-title">
+      <h2>Próximas Operaciones</h2>
+      <p>
+        Calendario oficial de campañas, entrenamientos y despliegues tácticos.
+      </p>
+    </div>
+
+    <div class="operation-box">
+      <h3>Calendario Operacional</h3>
+      <ul>
+        <li>
+          <strong>ENTRENAMIENTO FR1 Y CR1</strong>
+          <span>TODOS LOS DÍAS (programado 1700Hr - 7:00Pm)</span>
+        </li>
+        <li>
+          <strong>OPERACIÓN "DEMONIO NEGRO"</strong>
+          <span>PRÓXIMAMENTE - PREPÁRATE</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="unete" class="join">
+  <div class="container">
+    <h2>Únete al Escuadrón 71</h2>
+    <p>
+      Entrenamiento realista · Operaciones conjuntas · Comunidad de Pilotos Virtuales
+    </p>
+
+    <a href="postulacion.html" class="btn" target="_blank" rel="noopener">Aplicar Ahora</a>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="container">
+    <div class="section-title">
+      <h2>Galería de Vuelo</h2>
+      <p>
+        Capturas y momentos destacados de nuestras operaciones en DCS World.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="card">
+        <img src="ScreenF18.jpg" alt="Escuadrón 71 web" />
+      </div>
+
+      <div class="card">
+        <img src="Screen_260217_194224.jpg" alt="Escuadrón 71 YouTube" />
+      </div>
+
+      <div class="card">
+        <img src="Screen_260523_235322.jpg" alt="Escuadrón 71 Instagram" />
+      </div>
+
+      <div class="card">
+        <img src="DCS1.png" alt="Escuadrón 71 DCS" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contacto">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-box">
+        <h3>Escuadrón 71</h3>
+        <p>
+          Comunidad de simulación aérea militar especializada en DCS World.
+        </p>
+      </div>
+
+      <div class="footer-box">
+        <h3>Contacto</h3>
+        <p>Email: <a class="contact-email" href="mailto:dcsescuadron71@gmail.com">dcsescuadron71@gmail.com</a></p>
+      </div>
+
+      <div class="footer-box">
+        <h3>Redes</h3>
+        <div class="social-links">
+          <a class="social-icon" href="https://www.youtube.com/@dcsescuadron71" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">
+            <img src="logoyoutube.svg" alt="YouTube">
+          </a>
+          <a class="social-icon" href="https://discord.gg/pMbvD3KwV" target="_blank" rel="noopener noreferrer" title="Discord" aria-label="Discord">
+            <img src="logodiscord.svg" alt="Discord">
+          </a>
+          <a class="social-icon" href="https://www.instagram.com/dcs_escuadron_71" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram">
+            <img src="logoinstagram.svg" alt="Instagram">
+          </a>
+          <a class="social-icon" href="https://www.facebook.com/DCSEscuadron71deColombia" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">
+            <img src="logofacebook.svg" alt="Facebook">
+          </a>
+          <a class="social-icon" href="https://www.tiktok.com/@escuadron71?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" title="TikTok" aria-label="TikTok">
+            <img src="logotiktok.svg" alt="TikTok">
+          </a>
+          <a class="social-icon" href="https://www.twitter.com/Scuadron71" target="_blank" rel="noopener noreferrer" title="X" aria-label="X">
+            <img src="logox.svg" alt="X">
+          </a>
+          <a class="social-icon" href="https://www.patreon.com/Escuadron71" target="_blank" rel="noopener noreferrer" title="Patreon" aria-label="Patreon">
+            <img src="logopatreon.svg" alt="Patreon">
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      © 2026 Escuadrón 71 - Todos los derechos reservados.
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('toggle');
+  const menu = document.getElementById('menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+  }
+</script>
+</body>
+</html>
