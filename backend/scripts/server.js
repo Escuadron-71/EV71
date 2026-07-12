@@ -4,7 +4,7 @@ const path = require('path');
 const { URL } = require('url');
 const nodemailer = require('nodemailer');
 
-const DATA_FILE = path.join(__dirname, 'data', 'aspirantes.json');
+const DATA_FILE = path.join(__dirname, '..', 'data', 'aspirantes.json');
 const PORT = process.env.PORT || 3000;
 const EMAIL_TO = 'dcsescuadron71@gmail.com';
 
