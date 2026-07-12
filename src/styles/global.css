@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+/* ============================================
+   Theme: Escuadron 71
+   Colores, tipografia y sombras del sitio
+   ============================================ */
+
+@theme {
+  /* Colores de marca */
+  --color-brand-orange: #ff7a00;
+  --color-brand-orange-hover: #ff922b;
+  --color-brand-green: #7f8d58;
+  --color-brand-green-hover: #95a56a;
+  --color-brand-gold: #c8a44d;
+
+  /* Fondos */
+  --color-brand-dark: #0c1117;
+  --color-brand-panel: #111821;
+  --color-brand-panel-strong: #070b10;
+
+  /* Texto */
+  --color-brand-text: #f5f5f5;
+  --color-brand-muted: #b7b7b7;
+
+  /* Bordes */
+  --color-brand-border: rgba(255, 255, 255, 0.08);
+
+  /* Sombras */
+  --shadow-panel: 0 14px 35px rgba(0, 0, 0, 0.42);
+
+  /* Tipografia */
+  --font-family-heading: "Oswald", sans-serif;
+  --font-family-body: "Rajdhani", sans-serif;
+}
+
+/* ============================================
+   Estilos globales
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-family-body);
+  color: var(--color-brand-text);
+  background: linear-gradient(to bottom, #0a0f14, #111821);
+  overflow-x: hidden;
+  scrollbar-color: var(--color-brand-orange) var(--color-brand-panel);
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--color-brand-orange);
+  border-radius: 20px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+/* ============================================
+   Utilidades globales
+   ============================================ */
+
+.container {
+  width: min(92%, 1400px);
+  margin-inline: auto;
+}
