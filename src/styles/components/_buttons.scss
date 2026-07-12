@@ -1,0 +1,29 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ============================================
+// Botones
+// ============================================
+
+.button {
+  @include button-primary;
+}
+
+.button-secondary {
+  @include button-secondary;
+}
+
+.btn {
+  @include button-primary;
+  border-radius: 999px;
+  font-family: $font-heading;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 18px rgba(31, 77, 120, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 24px rgba(95, 152, 214, 0.46);
+  }
+}

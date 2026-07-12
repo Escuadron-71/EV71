@@ -1,0 +1,12 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ============================================
+// Home page - estilos adicionales
+// ============================================
+
+// Nosotros cards grid (3 cards: Entrenamiento, Operaciones, Comunidad)
+.nosotros-grid {
+  @include card-grid;
+  margin-top: 40px;
+}

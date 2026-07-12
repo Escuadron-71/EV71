@@ -1,0 +1,72 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ============================================
+// Footer
+// ============================================
+
+.site-footer {
+  background: $brand-panel-strong;
+  padding: 60px 0 25px;
+  border-top: 1px solid $brand-border;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.footer-box {
+  h3 {
+    font-family: $font-heading;
+    margin-bottom: 18px;
+    font-size: 2rem;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: $brand-muted;
+    line-height: 1.9;
+    font-size: 1.05rem;
+  }
+
+  a {
+    color: $brand-muted;
+    text-decoration: none;
+    line-height: 1.9;
+    font-size: 1.05rem;
+    transition: color 0.25s ease;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .contact-email {
+    color: #ff8c00;
+
+    &:hover {
+      color: #ffb347;
+    }
+  }
+}
+
+// Copyright
+.copyright {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid $brand-border;
+  color: $brand-muted;
+  font-size: 0.92rem;
+}
+
+// ============================================
+// Responsive
+// ============================================
+@include responsive($breakpoint-md) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}

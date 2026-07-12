@@ -1,0 +1,183 @@
+@use '../abstracts/variables' as *;
+
+// ============================================
+// Formularios
+// ============================================
+
+// Grid de formulario
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+// Campo
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &.full {
+    grid-column: 1 / -1;
+  }
+
+  &.invalid label {
+    color: #ffb3b3;
+  }
+}
+
+// Labels
+label {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: #ccdae6;
+
+  span {
+    color: $brand-orange;
+  }
+}
+
+// Inputs, selects, textareas
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(3, 8, 12, 0.8);
+  color: $brand-text;
+  font-size: 0.97rem;
+  font-family: $font-body;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+
+  &:focus {
+    outline: none;
+    border-color: rgba(127, 141, 88, 0.85);
+    box-shadow: 0 0 0 3px rgba(127, 141, 88, 0.2);
+    transform: translateY(-1px);
+  }
+
+  &.invalid {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.16);
+  }
+}
+
+textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+
+// Seccion de formulario
+.form-section {
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 16px;
+
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+    color: #dce4eb;
+  }
+}
+
+// Choice cards (radio buttons estilizados)
+.choice-grid,
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.choice-card,
+.checkbox-card,
+.chip-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #dce4eb;
+  font-size: 0.95rem;
+  cursor: pointer;
+
+  input {
+    accent-color: $brand-orange;
+    width: 15px;
+    height: 15px;
+    margin-top: 2px;
+  }
+}
+
+.checkbox-card {
+  border-radius: 12px;
+}
+
+// Acciones del form
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+// Mensajes de estado
+.message {
+  min-height: 24px;
+  font-weight: 600;
+  color: #dce4eb;
+
+  &.success {
+    color: #8bf0b7;
+  }
+
+  &.error {
+    color: #ff8f8f;
+  }
+}
+
+// Lista de requisitos
+.req-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: $brand-text;
+    line-height: 1.5;
+
+    &::before {
+      content: "•";
+      color: $brand-orange;
+      font-size: 1.4rem;
+      line-height: 1;
+      margin-top: 2px;
+    }
+  }
+
+  a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 700;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
