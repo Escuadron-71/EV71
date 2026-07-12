@@ -1,0 +1,114 @@
+@use 'variables' as *;
+
+// ============================================
+// Mixins reutilizables - Escuadron 71
+// ============================================
+
+// Contenedor principal
+@mixin container {
+  width: min(92%, 1400px);
+  margin-inline: auto;
+}
+
+// Flexbox centrado
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Flexbox entre columnas
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Grid responsivo para cards
+@mixin card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+// Titulo de seccion
+@mixin section-title {
+  font-family: $font-heading;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+// Eyebrow
+@mixin eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: $brand-orange;
+}
+
+// Panel con fondo oscuro y borde
+@mixin panel {
+  background: rgba(17, 24, 33, 0.92);
+  border: 1px solid $brand-border;
+  border-radius: 8px;
+  box-shadow: $shadow-panel;
+}
+
+// Boton primario
+@mixin button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  color: #fff;
+  background: $brand-orange;
+  border: 1px solid $brand-orange;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 800;
+  text-transform: uppercase;
+  transition: background 0.25s ease;
+
+  &:hover {
+    background: $brand-orange-hover;
+  }
+}
+
+// Boton secundario
+@mixin button-secondary {
+  @include button-primary;
+  background: rgba(0, 0, 0, 0.38);
+  border-color: rgba(255, 255, 255, 0.32);
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.55);
+  }
+}
+
+// Focus visible
+@mixin focus-visible {
+  outline: 2px solid $brand-orange;
+  outline-offset: 2px;
+}
+
+// Responsive breakpoint
+@mixin responsive($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+// Screen reader only
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
