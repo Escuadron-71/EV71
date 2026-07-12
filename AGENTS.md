@@ -71,6 +71,9 @@ src/
 - Si el repositorio esta en `master`, cambiar a `dev` antes de modificar archivos.
 - No revertir cambios de otros colaboradores sin autorizacion explicita.
 - Mantener commits pequenos y descriptivos cuando el equipo solicite commits.
+- Commits pequenos y especificos: un commit = un cambio logico.
+  No mezclar estilos con logica, ni features con fixes en el mismo commit.
+  Esto permite revertir cambios puntuales sin afectar trabajo adyacente.
 
 ## Reglas de desarrollo
 
