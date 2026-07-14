@@ -9,102 +9,304 @@
   position: sticky;
   top: 0;
   z-index: $z-header;
-  background: rgba(0, 0, 0, 0.9);
-  border-bottom: 1px solid $brand-border;
+  background: rgba($primary-dark, 0.92);
+  border-bottom: 1px solid $border;
   backdrop-filter: blur(14px);
 }
 
-.nav {
+.header-inner {
   @include flex-between;
-  min-height: 82px;
-  gap: 24px;
+  max-width: 1280px;
+  width: min(92%, 1280px);
+  margin-inline: auto;
+  padding: 0 24px;
+  height: 72px;
 }
+
+// ============================================
+// Brand / Logo
+// ============================================
 
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  color: $brand-text;
+  color: $text-light;
   text-decoration: none;
   font-family: $font-heading;
   font-size: 1.55rem;
   font-weight: 700;
   text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -8px;
 
   img {
-    width: 62px;
-    height: 62px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
   }
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-name {
+  font-size: 1.4rem;
+  letter-spacing: 1px;
 
   strong {
-    color: $brand-orange;
+    color: $secondary;
   }
 }
 
-// Navegacion
+.brand-sub {
+  font-family: $font-body;
+  font-size: 0.62rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: $text-muted;
+  margin-top: 2px;
+}
+
+// ============================================
+// Navegacion - underline hover effect
+// ============================================
+
 .main-nav {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 20px;
+  align-items: center;
+  gap: 4px;
 
   a {
-    color: $brand-text;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 72px;
+    padding: 0 16px;
+    color: $text-light;
     text-decoration: none;
-    font-weight: 700;
+    font-family: $font-body;
+    font-weight: 500;
+    font-size: 0.88rem;
     text-transform: uppercase;
-    letter-spacing: 0;
+    letter-spacing: 0.8px;
     transition: color 0.25s ease;
 
+    // Underline bar
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 8px;
+      right: 8px;
+      height: 2px;
+      background: $secondary;
+      border-radius: 2px 2px 0 0;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.25s ease;
+    }
+
     &:hover {
-      color: $brand-orange;
+      color: $secondary;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    // Active item - always show underline
+    &.active {
+      color: $secondary;
+
+      &::after {
+        transform: scaleX(1);
+      }
     }
   }
 }
 
-// Mobile toggle
-.mobile-toggle {
-  display: none;
-  cursor: pointer;
-  font-size: 1.6rem;
-  color: $brand-text;
-  background: none;
-  border: none;
-  padding: 8px;
+// ============================================
+// CTA Button (secondary)
+// ============================================
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 22px;
+  color: $secondary;
+  background: transparent;
+  border: 1px solid $secondary;
+  border-radius: 4px;
+  font-family: $font-heading;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease;
+  flex-shrink: 0;
 
   &:hover {
-    color: $brand-orange;
+    background: rgba($secondary, 0.12);
+    color: $secondary-light;
   }
 }
 
 // ============================================
-// Responsive
+// Hamburger toggle
 // ============================================
-@include responsive($breakpoint-md) {
-  .nav {
-    flex-direction: column;
-    align-items: flex-start;
+
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.hamburger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: $text-light;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.25s ease;
+}
+
+// Hamburger open state
+.mobile-toggle.open {
+  .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+    background: $secondary;
   }
 
-  .main-nav {
-    position: absolute;
-    top: 82px;
-    left: 0;
-    width: 100%;
-    flex-direction: column;
-    text-align: center;
-    background: #0d141c;
-    padding: 25px 0;
-    display: none;
-    gap: 18px;
+  .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
 
-    &.active {
-      display: flex;
-    }
+  .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+    background: $secondary;
+  }
+}
+
+// ============================================
+// Responsive - Mobile
+// ============================================
+@include responsive($breakpoint-md) {
+  .header-inner {
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .brand-logo {
+    width: 42px;
+    height: 42px;
+    margin-top: -6px;
+  }
+
+  .brand-name {
+    font-size: 1.15rem;
+  }
+
+  .brand-sub {
+    font-size: 0.55rem;
+  }
+
+  .header-cta {
+    display: none;
   }
 
   .mobile-toggle {
-    display: block;
+    display: flex;
+  }
+
+  // Mobile nav overlay
+  .main-nav {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: rgba($primary-dark, 0.98);
+    backdrop-filter: blur(20px);
+    padding: 24px 0;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+
+    &.active {
+      transform: translateX(0);
+    }
+
+    a {
+      height: auto;
+      padding: 16px 32px;
+      font-size: 1rem;
+      border-bottom: 1px solid $border;
+
+      &::after {
+        display: none;
+      }
+
+      &:hover,
+      &.active {
+        background: rgba($secondary, 0.08);
+        color: $secondary;
+      }
+    }
+  }
+
+  // Mobile CTA at bottom of nav
+  .main-nav::after {
+    content: "POSTULATE";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    margin: 24px 32px 0;
+    padding: 0 22px;
+    color: $secondary;
+    background: transparent;
+    border: 1px solid $secondary;
+    border-radius: 4px;
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.25s ease;
+  }
+
+  .main-nav.active::after {
+    background: rgba($secondary, 0.12);
   }
 }
