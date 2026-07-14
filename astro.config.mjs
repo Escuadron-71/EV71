@@ -3,7 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://escuadron-71.github.io",
-  base: "/EV71",
+  base: process.env.BASE_PATH || "/",
   output: "static",
   vite: {
     plugins: [tailwindcss()],

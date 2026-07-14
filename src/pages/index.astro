@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
 const nosotrosCards = [
   {
@@ -11,13 +11,13 @@ const nosotrosCards = [
     text: "FR1, Teoria y Practica, Principios basicos de aviacion militar, navegacion, maniobras, etc. en el Avion de entrenamiento T-45 Goshawk"
   },
   {
-    image: `${base}/assets/images/entrenamiento.png`,
+    image: `${base}assets/images/entrenamiento.png`,
     alt: "Operaciones de entrenamiento en DCS",
     title: "Operaciones",
     text: "Misiones cooperativas dinamicas con planificacion militar y roles especializados. CAP, CAS, SEAD, CSAR."
   },
   {
-    image: `${base}/assets/images/ScreenF18.jpg`,
+    image: `${base}assets/images/ScreenF18.jpg`,
     alt: "Imagen screenf18 de la comunidad",
     title: "Comunidad",
     text: "Una comunidad virtual de pilotos virtuales en un entorno organizado, competitivo y colaborativo para pilotos de toda Latinoamerica."
@@ -25,20 +25,20 @@ const nosotrosCards = [
 ];
 
 const fleet = [
-  { name: "F/A-18C Hornet", image: `${base}/assets/images/ScreenF18.jpg`, text: "Superioridad aerea, interdiccion naval y capacidad multirole en DCS." },
-  { name: "F-16C Viper", image: `${base}/assets/images/F16.png`, text: "Combate aire-aire, SEAD y apoyo tactico moderno." },
-  { name: "F-14 Tomcat", image: `${base}/assets/images/F14.jpg`, text: "Intercepcion de largo alcance, superioridad aerea y operaciones embarcadas." },
-  { name: "A-10C II Tank Killer", image: `${base}/assets/images/A10.jpg`, text: "Close Air Support con potencia de destruccion contra blindados." },
-  { name: "UH-60 Black Hawk", image: `${base}/assets/images/UH60.jpg`, text: "Insercion de tropas, CSAR y operaciones helitransportadas." },
-  { name: "AH-64D Apache", image: `${base}/assets/images/APACHE.jpg`, text: "Apoyo de fuego, reconocimiento armado y ataque antitanque." },
-  { name: "UH-1H Huey", image: `${base}/assets/images/HUEY.png`, text: "Transporte utilitario, evacuacion medica y apoyo aereo ligero." }
+  { name: "F/A-18C Hornet", image: `${base}assets/images/ScreenF18.jpg`, text: "Superioridad aerea, interdiccion naval y capacidad multirole en DCS." },
+  { name: "F-16C Viper", image: `${base}assets/images/F16.png`, text: "Combate aire-aire, SEAD y apoyo tactico moderno." },
+  { name: "F-14 Tomcat", image: `${base}assets/images/F14.jpg`, text: "Intercepcion de largo alcance, superioridad aerea y operaciones embarcadas." },
+  { name: "A-10C II Tank Killer", image: `${base}assets/images/A10.jpg`, text: "Close Air Support con potencia de destruccion contra blindados." },
+  { name: "UH-60 Black Hawk", image: `${base}assets/images/UH60.jpg`, text: "Insercion de tropas, CSAR y operaciones helitransportadas." },
+  { name: "AH-64D Apache", image: `${base}assets/images/APACHE.jpg`, text: "Apoyo de fuego, reconocimiento armado y ataque antitanque." },
+  { name: "UH-1H Huey", image: `${base}assets/images/HUEY.png`, text: "Transporte utilitario, evacuacion medica y apoyo aereo ligero." }
 ];
 
 const gallery = [
-  { src: `${base}/assets/images/ScreenF18.jpg`, alt: "Escuadron 71 web" },
-  { src: `${base}/assets/images/Screen_260217_194224.jpg`, alt: "Escuadron 71 YouTube" },
-  { src: `${base}/assets/images/Screen_260523_235322.jpg`, alt: "Escuadron 71 Instagram" },
-  { src: `${base}/assets/images/DCS1.png`, alt: "Escuadron 71 DCS" }
+  { src: `${base}assets/images/ScreenF18.jpg`, alt: "Escuadron 71 web" },
+  { src: `${base}assets/images/Screen_260217_194224.jpg`, alt: "Escuadron 71 YouTube" },
+  { src: `${base}assets/images/Screen_260523_235322.jpg`, alt: "Escuadron 71 Instagram" },
+  { src: `${base}assets/images/DCS1.png`, alt: "Escuadron 71 DCS" }
 ];
 
 const socialLinks = [
@@ -192,7 +192,7 @@ const socialLinks = [
           <div class="social-links" aria-label="Redes sociales">
             {socialLinks.map((link) => (
               <a class="social-icon" href={link.href} target="_blank" rel="noopener noreferrer" title={link.label} aria-label={link.label}>
-                <img src={`${base}/assets/images/${link.icon}`} alt={link.label} />
+                <img src={`${base}assets/images/${link.icon}`} alt={link.label} />
               </a>
             ))}
           </div>
