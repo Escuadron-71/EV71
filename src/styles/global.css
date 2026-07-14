@@ -2,78 +2,33 @@
 
 /* ============================================
    Theme: Escuadron 71
-   Colores, tipografia y sombras del sitio
+   Paleta de cliente + tipografia Oswald/Roboto
    ============================================ */
 
 @theme {
-  /* Colores de marca */
-  --color-brand-orange: #ff7a00;
-  --color-brand-orange-hover: #ff922b;
-  --color-brand-green: #7f8d58;
-  --color-brand-green-hover: #95a56a;
-  --color-brand-gold: #c8a44d;
+  /* Primary — fondos y superficies */
+  --color-primary: #111826;
+  --color-primary-dark: #0A0E17;
+  --color-primary-light: #202D46;
 
-  /* Fondos */
-  --color-brand-dark: #0c1117;
-  --color-brand-panel: #111821;
-  --color-brand-panel-strong: #070b10;
+  /* Secondary — bordes, botones, acentos dorados */
+  --color-secondary: #E8B25C;
+  --color-secondary-dark: #C9974A;
+  --color-secondary-light: #e2ba79;
 
-  /* Texto */
-  --color-brand-text: #f5f5f5;
-  --color-brand-muted: #b7b7b7;
+  /* Tertiary — texto */
+  --color-tertiary-light: #ffffff;
+  --color-tertiary-dark: #000000;
 
-  /* Bordes */
-  --color-brand-border: rgba(255, 255, 255, 0.08);
+  /* Accent / State */
+  --color-ok: #4ADE80;
+  --color-warn: #F2B84B;
+  --color-danger: #E5586B;
 
   /* Sombras */
   --shadow-panel: 0 14px 35px rgba(0, 0, 0, 0.42);
 
   /* Tipografia */
-  --font-family-heading: "Oswald", sans-serif;
-  --font-family-body: "Rajdhani", sans-serif;
-}
-
-/* ============================================
-   Estilos globales
-   ============================================ */
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: var(--font-family-body);
-  color: var(--color-brand-text);
-  background: linear-gradient(to bottom, #0a0f14, #111821);
-  overflow-x: hidden;
-  scrollbar-color: var(--color-brand-orange) var(--color-brand-panel);
-}
-
-body::-webkit-scrollbar {
-  width: 10px;
-}
-
-body::-webkit-scrollbar-thumb {
-  background: var(--color-brand-orange);
-  border-radius: 20px;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-a {
-  color: inherit;
-}
-
-/* ============================================
-   Utilidades globales
-   ============================================ */
-
-.container {
-  width: min(92%, 1400px);
-  margin-inline: auto;
+  --font-heading: "Oswald", sans-serif;
+  --font-body: "Roboto", sans-serif;
 }

@@ -33,7 +33,7 @@ label {
   color: #ccdae6;
 
   span {
-    color: $brand-orange;
+    color: $secondary;
   }
 }
 
@@ -46,7 +46,7 @@ textarea {
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(3, 8, 12, 0.8);
-  color: $brand-text;
+  color: $text-light;
   font-size: 0.97rem;
   font-family: $font-body;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
@@ -107,7 +107,7 @@ textarea {
   cursor: pointer;
 
   input {
-    accent-color: $brand-orange;
+    accent-color: $secondary;
     width: 15px;
     height: 15px;
     margin-top: 2px;
@@ -159,12 +159,12 @@ textarea {
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    color: $brand-text;
+    color: $text-light;
     line-height: 1.5;
 
     &::before {
       content: "•";
-      color: $brand-orange;
+      color: $secondary;
       font-size: 1.4rem;
       line-height: 1;
       margin-top: 2px;

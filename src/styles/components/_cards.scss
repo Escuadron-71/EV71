@@ -7,8 +7,8 @@
 
 .card {
   overflow: hidden;
-  background: $brand-panel;
-  border: 1px solid $brand-border;
+  background: $primary;
+  border: 1px solid $border;
   border-radius: 8px;
   box-shadow: $shadow-panel;
 
@@ -27,7 +27,7 @@
   }
 
   p {
-    color: $brand-muted;
+    color: $text-muted;
     font-size: 1.05rem;
     line-height: 1.5;
   }

@@ -12,10 +12,10 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: $font-body;
-  color: $brand-text;
-  background: linear-gradient(to bottom, #0a0f14, #111821);
+  color: $text-light;
+  background: linear-gradient(to bottom, $primary-dark, $primary);
   overflow-x: hidden;
-  scrollbar-color: $brand-orange $brand-panel;
+  scrollbar-color: $secondary $primary;
 }
 
 body::-webkit-scrollbar {
@@ -23,7 +23,7 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: $brand-orange;
+  background: $secondary;
   border-radius: 20px;
 }
 
