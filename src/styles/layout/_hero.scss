@@ -8,7 +8,8 @@
 .hero {
   min-height: 78vh;
   display: flex;
-  align-items: flex-end;
+  justify-content: start;
+  align-items: center;
   padding: 120px 0 90px;
   background:
     linear-gradient(90deg, rgba($primary-dark, 0.72), rgba($primary-dark, 0.18)),
@@ -47,7 +48,6 @@
 // ============================================
 @include responsive($breakpoint-md) {
   .hero {
-    align-items: flex-start;
     padding-top: 100px;
   }
 

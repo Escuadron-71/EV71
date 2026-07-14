@@ -244,31 +244,30 @@
     display: flex;
   }
 
-  // Mobile nav overlay
+  // Mobile nav - dropdown below header
   .main-nav {
-    position: fixed;
+    display: none;
+    position: absolute;
     top: 64px;
     left: 0;
     right: 0;
-    bottom: 0;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    background: rgba($primary-dark, 0.98);
-    backdrop-filter: blur(20px);
-    padding: 24px 0;
-    transform: translateX(100%);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow-y: auto;
+    background: $primary-dark;
+    border-bottom: 1px solid $border;
+    padding: 8px 0;
+    z-index: 100;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 
     &.active {
-      transform: translateX(0);
+      display: flex;
     }
 
     a {
       height: auto;
-      padding: 16px 32px;
-      font-size: 1rem;
+      padding: 14px 24px;
+      font-size: 0.95rem;
       border-bottom: 1px solid $border;
 
       &::after {
@@ -283,14 +282,14 @@
     }
   }
 
-  // Mobile CTA at bottom of nav
+  // Mobile CTA button as last link
   .main-nav::after {
     content: "POSTULATE";
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 48px;
-    margin: 24px 32px 0;
+    height: 44px;
+    margin: 8px 24px 8px;
     padding: 0 22px;
     color: $secondary;
     background: transparent;
@@ -298,15 +297,15 @@
     border-radius: 4px;
     font-family: $font-heading;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     letter-spacing: 1.2px;
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
     transition: background 0.25s ease;
-  }
 
-  .main-nav.active::after {
-    background: rgba($secondary, 0.12);
+    &:hover {
+      background: rgba($secondary, 0.12);
+    }
   }
 }

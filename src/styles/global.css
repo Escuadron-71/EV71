@@ -19,6 +19,7 @@
   /* Tertiary — texto */
   --color-tertiary-light: #ffffff;
   --color-tertiary-dark: #000000;
+  --color-text-muted: rgba(255, 255, 255, 0.6);
 
   /* Accent / State */
   --color-ok: #4ADE80;
@@ -31,4 +32,19 @@
   /* Tipografia */
   --font-heading: "Oswald", sans-serif;
   --font-body: "Roboto", sans-serif;
+}
+
+/* ============================================
+   Utilidades globales
+   ============================================ */
+
+.container {
+  width: min(92%, 1400px);
+  margin-inline: auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
 }
