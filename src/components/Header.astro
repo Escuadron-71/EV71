@@ -1,0 +1,67 @@
+---
+const navItems = [
+  { label: "Inicio", href: "#inicio", active: true },
+  { label: "Nosotros", href: "#nosotros" },
+  { label: "Escuela", href: "#escuela" },
+  { label: "Flota", href: "#flota" },
+  { label: "Operaciones", href: "#operaciones" },
+  { label: "Galeria", href: "#galeria" },
+  { label: "Contacto", href: "#contacto" }
+];
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#inicio" class="brand">
+      <div class="brand-logo">
+        <img src="/assets/images/logo.png" alt="Escudo EV71" />
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">ESCUADR&Oacute;N <strong>71</strong></span>
+        <span class="brand-sub">Comunidad de aviaci&oacute;n virtual</span>
+      </div>
+    </a>
+
+    <nav class="main-nav" id="menu" aria-label="Navegacion principal">
+      {navItems.map((item) => (
+        <a href={item.href} class:list={[{ active: item.active }]}>{item.label}</a>
+      ))}
+    </nav>
+
+    <a href="#postulacion" class="header-cta">
+      POST&Uacute;LATE
+    </a>
+
+    <button
+      class="mobile-toggle"
+      id="toggle"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      aria-controls="menu"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('toggle');
+  const menu = document.getElementById('menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('active');
+      toggle.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('active');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>

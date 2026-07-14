@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* ============================================
+   Theme: Escuadron 71
+   Paleta de cliente + tipografia Oswald/Roboto
+   ============================================ */
+
+@theme {
+  /* Primary — fondos y superficies */
+  --color-primary: #111826;
+  --color-primary-dark: #0A0E17;
+  --color-primary-light: #202D46;
+
+  /* Secondary — bordes, botones, acentos dorados */
+  --color-secondary: #E8B25C;
+  --color-secondary-dark: #C9974A;
+  --color-secondary-light: #e2ba79;
+
+  /* Tertiary — texto */
+  --color-tertiary-light: #ffffff;
+  --color-tertiary-dark: #000000;
+  --color-text-muted: rgba(255, 255, 255, 0.6);
+
+  /* Accent / State */
+  --color-ok: #4ADE80;
+  --color-warn: #F2B84B;
+  --color-danger: #E5586B;
+
+  /* Sombras */
+  --shadow-panel: 0 14px 35px rgba(0, 0, 0, 0.42);
+
+  /* Tipografia */
+  --font-heading: "Oswald", sans-serif;
+  --font-body: "Roboto", sans-serif;
+}
+
+/* ============================================
+   Utilidades globales
+   ============================================ */
+
+.container {
+  width: min(92%, 1400px);
+  margin-inline: auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+}

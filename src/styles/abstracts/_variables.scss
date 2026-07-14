@@ -1,0 +1,44 @@
+// ============================================
+// Variables de marca - Escuadron 71
+// Paleta de cliente
+// ============================================
+
+// Primary — fondos y superficies
+$primary: #111826;
+$primary-dark: #0A0E17;
+$primary-light: #202D46;
+
+// Secondary — bordes, botones, acentos dorados
+$secondary: #E8B25C;
+$secondary-dark: #C9974A;
+$secondary-light: #e2ba79;
+
+// Tertiary — texto
+$text-light: #ffffff;
+$text-dark: #000000;
+$text-muted: rgba(255, 255, 255, 0.6);
+
+// Accent / State
+$ok: #4ADE80;
+$warn: #F2B84B;
+$danger: #E5586B;
+
+// Bordes
+$border: rgba(255, 255, 255, 0.08);
+
+// Sombras
+$shadow-panel: 0 14px 35px rgba(0, 0, 0, 0.42);
+
+// Tipografia
+$font-heading: "Oswald", sans-serif;
+$font-body: "Roboto", sans-serif;
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+// Z-index
+$z-header: 20;
+$z-modal: 999;

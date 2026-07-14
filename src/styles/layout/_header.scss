@@ -1,0 +1,311 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ============================================
+// Header / Navegacion
+// ============================================
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: $z-header;
+  background: rgba($primary-dark, 0.92);
+  border-bottom: 1px solid $border;
+  backdrop-filter: blur(14px);
+}
+
+.header-inner {
+  @include flex-between;
+  max-width: 1280px;
+  width: min(92%, 1280px);
+  margin-inline: auto;
+  padding: 0 24px;
+  height: 72px;
+}
+
+// ============================================
+// Brand / Logo
+// ============================================
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: $text-light;
+  text-decoration: none;
+  font-family: $font-heading;
+  font-size: 1.55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -8px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-name {
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+
+  strong {
+    color: $secondary;
+  }
+}
+
+.brand-sub {
+  font-family: $font-body;
+  font-size: 0.62rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: $text-muted;
+  margin-top: 2px;
+}
+
+// ============================================
+// Navegacion - underline hover effect
+// ============================================
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 72px;
+    padding: 0 16px;
+    color: $text-light;
+    text-decoration: none;
+    font-family: $font-body;
+    font-weight: 500;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    transition: color 0.25s ease;
+
+    // Underline bar
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 8px;
+      right: 8px;
+      height: 2px;
+      background: $secondary;
+      border-radius: 2px 2px 0 0;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.25s ease;
+    }
+
+    &:hover {
+      color: $secondary;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    // Active item - always show underline
+    &.active {
+      color: $secondary;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+}
+
+// ============================================
+// CTA Button (secondary)
+// ============================================
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 22px;
+  color: $secondary;
+  background: transparent;
+  border: 1px solid $secondary;
+  border-radius: 4px;
+  font-family: $font-heading;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    background: rgba($secondary, 0.12);
+    color: $secondary-light;
+  }
+}
+
+// ============================================
+// Hamburger toggle
+// ============================================
+
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.hamburger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: $text-light;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.25s ease;
+}
+
+// Hamburger open state
+.mobile-toggle.open {
+  .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+    background: $secondary;
+  }
+
+  .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+    background: $secondary;
+  }
+}
+
+// ============================================
+// Responsive - Mobile
+// ============================================
+@include responsive($breakpoint-md) {
+  .header-inner {
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .brand-logo {
+    width: 42px;
+    height: 42px;
+    margin-top: -6px;
+  }
+
+  .brand-name {
+    font-size: 1.15rem;
+  }
+
+  .brand-sub {
+    font-size: 0.55rem;
+  }
+
+  .header-cta {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: flex;
+  }
+
+  // Mobile nav - dropdown below header
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: $primary-dark;
+    border-bottom: 1px solid $border;
+    padding: 8px 0;
+    z-index: 100;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    &.active {
+      display: flex;
+    }
+
+    a {
+      height: auto;
+      padding: 14px 24px;
+      font-size: 0.95rem;
+      border-bottom: 1px solid $border;
+
+      &::after {
+        display: none;
+      }
+
+      &:hover,
+      &.active {
+        background: rgba($secondary, 0.08);
+        color: $secondary;
+      }
+    }
+  }
+
+  // Mobile CTA button as last link
+  .main-nav::after {
+    content: "POSTULATE";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    margin: 8px 24px 8px;
+    padding: 0 22px;
+    color: $secondary;
+    background: transparent;
+    border: 1px solid $secondary;
+    border-radius: 4px;
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.25s ease;
+
+    &:hover {
+      background: rgba($secondary, 0.12);
+    }
+  }
+}

@@ -1,0 +1,58 @@
+@use '../abstracts/variables' as *;
+
+// ============================================
+// Modales
+// ============================================
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: $z-modal;
+
+  &.show {
+    display: flex;
+  }
+}
+
+.modal-card {
+  width: min(460px, 100%);
+  background: linear-gradient(135deg, $primary-light, $primary);
+  border: 1px solid rgba($secondary, 0.28);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  text-align: center;
+
+  h3 {
+    font-size: 1.45rem;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  p {
+    color: $text-muted;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  button {
+    border: 0;
+    border-radius: 999px;
+    padding: 12px 20px;
+    background: linear-gradient(90deg, $secondary, $secondary-light);
+    color: $primary-dark;
+    font-weight: 700;
+    font-family: $font-heading;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}

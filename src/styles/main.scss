@@ -1,0 +1,34 @@
+// ============================================
+// Main SCSS Entry - Escuadron 71
+// 7-1 Architecture
+// ============================================
+
+// Abstracts
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+@use 'abstracts/functions';
+
+// Base
+@use 'base/reset';
+@use 'base/typography';
+
+// Components
+@use 'components/buttons';
+@use 'components/cards';
+@use 'components/forms';
+@use 'components/modals';
+@use 'components/social-icons';
+
+// Layout
+@use 'layout/header';
+@use 'layout/footer';
+@use 'layout/hero';
+@use 'layout/sections';
+
+// Pages
+@use 'pages/home';
+@use 'pages/postulacion';
+@use 'pages/sivoe71';
+
+// Vendors (reserved)
+// @use 'vendors/...';

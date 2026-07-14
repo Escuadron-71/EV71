@@ -1,0 +1,61 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ============================================
+// Hero
+// ============================================
+
+.hero {
+  min-height: 78vh;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 120px 0 90px;
+  background:
+    linear-gradient(90deg, rgba($primary-dark, 0.72), rgba($primary-dark, 0.18)),
+    url('/assets/images/Banner1.jpg') center/cover no-repeat;
+}
+
+.hero-content {
+  max-width: 760px;
+}
+
+.hero h1 {
+  font-family: $font-heading;
+  font-size: clamp(3.4rem, 9vw, 7rem);
+  line-height: 1;
+  text-transform: uppercase;
+  text-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  max-width: 680px;
+  margin-bottom: 35px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+// ============================================
+// Responsive
+// ============================================
+@include responsive($breakpoint-md) {
+  .hero {
+    padding-top: 100px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.2rem, 8vw, 5rem);
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+  }
+}

@@ -1,13 +1,25 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const navItems = [
-  { label: "Inicio", href: "#inicio" },
-  { label: "Nosotros", href: "#nosotros" },
-  { label: "Flota", href: "#flota" },
-  { label: "Operaciones", href: "#operaciones" },
-  { label: "Galeria", href: "#galeria" },
-  { label: "Contacto", href: "#contacto" }
+const nosotrosCards = [
+  {
+    image: "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/0711/64625/1000w_q95.jpg",
+    alt: "Pilotos de la comunidad en formacion",
+    title: "Entrenamiento",
+    text: "FR1, Teoria y Practica, Principios basicos de aviacion militar, navegacion, maniobras, etc. en el Avion de entrenamiento T-45 Goshawk"
+  },
+  {
+    image: "/assets/images/entrenamiento.png",
+    alt: "Operaciones de entrenamiento en DCS",
+    title: "Operaciones",
+    text: "Misiones cooperativas dinamicas con planificacion militar y roles especializados. CAP, CAS, SEAD, CSAR."
+  },
+  {
+    image: "/assets/images/ScreenF18.jpg",
+    alt: "Imagen screenf18 de la comunidad",
+    title: "Comunidad",
+    text: "Una comunidad virtual de pilotos virtuales en un entorno organizado, competitivo y colaborativo para pilotos de toda Latinoamerica."
+  }
 ];
 
 const fleet = [
@@ -16,14 +28,25 @@ const fleet = [
   { name: "F-14 Tomcat", image: "/assets/images/F14.jpg", text: "Intercepcion de largo alcance, superioridad aerea y operaciones embarcadas." },
   { name: "A-10C II Tank Killer", image: "/assets/images/A10.jpg", text: "Close Air Support con potencia de destruccion contra blindados." },
   { name: "UH-60 Black Hawk", image: "/assets/images/UH60.jpg", text: "Insercion de tropas, CSAR y operaciones helitransportadas." },
-  { name: "AH-64D Apache", image: "/assets/images/APACHE.jpg", text: "Apoyo de fuego, reconocimiento armado y ataque antitanque." }
+  { name: "AH-64D Apache", image: "/assets/images/APACHE.jpg", text: "Apoyo de fuego, reconocimiento armado y ataque antitanque." },
+  { name: "UH-1H Huey", image: "/assets/images/HUEY.png", text: "Transporte utilitario, evacuacion medica y apoyo aereo ligero." }
 ];
 
 const gallery = [
-  "/assets/images/ScreenF18.jpg",
-  "/assets/images/Screen_260217_194224.jpg",
-  "/assets/images/Screen_260523_235322.jpg",
-  "/assets/images/DCS1.png"
+  { src: "/assets/images/ScreenF18.jpg", alt: "Escuadron 71 web" },
+  { src: "/assets/images/Screen_260217_194224.jpg", alt: "Escuadron 71 YouTube" },
+  { src: "/assets/images/Screen_260523_235322.jpg", alt: "Escuadron 71 Instagram" },
+  { src: "/assets/images/DCS1.png", alt: "Escuadron 71 DCS" }
+];
+
+const socialLinks = [
+  { href: "https://www.youtube.com/@dcsescuadron71", label: "YouTube", icon: "logoyoutube.svg" },
+  { href: "https://discord.gg/pMbvD3KwV", label: "Discord", icon: "logodiscord.svg" },
+  { href: "https://www.instagram.com/dcs_escuadron_71", label: "Instagram", icon: "logoinstagram.svg" },
+  { href: "https://www.facebook.com/DCSEscuadron71deColombia", label: "Facebook", icon: "logofacebook.svg" },
+  { href: "https://www.tiktok.com/@escuadron71?is_from_webapp=1&sender_device=pc", label: "TikTok", icon: "logotiktok.svg" },
+  { href: "https://www.twitter.com/Scuadron71", label: "X", icon: "logox.svg" },
+  { href: "https://www.patreon.com/Escuadron71", label: "Patreon", icon: "logopatreon.svg" }
 ];
 ---
 
@@ -31,60 +54,62 @@ const gallery = [
   title="Escuadron 71 | Simulacion Aerea Militar DCS World"
   description="Escuadron virtual latinoamericano dedicado al entrenamiento tactico y operaciones conjuntas en DCS World."
 >
-  <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="#inicio" aria-label="Escuadron 71">
-        <img src="/assets/images/ev71.jpg" alt="Escudo EV71" />
-        <span>Escuadron <strong>71</strong></span>
-      </a>
-
-      <nav aria-label="Navegacion principal">
-        {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
-      </nav>
-    </div>
-  </header>
 
   <main>
+    {/* Hero */}
     <section class="hero" id="inicio">
-      <div class="container hero-content">
-        <h1>Escuadron 71</h1>
-        <p>
-          Comunidad de vuelo virtual en DCS dedicada a la simulacion aerea,
-          entrenamiento tactico y operaciones conjuntas con procedimientos reales.
-        </p>
-        <div class="hero-actions">
-          <a class="button" href="/postulacion">Unete al escuadron</a>
-          <a class="button button-secondary" href="/sivoe71">SIVOE-71</a>
+      <div class="container">
+        <div class="hero-content">
+          <h1>Escuadron 71</h1>
+          <p>
+            Bienvenido al Escuadron 71 — Comunidad de vuelo virtual en DCS dedicada a la
+            simulacion aerea, el entrenamiento tactico y la camaraderia.
+          </p>
+          <div class="hero-actions">
+            <a class="btn" href="/postulacion">Unete al escuadron</a>
+            <a class="button button-secondary" href="/sivoe71">SIVOE-71</a>
+          </div>
         </div>
       </div>
     </section>
 
+    {/* Nosotros */}
     <section class="section" id="nosotros">
-      <div class="container section-grid">
-        <div>
-          <span class="eyebrow">Quienes somos</span>
-          <h2>Entrenamiento serio para pilotos virtuales.</h2>
+      <div class="container">
+        <div class="section-title" style="text-align:center; margin-bottom:60px;">
+          <h2>Quienes Somos?</h2>
+          <p style="color:var(--color-text-muted); max-width:800px; margin:auto; font-size:1.2rem;">
+            El Escuadron 71 es una comunidad de aviadores virtuales dedicada a la simulacion aerea avanzada dentro de DCS World. Nuestro proposito es desarrollar pilotos altamente capacitados mediante entrenamiento estructurado, procedimientos estandarizados y operaciones coordinadas que reproduzcan de manera realista el entorno de combate aereo moderno.
+          </p>
         </div>
-        <p>
-          El Escuadron 71 desarrolla pilotos mediante entrenamiento estructurado,
-          procedimientos estandarizados y operaciones coordinadas dentro de DCS World.
-          Esta version Astro sera la nueva base estatica del sitio.
-        </p>
+
+        <div class="card-grid nosotros-grid">
+          {nosotrosCards.map((card) => (
+            <article class="card">
+              <img src={card.image} alt={card.alt} loading="lazy" />
+              <div class="card-content">
+                <h3>{card.title}</h3>
+                <p>{card.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
 
+    {/* Flota */}
     <section class="section" id="flota">
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">Flota</span>
-          <h2>Nuestras plataformas</h2>
+          <h2>Nuestra Flota</h2>
         </div>
 
         <div class="card-grid">
           {fleet.map((aircraft) => (
             <article class="card">
               <img src={aircraft.image} alt={aircraft.name} loading="lazy" />
-              <div>
+              <div class="card-content">
                 <h3>{aircraft.name}</h3>
                 <p>{aircraft.text}</p>
               </div>
@@ -94,332 +119,89 @@ const gallery = [
       </div>
     </section>
 
+    {/* Operaciones */}
     <section class="operation-band" id="operaciones">
-      <div class="container operation-panel">
-        <span class="eyebrow">Operaciones</span>
-        <h2>Calendario operacional</h2>
-        <ul>
-          <li><strong>Entrenamiento FR1 y CR1</strong><span>Todos los dias - 1900Hr</span></li>
-          <li><strong>Operacion "Demonio Negro"</strong><span>Proximamente</span></li>
-        </ul>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Operaciones</span>
+          <h2>Proximas Operaciones</h2>
+        </div>
+        <div class="operation-panel">
+          <h3>Calendario Operacional</h3>
+          <ul>
+            <li>
+              <strong>Entrenamiento FR1 y CR1</strong>
+              <span>Todos los dias (programado 1700Hr - 7:00Pm)</span>
+            </li>
+            <li>
+              <strong>Operacion "Demonio Negro"</strong>
+              <span>Proximamente - Preparate</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 
+    {/* Unete */}
+    <section class="join-section" id="unete">
+      <div class="container">
+        <h2>Unete al Escuadron 71</h2>
+        <p>
+          Entrenamiento realista · Operaciones conjuntas · Comunidad de Pilotos Virtuales
+        </p>
+        <a class="btn" href="/postulacion">Aplicar Ahora</a>
+      </div>
+    </section>
+
+    {/* Galeria */}
     <section class="section" id="galeria">
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">Galeria</span>
-          <h2>Momentos de vuelo</h2>
+          <h2>Galeria de Vuelo</h2>
         </div>
         <div class="gallery-grid">
-          {gallery.map((image) => <img src={image} alt="Captura de vuelo del Escuadron 71" loading="lazy" />)}
+          {gallery.map((image) => (
+            <img src={image.src} alt={image.alt} loading="lazy" />
+          ))}
         </div>
       </div>
     </section>
   </main>
 
-  <footer id="contacto">
-    <div class="container footer-grid">
-      <div>
-        <h2>Escuadron 71</h2>
-        <p>Comunidad de simulacion aerea militar especializada en DCS World.</p>
+  {/* Footer */}
+  <footer class="site-footer" id="contacto">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-box">
+          <h3>Escuadron 71</h3>
+          <p>Comunidad de simulacion aerea militar especializada en DCS World.</p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Contacto</h3>
+          <p>
+            Email: <a class="contact-email" href="mailto:dcsescuadron71@gmail.com">dcsescuadron71@gmail.com</a>
+          </p>
+        </div>
+
+        <div class="footer-box">
+          <h3>Redes</h3>
+          <div class="social-links" aria-label="Redes sociales">
+            {socialLinks.map((link) => (
+              <a class="social-icon" href={link.href} target="_blank" rel="noopener noreferrer" title={link.label} aria-label={link.label}>
+                <img src={`/assets/images/${link.icon}`} alt={link.label} />
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
-      <div>
-        <h3>Contacto</h3>
-        <a href="mailto:dcsescuadron71@gmail.com">dcsescuadron71@gmail.com</a>
-      </div>
-      <div class="social-links" aria-label="Redes sociales">
-        <a href="https://www.youtube.com/@dcsescuadron71" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-          <img src="/assets/images/logoyoutube.svg" alt="" />
-        </a>
-        <a href="https://discord.gg/pMbvD3KwV" target="_blank" rel="noopener noreferrer" aria-label="Discord">
-          <img src="/assets/images/logodiscord.svg" alt="" />
-        </a>
-        <a href="https://www.instagram.com/dcs_escuadron_71" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <img src="/assets/images/logoinstagram.svg" alt="" />
-        </a>
+
+      <div class="copyright">
+        &copy; 2026 Escuadron 71 - Todos los derechos reservados.
       </div>
     </div>
   </footer>
 </BaseLayout>
 
-<style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    background: rgba(0, 0, 0, 0.9);
-    border-bottom: 1px solid var(--color-border);
-    backdrop-filter: blur(14px);
-  }
 
-  .nav {
-    min-height: 82px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-  }
-
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--color-text);
-    text-decoration: none;
-    font-family: "Oswald", sans-serif;
-    font-size: 1.55rem;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-
-  .brand img {
-    width: 62px;
-    height: 62px;
-    object-fit: contain;
-  }
-
-  .brand strong,
-  .eyebrow {
-    color: var(--color-accent);
-  }
-
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 20px;
-  }
-
-  nav a {
-    color: var(--color-text);
-    text-decoration: none;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0;
-  }
-
-  nav a:hover {
-    color: var(--color-accent);
-  }
-
-  .hero {
-    min-height: 78vh;
-    display: flex;
-    align-items: flex-end;
-    padding: 120px 0 90px;
-    background:
-      linear-gradient(90deg, rgba(5, 8, 12, 0.72), rgba(5, 8, 12, 0.18)),
-      url("/assets/images/Banner1.jpg") center/cover no-repeat;
-  }
-
-  .hero-content {
-    max-width: 760px;
-  }
-
-  h1,
-  h2,
-  h3 {
-    margin: 0;
-    font-family: "Oswald", sans-serif;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    font-size: clamp(3.4rem, 9vw, 7rem);
-  }
-
-  h2 {
-    font-size: clamp(2.4rem, 5vw, 4.2rem);
-  }
-
-  .hero p,
-  .section-grid p,
-  .card p,
-  footer p {
-    color: var(--color-muted);
-    font-size: 1.18rem;
-    line-height: 1.6;
-  }
-
-  .hero p {
-    color: #fff;
-    max-width: 680px;
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 30px;
-  }
-
-  .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    padding: 0 24px;
-    color: #fff;
-    background: var(--color-accent);
-    border: 1px solid var(--color-accent);
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 800;
-    text-transform: uppercase;
-  }
-
-  .button-secondary {
-    background: rgba(0, 0, 0, 0.38);
-    border-color: rgba(255, 255, 255, 0.32);
-  }
-
-  .section {
-    padding: 90px 0;
-  }
-
-  .section-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    gap: 42px;
-    align-items: start;
-  }
-
-  .eyebrow {
-    display: inline-block;
-    margin-bottom: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-  }
-
-  .section-heading {
-    margin-bottom: 34px;
-    text-align: center;
-  }
-
-  .card-grid,
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
-  }
-
-  .card {
-    overflow: hidden;
-    background: var(--color-panel);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    box-shadow: var(--shadow-panel);
-  }
-
-  .card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-  }
-
-  .card div {
-    padding: 22px;
-  }
-
-  .card h3 {
-    font-size: 1.7rem;
-  }
-
-  .operation-band {
-    padding: 90px 0;
-    background:
-      linear-gradient(rgba(7, 12, 18, 0.62), rgba(7, 12, 18, 0.72)),
-      url("/assets/images/DCS1.png") center/cover fixed;
-  }
-
-  .operation-panel {
-    padding: 32px;
-    background: rgba(17, 24, 33, 0.92);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    box-shadow: var(--shadow-panel);
-  }
-
-  .operation-panel ul {
-    padding: 0;
-    margin: 24px 0 0;
-    list-style: none;
-  }
-
-  .operation-panel li {
-    display: flex;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--color-border);
-    color: var(--color-muted);
-  }
-
-  .operation-panel strong {
-    color: #fff;
-  }
-
-  .gallery-grid img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    box-shadow: var(--shadow-panel);
-  }
-
-  footer {
-    padding: 56px 0 34px;
-    background: var(--color-panel-strong);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1.3fr 1fr auto;
-    gap: 32px;
-    align-items: start;
-  }
-
-  footer a {
-    color: var(--color-accent);
-    text-decoration: none;
-    font-weight: 700;
-  }
-
-  .social-links {
-    display: flex;
-    gap: 12px;
-  }
-
-  .social-links a {
-    display: grid;
-    width: 46px;
-    height: 46px;
-    place-items: center;
-    padding: 9px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 50%;
-  }
-
-  @media (max-width: 860px) {
-    .nav,
-    .section-grid,
-    .footer-grid {
-      grid-template-columns: 1fr;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    nav {
-      justify-content: flex-start;
-    }
-
-    .operation-panel li {
-      flex-direction: column;
-    }
-  }
-</style>

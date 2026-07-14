@@ -1,0 +1,37 @@
+@use '../abstracts/variables' as *;
+
+// ============================================
+// Reset / Normalize
+// ============================================
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: $font-body;
+  color: $text-light;
+  background: linear-gradient(to bottom, $primary-dark, $primary);
+  overflow-x: hidden;
+  scrollbar-color: $secondary $primary;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: $secondary;
+  border-radius: 20px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}

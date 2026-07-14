@@ -41,6 +41,12 @@ build/Release
 node_modules/
 jspm_packages/
 
+# Astro generated files
+.astro/
+
+# Windows artifacts
+nul
+
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
