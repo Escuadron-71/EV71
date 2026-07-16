@@ -38,16 +38,6 @@ const gallery = [
   { src: "/assets/images/Screen_260523_235322.jpg", alt: "Escuadron 71 Instagram" },
   { src: "/assets/images/DCS1.png", alt: "Escuadron 71 DCS" }
 ];
-
-const socialLinks = [
-  { href: "https://www.youtube.com/@dcsescuadron71", label: "YouTube", icon: "logoyoutube.svg" },
-  { href: "https://discord.gg/pMbvD3KwV", label: "Discord", icon: "logodiscord.svg" },
-  { href: "https://www.instagram.com/dcs_escuadron_71", label: "Instagram", icon: "logoinstagram.svg" },
-  { href: "https://www.facebook.com/DCSEscuadron71deColombia", label: "Facebook", icon: "logofacebook.svg" },
-  { href: "https://www.tiktok.com/@escuadron71?is_from_webapp=1&sender_device=pc", label: "TikTok", icon: "logotiktok.svg" },
-  { href: "https://www.twitter.com/Scuadron71", label: "X", icon: "logox.svg" },
-  { href: "https://www.patreon.com/Escuadron71", label: "Patreon", icon: "logopatreon.svg" }
-];
 ---
 
 <BaseLayout
@@ -168,40 +158,6 @@ const socialLinks = [
       </div>
     </section>
   </main>
-
-  {/* Footer */}
-  <footer class="site-footer" id="contacto">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-box">
-          <h3>Escuadron 71</h3>
-          <p>Comunidad de simulacion aerea militar especializada en DCS World.</p>
-        </div>
-
-        <div class="footer-box">
-          <h3>Contacto</h3>
-          <p>
-            Email: <a class="contact-email" href="mailto:dcsescuadron71@gmail.com">dcsescuadron71@gmail.com</a>
-          </p>
-        </div>
-
-        <div class="footer-box">
-          <h3>Redes</h3>
-          <div class="social-links" aria-label="Redes sociales">
-            {socialLinks.map((link) => (
-              <a class="social-icon" href={link.href} target="_blank" rel="noopener noreferrer" title={link.label} aria-label={link.label}>
-                <img src={`/assets/images/${link.icon}`} alt={link.label} />
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div class="copyright">
-        &copy; 2026 Escuadron 71 - Todos los derechos reservados.
-      </div>
-    </div>
-  </footer>
 </BaseLayout>
 
 

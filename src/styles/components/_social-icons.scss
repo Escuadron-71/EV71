@@ -32,10 +32,9 @@
     border-color: rgba(255, 255, 255, 0.28);
   }
 
-  img {
+  svg {
     width: 78%;
     height: 78%;
-    object-fit: contain;
     display: block;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
   }
