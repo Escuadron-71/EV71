@@ -1,25 +1,27 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const navItems = [
-  { label: "Inicio", href: "#inicio", active: true },
-  { label: "Nosotros", href: "#nosotros" },
-  { label: "Escuela", href: "#escuela" },
-  { label: "Flota", href: "#flota" },
-  { label: "Operaciones", href: "#operaciones" },
-  { label: "Galeria", href: "#galeria" },
-  { label: "Contacto", href: "#contacto" }
+  { label: "Inicio", href: "/", active: true },
+  { label: "Nosotros", href: "/#nosotros" },
+  { label: "Academia", href: "/login" },
+  { label: "Flota", href: "/#flota" },
+  { label: "Operaciones", href: "/#operaciones" },
+  { label: "Galeria", href: "/#galeria" }
 ];
 ---
 
+{/* Para el header es muy importante crear una estructura para Dropdowns reusable */}
+{/* Debedesera cordecon lamisma linea dedeiseño de la pagina y todo adapatable a dispositivos mobile */}
+
 <header class="site-header">
   <div class="header-inner">
-    <a href="#inicio" class="brand">
+    <a href="/" class="brand">
       <div class="brand-logo">
         <img src={`${base}assets/images/logo.png`} alt="Escudo EV71" />
       </div>
       <div class="brand-text">
-        <span class="brand-name">ESCUADR&Oacute;N <strong>71</strong></span>
-        <span class="brand-sub">Comunidad de aviaci&oacute;n virtual</span>
+        <span class="brand-name">ESCUADRÓN <strong>71</strong></span>
+        <span class="brand-sub">Comunidad de aviación virtual</span>
       </div>
     </a>
 
@@ -29,9 +31,19 @@ const navItems = [
       ))}
     </nav>
 
-    <a href="#postulacion" class="header-cta">
-      POST&Uacute;LATE
-    </a>
+    <div class="profile flex items-center gap-2">
+      <a href="postulacion" class="header-cta">
+        POSTÚLATE
+      </a>
+
+      <a href="/#" class="header-cta px-3!">
+        <Icon name="ev71-user" size={24} fill="var(--color-secondary)" />
+        <span class="sr-only">Cuenta</span>
+        {/* En este campo,esnecesario que agregemos un Dropdown */}
+        {/* El Dropdown tiene como fin, mostrar  varias opciones */}
+        {/* Las opciones seran: lenguaje, cuenta, logout y talvez otra ocpion que no reconozco en este momento */}
+      </a>  
+    </div>    
 
     <button
       class="mobile-toggle"
