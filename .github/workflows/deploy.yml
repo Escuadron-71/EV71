@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [dev]
+    branches: [master]
   workflow_dispatch:
 
 permissions:
@@ -37,13 +37,6 @@ jobs:
         run: pnpm build
         env:
           BASE_PATH: /EV71
-
-      - name: Move assets for GitHub Pages base path
-        run: |
-          if [ -d "dist/assets" ]; then
-            mkdir -p dist/EV71
-            mv dist/assets dist/EV71/assets
-          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5

@@ -1,6 +1,5 @@
 ---
-import Icon from "@/components/UI/Icon.astro";
-
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const navItems = [
   { label: "Inicio", href: "/", active: true },
   { label: "Nosotros", href: "/#nosotros" },
@@ -18,7 +17,7 @@ const navItems = [
   <div class="header-inner">
     <a href="/" class="brand">
       <div class="brand-logo">
-        <img src="/assets/images/logo.png" alt="Escudo EV71" title="Logo EV71" />
+        <img src={`${base}assets/images/logo.png`} alt="Escudo EV71" />
       </div>
       <div class="brand-text">
         <span class="brand-name">ESCUADRÓN <strong>71</strong></span>
