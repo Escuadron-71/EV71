@@ -1,0 +1,102 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+  fill?: string;
+  stroke?: string;
+  label?: string;
+  href?: string;
+  target?: string;
+  rel?: string;
+}
+
+const {
+  name,
+  size = 24,
+  class: className = "",
+  fill,
+  stroke,
+  label,
+  href,
+  target,
+  rel,
+} = Astro.props;
+
+// Normalizar nombre: aceptar con o sin extension
+const fileName = name.endsWith(".svg") ? name : `${name}.svg`;
+const svgPath = path.resolve("public/assets/icons", fileName);
+
+// Leer SVG en build time
+let svgContent = "";
+try {
+  svgContent = fs.readFileSync(svgPath, "utf-8");
+} catch {
+  console.error(`[Icon] No se encontro el archivo: ${svgPath}`);
+}
+
+// Limpiar atributos del SVG original para no conflictuar
+svgContent = svgContent
+  .replace(/\s*width="[^"]*"/, "")
+  .replace(/\s*height="[^"]*"/, "")
+  .replace(/\s*class="[^"]*"/, "");
+
+// Inyectar tamaño en el tag <svg>
+svgContent = svgContent.replace(
+  /<svg\b/,
+  `<svg width="${size}" height="${size}"`
+);
+
+// Inyectar fill si se provee
+if (fill !== undefined) {
+  svgContent = svgContent.replace(
+    /<svg\b([^>]*)>/,
+    (_match, attrs: string) => {
+      const cleaned = attrs.replace(/\s*fill="[^"]*"/, "");
+      return `<svg${cleaned} fill="${fill}">`;
+    }
+  );
+}
+
+// Inyectar stroke si se provee
+if (stroke !== undefined) {
+  svgContent = svgContent.replace(
+    /<svg\b([^>]*)>/,
+    (_match, attrs: string) => {
+      const cleaned = attrs.replace(/\s*stroke="[^"]*"/, "");
+      return `<svg${cleaned} stroke="${stroke}">`;
+    }
+  );
+}
+
+// Inyectar aria-label si se provee
+if (label) {
+  svgContent = svgContent.replace(
+    /<svg\b/,
+    `<svg role="img" aria-label="${label}"`
+  );
+}
+
+// Agregar clase adicional al <svg> si se provee
+if (className) {
+  svgContent = svgContent.replace(/<svg\b/, `<svg class="${className}"`);
+}
+
+// Renderizar
+---
+
+{href ? (
+  <a
+    href={href}
+    target={target || "_self"}
+    rel={rel}
+    class="icon-link"
+  >
+    <Fragment set:html={svgContent} />
+  </a>
+) : (
+  <Fragment set:html={svgContent} />
+)}
