@@ -1,7 +1,4 @@
 ---
-import fs from "node:fs";
-import path from "node:path";
-
 interface Props {
   name: string;
   size?: number;
@@ -26,16 +23,28 @@ const {
   rel,
 } = Astro.props;
 
-// Normalizar nombre: aceptar con o sin extension
-const fileName = name.endsWith(".svg") ? name : `${name}.svg`;
-const svgPath = path.resolve("public/assets/icons", fileName);
+// Cargar todos los SVGs en build time via Vite (sin dependencias Node.js)
+const svgModules = import.meta.glob("/src/assets/icons/*.svg", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
 
-// Leer SVG en build time
-let svgContent = "";
-try {
-  svgContent = fs.readFileSync(svgPath, "utf-8");
-} catch {
-  console.error(`[Icon] No se encontro el archivo: ${svgPath}`);
+// Construir mapa nombre → contenido SVG
+const icons: Record<string, string> = {};
+for (const [key, value] of Object.entries(svgModules)) {
+  const fileName = key.split("/").pop() ?? "";
+  const iconName = fileName.replace(".svg", "");
+  icons[iconName] = value as string;
+}
+
+// Normalizar nombre: aceptar con o sin extension
+const lookupName = name.endsWith(".svg") ? name.replace(".svg", "") : name;
+
+// Obtener contenido SVG
+let svgContent = icons[lookupName] ?? "";
+if (!svgContent) {
+  console.error(`[Icon] No se encontro el icono: "${lookupName}"`);
 }
 
 // Limpiar atributos del SVG original para no conflictuar
@@ -84,8 +93,6 @@ if (label) {
 if (className) {
   svgContent = svgContent.replace(/<svg\b/, `<svg class="${className}"`);
 }
-
-// Renderizar
 ---
 
 {href ? (

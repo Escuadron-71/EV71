@@ -7,8 +7,5 @@ export default defineConfig({
   output: "static",
   vite: {
     plugins: [tailwindcss()],
-    ssr: {
-      external: ["node:fs", "node:path"],
-    },
   },
 });
