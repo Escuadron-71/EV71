@@ -1,14 +1,18 @@
 ---
+import Icon from "@/components/UI/Icon.astro";
+
 const navItems = [
   { label: "Inicio", href: "/", active: true },
-  { label: "Nosotros", href: "#nosotros" },
-  { label: "Academia", href: "#escuela" },
-  { label: "Flota", href: "#flota" },
-  { label: "Operaciones", href: "#operaciones" },
-  { label: "Galeria", href: "#galeria" },
-  { label: "Contacto", href: "#contacto" }
+  { label: "Nosotros", href: "/#nosotros" },
+  { label: "Academia", href: "/login" },
+  { label: "Flota", href: "/#flota" },
+  { label: "Operaciones", href: "/#operaciones" },
+  { label: "Galeria", href: "/#galeria" }
 ];
 ---
+
+{/* Para el header es muy importante crear una estructura para Dropdowns reusable */}
+{/* Debedesera cordecon lamisma linea dedeiseño de la pagina y todo adapatable a dispositivos mobile */}
 
 <header class="site-header">
   <div class="header-inner">
@@ -28,9 +32,19 @@ const navItems = [
       ))}
     </nav>
 
-    <a href="postulacion" class="header-cta">
-      POSTÚLATE
-    </a>
+    <div class="profile flex items-center gap-2">
+      <a href="postulacion" class="header-cta">
+        POSTÚLATE
+      </a>
+
+      <a href="/#" class="header-cta px-3!">
+        <Icon name="ev71-user" size={24} fill="var(--color-secondary)" />
+        <span class="sr-only">Cuenta</span>
+        {/* En este campo,esnecesario que agregemos un Dropdown */}
+        {/* El Dropdown tiene como fin, mostrar  varias opciones */}
+        {/* Las opciones seran: lenguaje, cuenta, logout y talvez otra ocpion que no reconozco en este momento */}
+      </a>  
+    </div>    
 
     <button
       class="mobile-toggle"
