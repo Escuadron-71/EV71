@@ -161,39 +161,6 @@ const gallery = [
     </section>
   </main>
 
-  {/* Footer */}
-  <footer class="site-footer" id="contacto">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-box">
-          <h3>Escuadron 71</h3>
-          <p>Comunidad de simulacion aerea militar especializada en DCS World.</p>
-        </div>
-
-        <div class="footer-box">
-          <h3>Contacto</h3>
-          <p>
-            Email: <a class="contact-email" href="mailto:dcsescuadron71@gmail.com">dcsescuadron71@gmail.com</a>
-          </p>
-        </div>
-
-        <div class="footer-box">
-          <h3>Redes</h3>
-          <div class="social-links" aria-label="Redes sociales">
-            {socialLinks.map((link) => (
-              <a class="social-icon" href={link.href} target="_blank" rel="noopener noreferrer" title={link.label} aria-label={link.label}>
-                <img src={`${base}assets/images/${link.icon}`} alt={link.label} />
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div class="copyright">
-        &copy; 2026 Escuadron 71 - Todos los derechos reservados.
-      </div>
-    </div>
-  </footer>
 </BaseLayout>
 
 
