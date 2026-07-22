@@ -10,9 +10,10 @@
   display: grid;
   place-items: center;
   padding: 32px;
-  background:
-    linear-gradient(135deg, rgba($primary-dark, 0.82), rgba($primary-light, 0.72)),
-    url('/assets/images/ScreenF18.jpg') center/cover no-repeat;
+
+  &::before {
+    background: linear-gradient(135deg, rgba($primary-dark, 0.82), rgba($primary-light, 0.72));
+  }
 }
 
 .sivoe71-panel {
