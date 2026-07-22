@@ -1,14 +1,14 @@
 ---
 import Icon from "@/components/UI/Icon.astro";
+import { resolvePath } from "@/lib/base-url";
 
-const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const navItems = [
-  { label: "Inicio", href: "/", active: true },
-  { label: "Nosotros", href: "/#nosotros" },
-  { label: "Academia", href: "/login" },
-  { label: "Flota", href: "/#flota" },
-  { label: "Operaciones", href: "/#operaciones" },
-  { label: "Galeria", href: "/#galeria" }
+  { label: "Inicio", href: resolvePath("/"), active: true },
+  { label: "Nosotros", href: resolvePath("/#nosotros") },
+  { label: "Academia", href: resolvePath("/login") },
+  { label: "Flota", href: resolvePath("/#flota") },
+  { label: "Operaciones", href: resolvePath("/#operaciones") },
+  { label: "Galeria", href: resolvePath("/#galeria") }
 ];
 ---
 
@@ -17,9 +17,9 @@ const navItems = [
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="/" class="brand">
+    <a href={resolvePath("/")} class="brand">
       <div class="brand-logo">
-        <img src={`${base}assets/images/logo.png`} alt="Escudo EV71" />
+        <img src={`${resolvePath("/")}assets/images/logo.png`} alt="Escudo EV71" />
       </div>
       <div class="brand-text">
         <span class="brand-name">ESCUADRÓN <strong>71</strong></span>
@@ -34,11 +34,11 @@ const navItems = [
     </nav>
 
     <div class="profile flex items-center gap-2">
-      <a href="postulacion" class="header-cta">
+      <a href={resolvePath("/postulacion")} class="header-cta">
         POSTÚLATE
       </a>
 
-      <a href="/#" class="header-cta px-3!">
+      <a href={resolvePath("/#")} class="header-cta px-3!">
         <Icon name="ev71-user" size={24} fill="var(--color-secondary)" />
         <span class="sr-only">Cuenta</span>
         {/* En este campo,esnecesario que agregemos un Dropdown */}

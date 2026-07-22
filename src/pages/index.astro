@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath } from "@/lib/base-url";
+import '../styles/pages/_home.scss';
 
-const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const base = resolvePath("/");
 
 const nosotrosCards = [
   {
@@ -49,7 +51,13 @@ const gallery = [
 
   <main>
     {/* Hero */}
-    <section class="hero" id="inicio">
+    <section class="bg-image-section hero" id="inicio">
+      <img
+        src={`${base}assets/images/Banner1.jpg`}
+        alt="Escuadron 71 en operacion"
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+      />
       <div class="container">
         <div class="hero-content">
           <h1>Escuadron 71</h1>
@@ -58,8 +66,8 @@ const gallery = [
             simulacion aerea, el entrenamiento tactico y la camaraderia.
           </p>
           <div class="hero-actions">
-            <a class="btn" href="/postulacion">Unete al escuadron</a>
-            <a class="button button-secondary" href="/sivoe71">SIVOE-71</a>
+            <a class="btn" href={resolvePath("/postulacion")}>Unete al escuadron</a>
+            <a class="button button-secondary" href={resolvePath("/sivoe71")}>SIVOE-71</a>
           </div>
         </div>
       </div>
@@ -112,7 +120,13 @@ const gallery = [
     </section>
 
     {/* Operaciones */}
-    <section class="operation-band" id="operaciones">
+    <section class="bg-image-section operation-band" id="operaciones">
+      <img
+        src={`${base}assets/images/DCS1.png`}
+        alt="Operaciones del Escuadron 71"
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+      />
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">Operaciones</span>
@@ -141,7 +155,7 @@ const gallery = [
         <p>
           Entrenamiento realista · Operaciones conjuntas · Comunidad de Pilotos Virtuales
         </p>
-        <a class="btn" href="/postulacion">Aplicar Ahora</a>
+        <a class="btn" href={resolvePath("/postulacion")}>Aplicar Ahora</a>
       </div>
     </section>
 
@@ -162,5 +176,3 @@ const gallery = [
   </main>
 
 </BaseLayout>
-
-

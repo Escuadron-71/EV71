@@ -1,12 +1,22 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath, getBase } from "@/lib/base-url";
+import '../styles/pages/_sivoe71.scss';
+
+const base = getBase();
 ---
 
 <BaseLayout
   title="SIVOE-71 | Escuadron 71"
   description="Sistema Integral de Vuelo y Operaciones del Escuadron 71."
 >
-  <main class="sivoe71-page">
+  <main class="bg-image-section sivoe71-page">
+    <img
+      src={`${base}assets/images/ScreenF18.jpg`}
+      alt="SIVOE-71 plataforma"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="lazy"
+    />
     <section class="sivoe71-panel">
       <span class="eyebrow">Centro de mando</span>
       <h1>SIVOE-71</h1>
@@ -15,7 +25,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
         Los modulos de operaciones, bitacora, academia y area privada se migraran
         progresivamente desde el HTML legado.
       </p>
-      <a href="/">Volver al inicio</a>
+      <a href={resolvePath("/")}>Volver al inicio</a>
     </section>
   </main>
 </BaseLayout>
