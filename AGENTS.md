@@ -121,17 +121,18 @@ src/
 - Para dominio propio futuro: cambiar `BASE_PATH=/` en `.env` y en CI.
 - **SCSS:** Los `url()` en archivos SCSS NO respetan `BASE_PATH`. Usar `<img>` con `src` dinamico en vez de `background-image` en SCSS.
 
-### Clase reutilizable `.bg-image-section`
+### Secciones con imagen de fondo
 
-- Para secciones con imagen de fondo, usar la clase `.bg-image-section` (definida en `_mixins.scss`).
-- Proporciona: `position: relative`, `overflow: hidden`, `::before` con gradiente overlay, y `z-index` para hijos.
-- La imagen de fondo va como `<img>` dentro de la seccion, NO como `background-image` en CSS.
-- Cada seccion puede sobreescribir el gradiente del `::before` si necesita uno diferente.
+- Usar la imagen de fondo como `<picture><img>` dentro de la seccion, NO como `background-image` en SCSS.
+- Manejar z-index con Tailwind: `z-0` para la imagen, `z-1` para el contenido.
+- Gradiente overlay via Tailwind o SCSS segun necesidad.
 - Ejemplo:
   ```astro
-  <section class="bg-image-section hero">
-    <img src={`${base}assets/images/Banner1.jpg`} alt="..." class="absolute inset-0 w-full h-full object-cover" />
-    <div class="container">...</div>
+  <section class="hero relative">
+    <picture class="absolute top-0 left-0 right-0 bottom-0 w-full h-full z-0">
+      <img src={`${base}assets/images/Banner1.jpg`} alt="..." class="absolute inset-0 w-full h-full object-cover" />
+    </picture>
+    <div class="container z-1">...</div>
   </section>
   ```
 

@@ -10,10 +10,6 @@
   display: grid;
   place-items: center;
   padding: 32px;
-
-  &::before {
-    background: linear-gradient(135deg, rgba($primary-dark, 0.82), rgba($primary-light, 0.72));
-  }
 }
 
 .sivoe71-panel {

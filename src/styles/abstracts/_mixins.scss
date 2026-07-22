@@ -101,25 +101,6 @@
   }
 }
 
-// Seccion con imagen de fondo reutilizable
-.bg-image-section {
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba($primary-dark, 0.82), rgba($primary-dark, 0.62));
-    z-index: 1;
-  }
-
-  & > * {
-    position: relative;
-    z-index: 2;
-  }
-}
-
 // Screen reader only
 @mixin sr-only {
   position: absolute;

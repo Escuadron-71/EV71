@@ -27,10 +27,6 @@
 
 .operation-band {
   padding: 90px 0;
-
-  &::before {
-    background: linear-gradient(rgba($primary-dark, 0.62), rgba($primary-dark, 0.72));
-  }
 }
 
 .operation-panel {
