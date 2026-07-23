@@ -1,19 +1,45 @@
 ---
-import Icon from "@/components/UI/Icon.astro";
+import UserDropdown from "@/islands/UserDropdown.tsx";
 import { resolvePath } from "@/lib/base-url";
+
+const svgModules = import.meta.glob("/src/assets/icons/*.svg", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
+
+let userIconSvg = "";
+for (const [key, value] of Object.entries(svgModules)) {
+  if (key.includes("ev71-user")) {
+    userIconSvg = (value as string)
+      .replace(/\s*class="[^"]*"/, "")
+      .replace(/<svg\b/, '<svg width="24" height="24" fill="var(--color-secondary)"');
+    break;
+  }
+}
 
 const navItems = [
   { label: "Inicio", href: resolvePath("/"), active: true },
   { label: "Nosotros", href: resolvePath("/#nosotros") },
-  { label: "Academia", href: resolvePath("/login") },
   { label: "Flota", href: resolvePath("/#flota") },
   { label: "Operaciones", href: resolvePath("/#operaciones") },
-  { label: "Galeria", href: resolvePath("/#galeria") }
+  { label: "Galeria", href: resolvePath("/#galeria") },
+];
+
+const academiaItems = [
+  { label: "Curso FR1", href: resolvePath("/academia/fr1") },
+  { label: "Curso CR1", href: resolvePath("/academia/cr1") },
+  { separator: true as const },
+  { label: "Ingreso / Login", href: resolvePath("/login") },
+];
+
+const userItems = [
+  { label: "Idioma", href: resolvePath("/#") },
+  { separator: true as const },
+  { label: "Iniciar sesión", href: resolvePath("/login") },
+  { label: "Cerrar sesión", href: resolvePath("/#") },
 ];
 ---
-
-{/* Para el header es muy importante crear una estructura para Dropdowns reusable */}
-{/* Debedesera cordecon lamisma linea dedeiseño de la pagina y todo adapatable a dispositivos mobile */}
 
 <header class="site-header">
   <div class="header-inner">
@@ -31,6 +57,27 @@ const navItems = [
       {navItems.map((item) => (
         <a href={item.href} class:list={[{ active: item.active }]}>{item.label}</a>
       ))}
+
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button class="nav-dropdown-trigger" data-nav-dropdown-trigger aria-haspopup="true" aria-expanded="false">
+          Academia
+          <svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 1l4 4 4-4" />
+          </svg>
+        </button>
+        <div class="nav-dropdown-panel dropdown-panel" role="menu" aria-label="Academia">
+          {academiaItems.map((item) => {
+            if (item.separator) {
+              return <div class="dropdown-separator" role="separator" />;
+            }
+            return (
+              <a href={item.href} class="dropdown-item" role="menuitem">
+                {item.label}
+              </a>
+            );
+          })}
+        </div>
+      </div>
     </nav>
 
     <div class="profile flex items-center gap-2">
@@ -38,13 +85,11 @@ const navItems = [
         POSTÚLATE
       </a>
 
-      <a href={resolvePath("/#")} class="header-cta px-3!">
-        <Icon name="ev71-user" size={24} fill="var(--color-secondary)" />
-        <span class="sr-only">Cuenta</span>
-        {/* En este campo,esnecesario que agregemos un Dropdown */}
-        {/* El Dropdown tiene como fin, mostrar  varias opciones */}
-        {/* Las opciones seran: lenguaje, cuenta, logout y talvez otra ocpion que no reconozco en este momento */}
-      </a>  
+      <UserDropdown
+        client:load
+        items={userItems}
+        triggerIconHtml={userIconSvg}
+      />
     </div>    
 
     <button
@@ -62,6 +107,7 @@ const navItems = [
 </header>
 
 <script>
+  // Mobile hamburger toggle
   const toggle = document.getElementById('toggle');
   const menu = document.getElementById('menu');
   if (toggle && menu) {
@@ -79,4 +125,55 @@ const navItems = [
       });
     });
   }
+
+  // Nav dropdown click toggle (Academia)
+  document.querySelectorAll<HTMLElement>("[data-nav-dropdown]").forEach((wrapper) => {
+    const trigger = wrapper.querySelector<HTMLElement>("[data-nav-dropdown-trigger]");
+    const panel = wrapper.querySelector<HTMLElement>(".nav-dropdown-panel");
+    if (!trigger || !panel) return;
+
+    const triggerEl = trigger!;
+    let isOpen = false;
+
+    function open() {
+      isOpen = true;
+      wrapper.classList.add("open");
+      triggerEl.setAttribute("aria-expanded", "true");
+    }
+
+    function close() {
+      isOpen = false;
+      wrapper.classList.remove("open");
+      triggerEl.setAttribute("aria-expanded", "false");
+    }
+
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen ? close() : open();
+    });
+
+    panel.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    document.addEventListener("click", () => {
+      if (isOpen) close();
+    });
+
+    document.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) close();
+    });
+
+    panel.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        close();
+        if (menu && toggle) {
+          menu.classList.remove("active");
+          toggle.classList.remove("open");
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
+  });
 </script>

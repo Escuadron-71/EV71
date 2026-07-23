@@ -1,0 +1,74 @@
+---
+interface DropdownItem {
+  label: string;
+  href?: string;
+  icon?: string;
+  separator?: boolean;
+}
+
+interface Props {
+  items: DropdownItem[];
+  class?: string;
+  ariaLabel?: string;
+}
+
+const { items, class: className = "", ariaLabel = "Menu desplegable" } = Astro.props;
+---
+
+<div class:list={["dropdown-wrapper", className]} data-dropdown>
+  <slot name="trigger" />
+  <div class="dropdown-panel" role="menu" aria-label={ariaLabel}>
+    {items.map((item) => {
+      if (item.separator) {
+        return <div class="dropdown-separator" role="separator" />;
+      }
+      return (
+        <a href={item.href ?? "#"} class="dropdown-item" role="menuitem">
+          {item.icon && <span class="dropdown-icon" set:html={item.icon} />}
+          {item.label}
+        </a>
+      );
+    })}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-dropdown]").forEach((wrapper) => {
+    const trigger = wrapper.querySelector<HTMLElement>("[data-dropdown-trigger]");
+    const panel = wrapper.querySelector<HTMLElement>(".dropdown-panel");
+    if (!trigger || !panel) return;
+
+    const triggerEl = trigger!;
+    const panelEl = panel!;
+    let isOpen = false;
+
+    function open() {
+      isOpen = true;
+      panelEl.classList.add("open");
+      triggerEl.setAttribute("aria-expanded", "true");
+    }
+
+    function close() {
+      isOpen = false;
+      panelEl.classList.remove("open");
+      triggerEl.setAttribute("aria-expanded", "false");
+    }
+
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      isOpen ? close() : open();
+    });
+
+    trigger.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") close();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!wrapper.contains(e.target as Node)) close();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") close();
+    });
+  });
+</script>

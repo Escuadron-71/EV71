@@ -1,0 +1,340 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ============================================
+// Dropdowns - HUD Deploy Animation (Click only)
+// ============================================
+
+// Base dropdown wrapper
+.dropdown-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+// Trigger button / anchor
+.dropdown-trigger {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+
+  &:focus-visible {
+    @include focus-visible;
+  }
+}
+
+// Shared panel styles for both Astro and React dropdowns
+.dropdown-panel {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  min-width: 200px;
+  background: $primary;
+  border: 1px solid $secondary;
+  border-radius: 6px;
+  box-shadow: $shadow-panel;
+  padding: 1em;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+
+  // HUD scan-line overlay
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(180deg,
+        rgba($secondary, 0.12) 0%,
+        transparent 30%);
+    border-radius: 6px 6px 0 0;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // Scan line sweep
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: $secondary;
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+// Open state — click only via .open class
+.dropdown-panel.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+
+  &::before {
+    opacity: 1;
+    transition: opacity 0.3s ease 0.05s;
+  }
+
+  &::after {
+    opacity: 1;
+    animation: hud-scan 0.35s ease-out forwards;
+  }
+}
+
+// ============================================
+// Dropdown items
+// ============================================
+
+.dropdown-item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 15px !important;
+  color: $text-light;
+  text-decoration: none;
+  font-family: $font-body;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-align: left;
+  transition: color 0.15s ease, background 0.15s ease;
+  height: auto !important;
+
+  // No underline on hover
+  &::after {
+    display: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: $secondary;
+  }
+
+  &:focus-visible {
+    @include focus-visible;
+  }
+
+  .dropdown-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+}
+
+// Separator line
+.dropdown-separator {
+  height: 1px;
+  margin: 4px 12px;
+  background: $border;
+}
+
+// ============================================
+// Nav dropdown (for menu items like Academia)
+// ============================================
+
+.nav-dropdown {
+  position: relative;
+
+  .nav-dropdown-trigger {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 72px;
+    padding: 0 16px;
+    color: $text-light;
+    text-decoration: none;
+    font-family: $font-body;
+    font-weight: 500;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    transition: color 0.25s ease;
+    cursor: pointer;
+    background: none;
+    border: none;
+
+    // Underline bar (matches main-nav)
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 8px;
+      right: 8px;
+      height: 2px;
+      background: $secondary;
+      border-radius: 2px 2px 0 0;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.25s ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: $secondary;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    // Chevron indicator
+    .chevron {
+      margin-left: 6px;
+      width: 10px;
+      height: 10px;
+      transition: transform 0.25s ease;
+    }
+  }
+
+  // Panel positioned below header
+  .nav-dropdown-panel {
+    top: 90px;
+    min-width: 220px;
+  }
+
+  // Open state — click only
+  &.open {
+    .nav-dropdown-trigger {
+      color: $secondary;
+
+      &::after {
+        transform: scaleX(1);
+      }
+
+      .chevron {
+        transform: rotate(180deg);
+      }
+    }
+
+    .nav-dropdown-panel {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+
+      &::before {
+        opacity: 1;
+        transition: opacity 0.3s ease 0.05s;
+      }
+
+      &::after {
+        opacity: 1;
+        animation: hud-scan 0.35s ease-out forwards;
+      }
+    }
+  }
+}
+
+// ============================================
+// HUD Scan Animation
+// ============================================
+
+@keyframes hud-scan {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  50% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  51% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+    opacity: 0;
+  }
+}
+
+// ============================================
+// Cascade item animation (staggered)
+// ============================================
+
+@keyframes dropdown-cascade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-panel.open .dropdown-item {
+  animation: dropdown-cascade 0.2s ease-out both;
+
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.03s + 0.1s};
+    }
+  }
+}
+
+// ============================================
+// Responsive - Mobile
+// ============================================
+
+@include responsive($breakpoint-md) {
+  .nav-dropdown .nav-dropdown-panel {
+    top: auto;
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    background: rgba($primary-dark, 0.5);
+    padding: 2em;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    .dropdown-item {
+      padding: 12px 24px;
+      font-size: 0.9rem;
+    }
+  }
+
+  .nav-dropdown .nav-dropdown-trigger {
+    height: auto;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+    width: 100%;
+    text-align: left;
+    justify-content: space-between;
+  }
+}
