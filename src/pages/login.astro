@@ -1,91 +1,156 @@
 ---
-// src/pages/login.astro
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Icon from "@/components/UI/Icon.astro";
 import { resolvePath } from "@/lib/base-url";
+import '../styles/pages/_login.scss';
+import Icon from "@/components/UI/Icon.astro"
 
-// Definir los iconos y textos
-const loginOptions = [
-  {
-    id: 'piloto',
-    label: 'Piloto',
-    icon: 'ev71-pilot',
-    href: resolvePath('/login#piloto'),
-    description: 'Acceso para pilotos'
-  },
-  {
-    id: 'instructor',
-    label: 'Instructor',
-    icon: 'ev71-instructor',
-    href: resolvePath('/login#instructor'),
-    description: 'Acceso para instructores'
-  }
-];
+const base = resolvePath("/");
 ---
 
 <BaseLayout
   title="Ingreso Academia | Escuadron 71"
   description="Ingreso al Dashboard de Piloto o Instructor del Escuadron 71"
 >
-
   <main>
-    <section id="ev71-select-login" class="relative h-dvh overflow-hidden">
-      <div class="video-container">
+    <section class="login-page">
 
-        {/* En esta parte seria donde iria el video realmente, el video actualmente esta dentro dela carpeta "public/assets/video" */}
-        {/* El video tiene que ir en Autoplay, muted y Loop */}
-        {/* El video se llama "ev71-dcs.webm" */}
-        <img 
-          class="w-full! object-cover! max-h-dvh" 
-          src="https://simulationdaily.com/wp-content/uploads/2024/12/b1bbc3d0-dcs-world-f5e-remastered.jpg" 
-          alt="F5E Tiger II"
-        />
-      </div>
-      
-      <article class="absolute top-0 left-0 right-0 bottom-0 w-full h-full flex justify-center items-center bg-[linear-gradient(to_bottom,rgba(17,24,38,0.5),rgba(17,24,38,0.8))]">
-        <div class="row bg-primary p-5 rounded-2xl border border-secondary">
-          <div class="container">
-            <div class="content-header text-center py-5">
-              <h1 class="text-brand text-2xl!">Ingreso a la plataforma del <br /> <span class="text-secondary">Escuadron 71</span></h1>
-            </div>
-          </div>
-          
-          <div class="container">
-            <div class="content flex flex-grap gap-4 justify-center">
+      {/* Video de fondo */}
+      <video class="login-video" autoplay muted loop playsinline>
+        <source src={`${base}assets/videos/ev71-dcs.webm`} type="video/webm" />
+      </video>
 
-              {loginOptions.map((option) => (
-                <div class="content-login_user w-62.5">
-                  <a 
-                    href={option.href}
-                    class="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-white/10 transition-colors"
-                  >
-                    <Icon name={option.icon} size={100} fill="var(--color-tertiary-light)" />
-                    
-                    <h2 class="text-brand uppercase text-xl! text-secondary">{option.label}</h2>
-                    <p class="text-white/60 text-sm">{option.description}</p>
-                  </a>
+      {/* Overlay oscuro */}
+      <div class="login-overlay"></div>
+
+      {/* Card central */}
+      <article class="login-card">
+        <h1>Ingreso a la plataforma del <br /><span>Escuadron 71</span></h1>
+
+        {/* Tab selector Piloto / Instructor */}
+        <div class="login-tabs" role="tablist">
+          <button
+            role="tab"
+            aria-selected="true"
+            aria-controls="panel-login"
+            data-tab="piloto"
+            class="flex flex-col justify-center items-center-safe"
+          >
+            <Icon name="ev71-pilot" size={75} stroke="2" />
+            <span>Piloto</span>
+          </button>
+          <button
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-login"
+            data-tab="instructor"
+            class="flex flex-col justify-center items-center-safe"
+          >
+            <Icon name="ev71-instructor" size={75} stroke="2" />            
+            <span>Instructor</span>
+          </button>
+        </div>
+
+        {/* Paneles */}
+        <div class="login-panels">
+
+          {/* Panel de Login */}
+          <div class="login-panel" id="panel-login" role="tabpanel">
+            <form id="loginForm" onsubmit="return false">
+              <h2>Ingreso <span class="login-role-text">Piloto</span></h2>
+
+              <div class="form-grid">
+                <div class="field full">
+                  <label for="login-identity">Email o Callsign <span>*</span></label>
+                  <input
+                    id="login-identity"
+                    name="identity"
+                    type="text"
+                    required
+                    placeholder="Tu email o callsign"
+                  />
                 </div>
-              ))}
+                <div class="field full">
+                  <label for="login-password">Contraseña <span>*</span></label>
+                  <input
+                    id="login-password"
+                    name="password"
+                    type="password"
+                    required
+                    placeholder="Tu contraseña"
+                  />
+                </div>
+              </div>
 
-            </div>
+              <button class="btn" type="submit">Iniciar sesión</button>
+              <a class="form-link" href="#" id="showRecovery">¿Olvidaste tu contraseña?</a>
+            </form>
           </div>
+
+          {/* Panel de Recuperación */}
+          <div class="login-panel hidden" id="panel-recovery" role="tabpanel">
+            <form id="recoveryForm" onsubmit="return false">
+              <h2>Recuperar contraseña</h2>
+
+              <div class="form-grid">
+                <div class="field full">
+                  <label for="recovery-email">Correo electrónico <span>*</span></label>
+                  <input
+                    id="recovery-email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="pilot@correo.com"
+                  />
+                </div>
+              </div>
+
+              <button class="btn" type="submit">Enviar enlace de recuperación</button>
+              <a class="form-link" href="#" id="showLogin">Volver al inicio de sesión</a>
+            </form>
+          </div>
+
         </div>
       </article>
-    </section>
 
-    <section id="ev71-login-form">
-      <form method="post">
-        {/* Aqui vendria el formulario correspondiente para el inicio de sesion, campo1: correo o callSiogn, campo2: contraseña */}
-        {/* El formulario debe de tener la misma estetica que el formulario actual de "Postulate" */}
-      </form>
     </section>
-    
-    <section id="ev71-password-form">
-      <form method="post">
-        {/* Aqui vendria el formulario correspondiente para la recuperacion de contraseña, campo: correo */}
-        {/* El formulario debe de tener la misma estetica que el formulario actual de "Postulate" */}
-      </form>
-    </section>
-    
   </main>
 </BaseLayout>
+
+<script>
+  // Tab selector
+  const tabs = document.querySelectorAll<HTMLElement>("[role='tab']");
+  const roleText = document.querySelector<HTMLElement>(".login-role-text");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      tabs.forEach((t) => t.setAttribute("aria-selected", "false"));
+      tab.setAttribute("aria-selected", "true");
+
+      const role = tab.dataset.tab;
+      if (roleText && role) {
+        roleText.textContent = role === "piloto" ? "Piloto" : "Instructor";
+      }
+    });
+  });
+
+  // Toggle login ↔ recovery
+  const panelLogin = document.getElementById("panel-login");
+  const panelRecovery = document.getElementById("panel-recovery");
+  const showRecovery = document.getElementById("showRecovery");
+  const showLogin = document.getElementById("showLogin");
+  const tabsContainer = document.querySelector<HTMLElement>(".login-tabs");
+
+  showRecovery?.addEventListener("click", (e) => {
+    e.preventDefault();
+    panelLogin?.classList.add("hidden");
+    panelRecovery?.classList.remove("hidden");
+    tabsContainer?.classList.add("hidden");
+  });
+
+  showLogin?.addEventListener("click", (e) => {
+    e.preventDefault();
+    panelRecovery?.classList.add("hidden");
+    panelLogin?.classList.remove("hidden");
+    tabsContainer?.classList.remove("hidden");
+  });
+</script>
