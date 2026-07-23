@@ -11,7 +11,7 @@ El proyecto EV71 PageWeb es el sitio web oficial del Escuadron 71. Desarrollado 
 - **Lenguaje:** TypeScript (estricto)
 - **Interactividad:** React Islands (solo para componentes que lo requieran)
 - **Backend/BaaS:** Supabase (autenticacion, base de datos, storage)
-- **Hosting:** Cloudflare Pages
+- **Hosting:** GitHub Pages
 - **Paqueteria:** pnpm
 
 ## Arquitectura y decisiones tecnicas
@@ -93,7 +93,7 @@ src/
 - Evitar `@apply` en exceso; preferir clases utility en el template.
 - Usar SCSS solo para estilos complejos que Tailwind no resuelve facilmente: animaciones custom, pseudo-elementos, o estilos que requieren nesting profundo.
 - Configuracion CSS-first via `@theme` en `src/styles/global.css`. No usar `tailwind.config.ts` (v4 no lo requiere).
-- Variables de tema: colores del escuadron en `@theme` (naranja #ff7a00, verde militar #7f8d58, fondos oscuros #0c1117, #111821).
+- Variables de tema: colores del escuadron en `@theme` (dorado #E8B25C, fondos oscuros #0A0E17, #111826, #202D46).
 - Responsive: usar prefijos `sm:`, `md:`, `lg:` de Tailwind. Evitar media queries manuales en SCSS cuando Tailwind las resuelve.
 
 ### SCSS
@@ -189,28 +189,6 @@ src/
 - Validar datos tanto en el cliente (formularios) como en el servidor (Edge Functions o RLS).
 - No guardar datos sensibles en el repositorio.
 
-## Cloudflare Pages
-
-### Deploy
-
-- Conectar el repositorio de GitHub a Cloudflare Pages.
-- Configurar el build command: `pnpm build`.
-- Configurar el directorio de salida: `dist`.
-- Variables de entorno en el dashboard de Cloudflare (no en el repositorio).
-
-### Variables de entorno en Cloudflare
-
-- Ir a Pages > tu proyecto > Settings > Environment variables.
-- Agregar las mismas variables de `.env` pero con los valores reales.
-- Variables `PUBLIC_*` estan disponibles en el cliente.
-- Variables sin prefijo `PUBLIC_` solo estan disponibles en server-side (Edge Functions).
-
-### Configuracion de dominio
-
-- Configurar dominio personalizado en Cloudflare Pages.
-- SSL/TLS automatico via Cloudflare.
-- Headers de seguridad: configurar en `_headers` o en el dashboard.
-
 ## Calidad visual
 
 - El sitio debe sentirse como una plataforma seria de simulacion aeronautica militar.
@@ -218,8 +196,8 @@ src/
 - Usar imagenes reales del escuadron o assets existentes siempre que aporten contexto.
 - Cuidar responsive desde el inicio: escritorio, tablet y movil.
 - No depender de rutas con barras invertidas en HTML o CSS.
-- Colores de marca: naranja #ff7a00, verde militar #7f8d58, dorado #c8a44d.
-- Tipografia: Oswald para titulos, Rajdhani para cuerpo.
+- Colores de marca: dorado #E8B25C, fondos oscuros #0A0E17, #111826, #202D46.
+- Tipografia: Oswald para titulos, Roboto para cuerpo.
 
 ## Comandos principales
 
