@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import '../styles/pages/_postulacion.scss';
+import { resolvePath } from "@/lib/base-url";
+import "../styles/pages/_postulacion.scss"
+
+const base = resolvePath("/postulacion");
 ---
 
 <BaseLayout
@@ -202,7 +205,7 @@ import '../styles/pages/_postulacion.scss';
           </div>
 
           <div class="form-actions">
-            <button class="btn" type="submit">Enviar Postulacion</button>
+            <button class="btn disabled:opacity-50 disabled:pointer-events-none" type="submit" disabled>Enviar Postulacion</button>
             <div id="formMessage" class="message" role="status" aria-live="polite"></div>
           </div>
         </form>

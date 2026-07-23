@@ -27,3 +27,7 @@
     box-shadow: 0 0 0 1px $secondary, 0 0 24px rgba($secondary, 0.35);
   }
 }
+
+[disabled] {
+  pointer-events: none;
+}
