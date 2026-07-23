@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "build:prod": "cross-env BASE_PATH=/EV71 astro build",
+    "build:prod": "cross-env BASE_PATH=/ev71 SITE_URL=https://escuadron-71.github.io astro build",
     "preview": "astro preview",
     "check": "astro check",
     "legacy:server": "node backend/scripts/server.js"
@@ -16,6 +16,7 @@
     "@astrojs/check": "^0.9.9",
     "@tailwindcss/vite": "^4.3.2",
     "astro": "^7.0.7",
+    "dotenv": "^17.4.2",
     "nodemailer": "^6.9.2",
     "tailwindcss": "^4.3.2",
     "typescript": "^5.9.3"

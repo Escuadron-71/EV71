@@ -47,7 +47,7 @@ src/
     pages/        # Home, postulacion, sivoe71
     vendors/      # Reservado para librerias externas
   islands/        # Componentes React Islands (client:load, client:visible, etc.)
-  lib/            # Funciones utilitarias, helpers, tipos compartidos
+  lib/            # Funciones utilitarias, helpers, tipos compartidos (base-url.ts, etc.)
   types/          # Definiciones de tipos TypeScript
 ```
 
@@ -102,6 +102,39 @@ src/
 - Importar SCSS en componentes Astro o en el layout global.
 - No duplicar estilos que Tailwind ya cubre.
 - Mantener SCSS para: variables de marca, mixins de accesibilidad, breakpoints personalizados, y estilos que requieren selectores anidados.
+- Los estilos de paginas (`src/styles/pages/`) se importan directamente en cada pagina `.astro`, NO en `main.scss`. Esto evita cargar CSS no utilizado.
+
+### Base Path y manejo de URLs
+
+- El sitio se despliega bajo un subcamino (`/ev71` en GitHub Pages, `/` en dominio propio).
+- **Nunca usar paths hardcodeados** como `href="/pagina"` en componentes.
+- Usar `resolvePath()` de `src/lib/base-url.ts` para todas las rutas internas:
+  ```astro
+  ---
+  import { resolvePath } from "@/lib/base-url";
+  ---
+  <a href={resolvePath("/postulacion")}>Postulate</a>
+  ```
+- `import.meta.env.BASE_URL` viene de `astro.config.mjs` que lee la variable `BASE_PATH` del entorno.
+- En local, `.env` define `BASE_PATH=/ev71` para que `pnpm dev` sirva en `localhost:4321/ev71/`.
+- En produccion (CI), `BASE_PATH=/ev71` se inyecta via GitHub Actions o `pnpm build:prod`.
+- Para dominio propio futuro: cambiar `BASE_PATH=/` en `.env` y en CI.
+- **SCSS:** Los `url()` en archivos SCSS NO respetan `BASE_PATH`. Usar `<img>` con `src` dinamico en vez de `background-image` en SCSS.
+
+### Secciones con imagen de fondo
+
+- Usar la imagen de fondo como `<picture><img>` dentro de la seccion, NO como `background-image` en SCSS.
+- Manejar z-index con Tailwind: `z-0` para la imagen, `z-1` para el contenido.
+- Gradiente overlay via Tailwind o SCSS segun necesidad.
+- Ejemplo:
+  ```astro
+  <section class="hero relative">
+    <picture class="absolute top-0 left-0 right-0 bottom-0 w-full h-full z-0">
+      <img src={`${base}assets/images/Banner1.jpg`} alt="..." class="absolute inset-0 w-full h-full object-cover" />
+    </picture>
+    <div class="container z-1">...</div>
+  </section>
+  ```
 
 ### TypeScript
 

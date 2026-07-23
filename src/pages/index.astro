@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath } from "@/lib/base-url";
+import '../styles/pages/_home.scss';
 
-const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const base = resolvePath("/");
 
 const nosotrosCards = [
   {
@@ -49,8 +51,16 @@ const gallery = [
 
   <main>
     {/* Hero */}
-    <section class="hero" id="inicio">
-      <div class="container">
+    <section class="pt-0! hero relative" id="inicio">
+      <picture class="absolute top-0 left-0 right-0 bottom-0 w-full h-full z-0">
+        <img
+          src={`${base}assets/images/Banner1.jpg`}
+          alt="Escuadron 71 en operacion"
+          class="inset-0 w-full h-full object-cover"
+          loading="eager"
+        />
+      </picture>
+      <div class="container z-1">
         <div class="hero-content">
           <h1>Escuadron 71</h1>
           <p>
@@ -58,8 +68,8 @@ const gallery = [
             simulacion aerea, el entrenamiento tactico y la camaraderia.
           </p>
           <div class="hero-actions">
-            <a class="btn" href="/postulacion">Unete al escuadron</a>
-            <a class="button button-secondary" href="/sivoe71">SIVOE-71</a>
+            <a class="btn" href={resolvePath("/postulacion")}>Unete al escuadron</a>
+            <a class="button button-secondary" href={resolvePath("/sivoe71")}>SIVOE-71</a>
           </div>
         </div>
       </div>
@@ -112,13 +122,21 @@ const gallery = [
     </section>
 
     {/* Operaciones */}
-    <section class="operation-band" id="operaciones">
-      <div class="container">
+    <section class="operation-band hero relative overflow-hidden" id="operaciones">
+      <picture class="absolute top-0 left-0 right-0 bottom-0 w-full h-full z-0!">
+        <img
+          src={`${base}assets/images/DCS1.png`}
+          alt="Operaciones del Escuadron 71"
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+        />
+      </picture>
+      <div class="container flex flex-col justify-start items-center z-1">
         <div class="section-heading">
           <span class="eyebrow">Operaciones</span>
           <h2>Proximas Operaciones</h2>
         </div>
-        <div class="operation-panel">
+        <div class="operation-panel w-full">
           <h3>Calendario Operacional</h3>
           <ul>
             <li>
@@ -141,7 +159,7 @@ const gallery = [
         <p>
           Entrenamiento realista · Operaciones conjuntas · Comunidad de Pilotos Virtuales
         </p>
-        <a class="btn" href="/postulacion">Aplicar Ahora</a>
+        <a class="btn" href={resolvePath("/postulacion")}>Aplicar Ahora</a>
       </div>
     </section>
 
@@ -162,5 +180,3 @@ const gallery = [
   </main>
 
 </BaseLayout>
-
-

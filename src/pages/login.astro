@@ -2,6 +2,7 @@
 // src/pages/login.astro
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Icon from "@/components/UI/Icon.astro";
+import { resolvePath } from "@/lib/base-url";
 
 // Definir los iconos y textos
 const loginOptions = [
@@ -9,14 +10,14 @@ const loginOptions = [
     id: 'piloto',
     label: 'Piloto',
     icon: 'ev71-pilot',
-    href: '/login#piloto',
+    href: resolvePath('/login#piloto'),
     description: 'Acceso para pilotos'
   },
   {
     id: 'instructor',
     label: 'Instructor',
     icon: 'ev71-instructor',
-    href: '/login#instructor',
+    href: resolvePath('/login#instructor'),
     description: 'Acceso para instructores'
   }
 ];

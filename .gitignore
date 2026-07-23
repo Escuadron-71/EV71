@@ -46,6 +46,7 @@ jspm_packages/
 
 # Windows artifacts
 nul
+temp.html
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
