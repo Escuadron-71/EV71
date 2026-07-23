@@ -1,0 +1,331 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath } from "@/lib/base-url";
+import "../styles/pages/_404.scss"
+
+const base = resolvePath("/404");
+---
+
+<BaseLayout title="404 | Objetivo no encontrado | Escuadrón 71" description="La misión no puede continuar. El objetivo solicitado no existe o ha sido eliminado del mapa. Regresa a la base.">
+
+  <main class="mfd-unit" role="main" aria-label="Panel MFD - Página no encontrada" class="py-8!">
+ 
+    <!-- ============ MARCO FÍSICO DEL MFD ============ -->
+    <section class="mfd-frame container" aria-hidden="true">
+ 
+      <!-- Tornillos de las 4 esquinas -->
+      <span class="screw screw--tl"></span>
+      <span class="screw screw--tr"></span>
+      <span class="screw screw--bl"></span>
+      <span class="screw screw--br"></span>
+ 
+      <!-- Fila superior de botones de función -->
+      <div class="btn-row btn-row--top">
+        <span class="hw-btn hw-btn--triangle-up"></span>
+        <span class="hw-btn"></span>
+        <span class="hw-btn"></span>
+        <span class="hw-btn"></span>
+        <span class="hw-btn"></span>
+        <span class="hw-btn"></span>
+        <span class="hw-btn hw-btn--triangle-up"></span>
+        <span class="hw-btn"></span>
+      </div>
+ 
+      <!-- Fila inferior de botones de función -->
+      <div class="btn-row btn-row--bottom">
+        <span class="hw-btn"></span>
+        <span class="hw-btn"></span>
+        <span class="hw-btn"></span>
+        <span class="hw-btn"></span>
+        <span class="hw-btn"></span>
+        <span class="hw-btn"></span>
+        <span class="hw-btn"></span>
+        <span class="hw-btn hw-btn--star"></span>
+      </div>
+ 
+      <!-- Columna izquierda: perillas + botones + placa JETT/SAFE -->
+      <div class="side-col side-col--left">
+        <div class="knob-group">
+          <span class="knob-label">GAIN</span>
+          <span class="knob"><i class="knob__arrow knob__arrow--up"></i><i class="knob__arrow knob__arrow--down"></i></span>
+        </div>
+        <div class="knob-group">
+          <span class="knob-label">LVL</span>
+          <span class="knob"><i class="knob__arrow knob__arrow--up"></i><i class="knob__arrow knob__arrow--down"></i></span>
+        </div>
+        <span class="hw-btn hw-btn--tab"></span>
+        <span class="hw-btn hw-btn--tab"></span>
+        <span class="hw-btn hw-btn--tab"></span>
+        <div class="placard placard--warn">
+          <span>JETT</span>
+          <span>SAFE</span>
+        </div>
+      </div>
+ 
+      <!-- Columna derecha: perillas + botones + placa CONTR / DAY-NT-OFF -->
+      <div class="side-col side-col--right">
+        <div class="knob-group">
+          <span class="knob-label">SYM</span>
+          <span class="knob"><i class="knob__arrow knob__arrow--up"></i><i class="knob__arrow knob__arrow--down"></i></span>
+        </div>
+        <div class="knob-group">
+          <span class="knob-label">BRT</span>
+          <span class="knob"><i class="knob__arrow knob__arrow--up"></i><i class="knob__arrow knob__arrow--down"></i></span>
+        </div>
+        <span class="hw-btn hw-btn--tab"></span>
+        <span class="hw-btn hw-btn--tab"></span>
+        <span class="hw-btn hw-btn--tab"></span>
+        <div class="placard">
+          <span>CONTR</span>
+        </div>
+        <div class="placard placard--stack">
+          <span>DAY</span>
+          <span>NT</span>
+          <span>OFF</span>
+        </div>
+      </div>
+ 
+      <!-- ============ PANTALLA DIGITAL DEL MFD ============ -->
+      <section class="mfd-screen" aria-label="Pantalla del MFD">
+ 
+        <!-- Capas de fondo puramente decorativas: grid, scanlines, glow, ruido -->
+        <div class="screen-fx screen-fx--grid" aria-hidden="true"></div>
+        <div class="screen-fx screen-fx--noise" aria-hidden="true"></div>
+        <div class="screen-fx screen-fx--scanlines" aria-hidden="true"></div>
+        <div class="screen-fx screen-fx--vignette" aria-hidden="true"></div>
+ 
+        <!-- Cabecera del display -->
+        <header class="screen-header">
+          <div class="screen-header__id">
+            <span class="screen-header__title">EV71 MFD</span>
+            <span class="screen-header__version">V2.3.1</span>
+          </div>
+          <nav class="screen-header__tabs" aria-hidden="true">
+            <span>NORM</span>
+            <span>CNTL</span>
+            <span class="is-active">A-A</span>
+            <span>WIDE</span>
+            <span>OVRD</span>
+            <span>CNTL</span>
+          </nav>
+        </header>
+ 
+        <!-- Cuerpo principal: 404 con radar reemplazando el 0 -->
+        <div class="error-display">
+ 
+          <span class="digit digit--4 digit--left">4</span>
+ 
+          <!-- ============ RADAR TÁCTICO (reemplaza el "0") ============ -->
+          <div class="radar" role="img" aria-label="Radar táctico buscando la señal perdida">
+ 
+            <div class="radar__scope">
+              <!-- anillos concéntricos -->
+              <div class="radar__ring radar__ring--1"></div>
+              <div class="radar__ring radar__ring--2"></div>
+              <div class="radar__ring radar__ring--3"></div>
+              <div class="radar__ring radar__ring--4"></div>
+ 
+              <!-- líneas radiales + marcas de grados generadas por CSS -->
+              <div class="radar__radials"></div>
+              <div class="radar__ticks"></div>
+ 
+              <!-- cruz central -->
+              <div class="radar__crosshair">
+                <span class="radar__crosshair-h"></span>
+                <span class="radar__crosshair-v"></span>
+              </div>
+              <div class="radar__origin"></div>
+ 
+              <!-- etiquetas de rumbo -->
+              <span class="radar__deg radar__deg--000">000</span>
+              <span class="radar__deg radar__deg--090">090</span>
+              <span class="radar__deg radar__deg--180">180</span>
+              <span class="radar__deg radar__deg--270">270</span>
+ 
+              <!-- ecos / contactos -->
+              <span class="radar__target" style="--tx: 62%; --ty: 30%;" data-angle="52"></span>
+              <span class="radar__target" style="--tx: 40%; --ty: 68%;" data-angle="152"></span>
+              <span class="radar__target" style="--tx: 74%; --ty: 62%;" data-angle="95"></span>
+              <span class="radar__target" style="--tx: 30%; --ty: 40%;" data-angle="238"></span>
+ 
+              <!-- haz de búsqueda (sweep) -->
+              <div class="radar__sweep"></div>
+ 
+              <!-- lectura numérica interna -->
+              <div class="radar__readout">
+                <span><em>RNG</em> 80 NM</span>
+                <span><em>BRG</em> <span id="radar-brg">045°</span></span>
+                <span><em>TILT</em> 0.5°</span>
+              </div>
+            </div>
+          </div>
+ 
+          <span class="digit digit--4 digit--right">4</span>
+        </div>
+ 
+        <!-- Mensaje principal -->
+        <div class="message-block">
+          <h1 class="message-block__title">OBJETIVO NO ENCONTRADO<span class="cursor" aria-hidden="true">_</span></h1>
+          <p class="message-block__subtitle">La ubicación solicitada no existe o ha sido eliminada del mapa.</p>
+        </div>
+ 
+        <!-- Botones de acción estilo MFD -->
+        <div class="action-row">
+          <a class="button" href="https://escuadron-71.github.io/EV71/">
+            REGRESAR A LA BASE
+          </a>
+          <a class="button" href="https://escuadron-71.github.io/EV71/#flota">
+            VOLVER AL HANGAR
+          </a>
+        </div>
+ 
+        <!-- Bloques de información técnica -->
+        <aside class="info-block info-block--system">
+          <h2 class="info-block__title">SYSTEM</h2>
+          <dl class="info-block__row"><dt>RADAR</dt><dd>APG-71</dd></dl>
+          <dl class="info-block__row"><dt>MODE</dt><dd>A-A</dd></dl>
+          <dl class="info-block__row"><dt>RANGE</dt><dd>80 NM</dd></dl>
+          <dl class="info-block__row"><dt>PRF</dt><dd>MED</dd></dl>
+          <dl class="info-block__row"><dt>STATUS</dt><dd class="text-ok">SEARCH</dd></dl>
+        </aside>
+ 
+        <aside class="info-block info-block--coords">
+          <h2 class="info-block__title">COORDINATES</h2>
+          <dl class="info-block__row"><dt>LAT</dt><dd>--.--.--</dd></dl>
+          <dl class="info-block__row"><dt>LON</dt><dd>--.--.--</dd></dl>
+          <dl class="info-block__row"><dt>ALT</dt><dd>---- FT</dd></dl>
+        </aside>
+ 
+        <aside class="info-block info-block--status">
+          <h2 class="info-block__title">STATUS</h2>
+          <dl class="info-block__row"><dt>SIGNAL</dt><dd class="text-danger blink-danger">LOST</dd></dl>
+          <dl class="info-block__row"><dt>TARGET</dt><dd class="text-danger blink-danger">LOST</dd></dl>
+        </aside>
+ 
+        <!-- Fila inferior de teclas de contexto de la pantalla -->
+        <nav class="screen-footer" aria-hidden="true">
+          <span>SWAP</span><span>FCR</span><span>TGP</span><span>SMS</span><span>DCLT</span><span>HSD</span><span>DTE</span>
+        </nav>
+ 
+      </section>
+    </section>
+  </main>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    "use strict";
+
+    var sweep = document.querySelector(".radar__sweep");
+    if (sweep) {
+      sweep.style.animation = "sweep-rotate 5s linear infinite";
+    }
+
+    var targets = document.querySelectorAll(".radar__target");
+    if (targets.length === 0) return;
+
+    var SWEEP_DURATION_MS = 5000;
+    var BEAM_WIDTH_DEG = 26;
+
+    var targetData = Array.from(targets).map(function (el) {
+      var tx = parseFloat(el.style.getPropertyValue("--tx") || "50");
+      var ty = parseFloat(el.style.getPropertyValue("--ty") || "50");
+      var angle = Math.atan2(ty - 50, tx - 50) * (180 / Math.PI);
+      var radius = Math.sqrt(Math.pow(tx - 50, 2) + Math.pow(ty - 50, 2));
+
+      return {
+        element: el,
+        angle: (angle + 360) % 360,
+        radius: Math.min(radius, 85),
+        speed: (0.3 + Math.random() * 0.7) * (Math.random() > 0.5 ? 1 : -1),
+        pulseOffset: Math.random() * 2000,
+        isLit: false,
+      };
+    });
+
+    function angularDistance(a, b) {
+      var diff = Math.abs(a - b) % 360;
+      return diff > 180 ? 360 - diff : diff;
+    }
+
+    function moveTargets() {
+      targetData.forEach(function (target) {
+        target.angle += target.speed;
+        if (target.angle > 360) target.angle -= 360;
+        if (target.angle < 0) target.angle += 360;
+
+        var rad = (target.angle * Math.PI) / 180;
+        var x = 50 + target.radius * Math.cos(rad);
+        var y = 50 + target.radius * Math.sin(rad);
+
+        target.element.style.setProperty("--tx", x + "%");
+        target.element.style.setProperty("--ty", y + "%");
+        target.element.dataset.angle = String(Math.round(target.angle));
+      });
+    }
+
+    function updateTargets(timestamp) {
+      targetData.forEach(function (target) {
+        var phase = (timestamp + target.pulseOffset) / 2000;
+        var visibility = 0.3 + 0.7 * (Math.sin(phase) * 0.5 + 0.5);
+
+        if (!target.isLit) {
+          target.element.style.opacity = String(visibility);
+        }
+
+        var scale = 0.8 + 0.4 * (Math.sin(phase * 0.7) * 0.5 + 0.5);
+        target.element.style.transform =
+          "translate(-50%, -50%) scale(" + scale + ")";
+      });
+    }
+
+    var bearingLabel = document.getElementById("radar-brg");
+    var startTime = null;
+    var frameCount = 0;
+
+    function tick(timestamp) {
+      if (startTime === null) startTime = timestamp;
+
+      var elapsed = (timestamp - startTime) % SWEEP_DURATION_MS;
+      var sweepAngle = (elapsed / SWEEP_DURATION_MS) * 360;
+
+      if (bearingLabel) {
+        bearingLabel.textContent =
+          String(Math.round(sweepAngle)).padStart(3, "0") + "\u00B0";
+      }
+
+      targetData.forEach(function (target) {
+        var isLit =
+          angularDistance(sweepAngle, target.angle) < BEAM_WIDTH_DEG / 2;
+
+        if (isLit && !target.isLit) {
+          target.element.classList.add("is-lit");
+          target.element.style.opacity = "";
+          target.isLit = true;
+        } else if (!isLit && target.isLit) {
+          target.element.classList.remove("is-lit");
+          target.isLit = false;
+        }
+      });
+
+      if (frameCount % 3 === 0) moveTargets();
+      updateTargets(timestamp);
+      frameCount++;
+
+      requestAnimationFrame(tick);
+    }
+
+    var prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (!prefersReducedMotion) {
+      requestAnimationFrame(tick);
+    } else {
+      targetData.forEach(function (t) {
+        t.element.style.opacity = "0.6";
+        t.element.classList.add("is-lit");
+      });
+    }
+  })();
+</script>
