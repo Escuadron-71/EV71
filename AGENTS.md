@@ -42,12 +42,17 @@ src/
     main.scss     # Entrada SCSS (usa todos los parciales)
     abstracts/    # Variables, mixins, funciones
     base/         # Reset, tipografia
-    components/   # Buttons, cards, forms, modals, social-icons
+    components/   # Buttons, cards, event-cards, forms, modals, social-icons
     layout/       # Header, footer, hero, sections
     pages/        # Home, postulacion, sivoe71
     vendors/      # Reservado para librerias externas
   islands/        # Componentes React Islands (client:load, client:visible, etc.)
-  lib/            # Funciones utilitarias, helpers, tipos compartidos (base-url.ts, etc.)
+  lib/
+    base-url.ts   # Utilidad resolvePath para rutas internas
+    services/     # Servicios de datos (event-service.ts, etc.)
+    sync/         # Integration Modules - pipeline de sincronizacion
+  data/
+    events/       # Datos de eventos (latest.json, historial/)
   types/          # Definiciones de tipos TypeScript
 ```
 
@@ -106,7 +111,7 @@ src/
 
 ### Base Path y manejo de URLs
 
-- El sitio se despliega bajo un subcamino (`/ev71` en GitHub Pages, `/` en dominio propio).
+- El sitio se despliega en dominio propio (`https://escuadron71.co`).
 - **Nunca usar paths hardcodeados** como `href="/pagina"` en componentes.
 - Usar `resolvePath()` de `src/lib/base-url.ts` para todas las rutas internas:
   ```astro
@@ -116,9 +121,8 @@ src/
   <a href={resolvePath("/postulacion")}>Postulate</a>
   ```
 - `import.meta.env.BASE_URL` viene de `astro.config.mjs` que lee la variable `BASE_PATH` del entorno.
-- En local, `.env` define `BASE_PATH=/ev71` para que `pnpm dev` sirva en `localhost:4321/ev71/`.
-- En produccion (CI), `BASE_PATH=/ev71` se inyecta via GitHub Actions o `pnpm build:prod`.
-- Para dominio propio futuro: cambiar `BASE_PATH=/` en `.env` y en CI.
+- En local, `.env` define `BASE_PATH=/` para desarrollo directo en `localhost:4321/`.
+- En produccion (CI), `BASE_PATH=/` se inyecta via GitHub Actions.
 - **SCSS:** Los `url()` en archivos SCSS NO respetan `BASE_PATH`. Usar `<img>` con `src` dinamico en vez de `background-image` en SCSS.
 
 ### Secciones con imagen de fondo
@@ -207,6 +211,7 @@ pnpm dev              # Servidor de desarrollo
 pnpm build            # Build de produccion
 pnpm preview          # Preview del build
 pnpm check            # Verificacion de tipos y errores
+pnpm sync:events      # Ejecutar sincronizacion manual de eventos Discord
 pnpm legacy:server    # Backend legacy (scripts/server.js - temporal)
 ```
 
@@ -230,3 +235,20 @@ Cada PR hacia `master` debe incluir:
 - Verificar que las imagenes existan en `public/assets/images/` antes de referenciarlas.
 - No usar `window`, `document` o APIs del navegador en componentes Astro (solo en React Islands).
 - Ejecutar `pnpm check` despues de cambios significativos para verificar tipos.
+
+### Sistema de eventos
+
+- Los eventos se sincronizan desde Discord via GitHub Actions (workflow `sync-events.yml`).
+- Los datos transformados se almacenan en `src/data/events/latest.json`.
+- El `EventService` (`src/lib/services/event-service.ts`) lee el JSON y expone `getUpcomingEvents()` y `getNextEvent()`.
+- Las paginas Astro consumen el servicio en frontmatter (build-time).
+- Para datos dummy (desarrollo), modificar `src/data/events/latest.json` directamente.
+- Los componentes visuales (`EventCard.astro`, `EventList.astro`) renderizan en HTML puro sin JavaScript del lado cliente.
+- La seccion "Proximas Operaciones" del Home usa el featured event (evento mas cercano).
+- La pagina `/operaciones` lista todos los eventos en grid de 2 columnas.
+
+### CAL (Call to Action) en eventos
+
+- **Participar:** Abre el enlace del evento en Discord (`eventUrl`) en nueva pestana.
+- **Calendar:** Genera URL de Google Calendar con titulo, fechas, descripcion y ubicacion precargados.
+- **Interesados:** Numero mock extraido del JSON (cuando llegue el pipeline real, vendra de la API de Discord).

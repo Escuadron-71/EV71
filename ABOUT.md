@@ -90,14 +90,14 @@ import ApplicationForm from '../islands/ApplicationForm.tsx';
 
 Ver `backend/sivoe71_schema.sql` para el schema completo.
 
-### Hosting: Cloudflare Pages
+### Hosting: GitHub Pages
 
-El sitio se despliega en **Cloudflare Pages** para:
+El sitio se despliega en **GitHub Pages** con dominio personalizado (`escuadron71.co`) para:
 
-- **CDN global:** Carga rapida desde cualquier ubicacion.
-- **SSL automatico:** Certificados TLS renovados automaticamente.
-- **Deploy automatico:** Build y deploy al hacer push a `master`.
-- **Variables de entorno:** Configuracion segura de credenciales.
+- **Deploy automatico:** Build y deploy via GitHub Action al hacer push a `master`.
+- **SSL automatico:** Certificados TLS via GitHub Pages + Let's Encrypt.
+- **Dominio personalizado:** `https://escuadron71.co` con redireccion `www` gestionada via DNS en Namecheap.
+- **Variables de entorno:** Configuracion segura via GitHub Secrets.
 
 ## Stack tecnologico y por que
 
@@ -109,7 +109,7 @@ El sitio se despliega en **Cloudflare Pages** para:
 | **TypeScript**       | Seguridad de tipos, mejor experiencia de desarrollo, menos errores en produccion |
 | **React Islands**    | Interactividad opt-in sin penalizar rendimiento del sitio estatico               |
 | **Supabase**         | Alternativa open-source a Firebase, PostgreSQL, auth integrada, RLS              |
-| **Cloudflare Pages** | Deploy estatico rapido, CDN global, SSL, edge functions                          |
+| **GitHub Pages**     | Hosting estatico con deploy via GitHub Action y dominio personalizado            |
 | **pnpm**             | Paqueteria rapida, eficiente en disco, monorepos si se necesita                  |
 
 ## Estado actual
@@ -117,24 +117,31 @@ El sitio se despliega en **Cloudflare Pages** para:
 ### Completado
 
 - Layout base con tipografia y colores de marca
-- Pagina principal (`index.astro`) con secciones: hero, nosotros, flota, operaciones, galeria, footer
+- Pagina principal (`/`) con secciones: hero, nosotros, flota, operaciones, galeria, footer
+- Seccion "Proximas Operaciones" en Home con featured event desde datos JSON
+- Pagina `/operaciones` con grid de eventos, cards con imagen, CTA y Google Calendar
+- Pipeline de sincronizacion de eventos Discord (adapter, normalizer, storage, CLI)
+- Componente EventCard con imagen, fecha, badge, descripcion, y acciones (Participar, Calendar, interesados)
+- Galeria de vuelo dinamica
 - Pagina de postulacion (placeholder)
 - Pagina SIVOE-71 (placeholder)
 - Schema SQL para base de datos
 - Blueprint de Laravel para SIVOE-71
+- Dominio personalizado `escuadron71.co` con SSL
+- Deploy automatico via GitHub Actions a GitHub Pages
 
 ### En progreso
 
 - Migracion de HTML legado a componentes Astro
 - Configuracion de TailwindCSS y SCSS
 - Configuracion de React Islands
+- Pipeline real de eventos Discord (pendiente token y secrets)
 
 ### Pendiente
 
-- Formulario de postulacion completo (migrar desde `postulacion.html`)
+- Formulario de postulacion completo
 - Sistema SIVOE-71 con autenticacion y dashboards
 - Integracion con Supabase (auth, DB, storage)
-- Deploy en Cloudflare Pages
 - Blog del escuadron
 - Panel de pilotos (area privada)
 
@@ -144,19 +151,29 @@ El sitio se despliega en **Cloudflare Pages** para:
 
 - [x] Layout base
 - [x] Pagina principal
-- [ ] Configurar TailwindCSS + SCSS
+- [x] Seccion de operaciones con featured event
+- [x] Pagina `/operaciones` con grid de eventos
+- [x] Componentes EventCard y EventList
+- [x] Pipeline de sincronizacion Discord (esqueleto)
+- [ ] Dominio personalizado y SSL
 - [ ] Migrar contenido faltante del HTML legado
 - [ ] Pagina de postulacion funcional
-- [ ] Deploy basico en Cloudflare Pages
 
-### Fase 2: Integracion Supabase
+### Fase 2: Pipeline eventos real
+
+- [ ] Agregar `zod` al proyecto
+- [ ] Configurar secrets DISCORD_BOT_TOKEN y DISCORD_GUILD_ID en GitHub
+- [ ] Agregar script `sync:events` en package.json
+- [ ] Activar workflow `sync-events.yml`
+
+### Fase 3: Integracion Supabase
 
 - [ ] Configurar proyecto Supabase
 - [ ] Autenticacion (login/registro)
 - [ ] Formulario de postulacion con backend
 - [ ] RLS policies
 
-### Fase 3: SIVOE-71
+### Fase 4: SIVOE-71
 
 - [ ] Dashboard de pilotos
 - [ ] Bitacora de vuelos
@@ -164,11 +181,10 @@ El sitio se despliega en **Cloudflare Pages** para:
 - [ ] Gestion de misiones
 - [ ] Panel de administracion
 
-### Fase 4: Expandir
+### Fase 5: Expandir
 
 - [ ] Blog del escuadron
 - [ ] Galeria dinamica
-- [ ] Calendario de operaciones interactivo
 - [ ] Notificaciones y alerts
 
 ## Integraciones
@@ -182,11 +198,10 @@ El sitio se despliega en **Cloudflare Pages** para:
 - **DB:** PostgreSQL con RLS
 - **Edge Functions:** Para logica server-side cuando sea necesaria
 
-### Cloudflare Pages
+### GitHub Pages
 
-- **Build:** `pnpm build` -> directorio `dist`
-- **Deploy:** Automatico al push a `master`
-- **Variables de entorno:** Configurar en Cloudflare Dashboard
-- **Dominio:** Personalizado con SSL automatico
-- **Headers:** Configurar en `_headers` para seguridad
-- **Redirects:** Configurar en `_redirects` si es necesario
+- **Build:** `pnpm build` via GitHub Action al push a `master`
+- **Deploy:** Automatico via `actions/deploy-pages` en GitHub Pages
+- **Dominio:** `https://escuadron71.co` configurado via `public/CNAME` y GitHub Pages Settings
+- **DNS:** A records en Namecheap apuntando a IPs de GitHub Pages, CNAME para `www`
+- **SSL:** Automatico via GitHub Pages (Let's Encrypt)
