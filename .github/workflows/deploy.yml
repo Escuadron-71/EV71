@@ -36,7 +36,8 @@ jobs:
       - name: Build Astro
         run: pnpm build
         env:
-          BASE_PATH: /EV71
+          BASE_PATH: /
+          SITE_URL: https://escuadron71.co
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
