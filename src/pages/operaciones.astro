@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { EventService } from "@/lib/services/event-service";
+import EventList from "@/components/EventList.astro";
+
+const eventService = new EventService();
+const events = await eventService.getUpcomingEvents();
+const upcomingEvents = events.filter((e) => e.status === "upcoming" || e.status === "ongoing");
+---
+
+<BaseLayout title="Operaciones - Escuadron 71">
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Operaciones</span>
+          <h1>Proximas Operaciones</h1>
+        </div>
+        <EventList events={upcomingEvents} />
+      </div>
+    </section>
+  </main>
+</BaseLayout>

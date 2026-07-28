@@ -1,9 +1,31 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { resolvePath } from "@/lib/base-url";
+import { EventService } from "@/lib/services/event-service";
 import '../styles/pages/_home.scss';
 
 const base = resolvePath("/");
+
+const eventService = new EventService();
+const nextEvent = await eventService.getNextEvent();
+
+const formatFeaturedDate = (dateStr: string) => {
+  const d = new Date(dateStr);
+  const day = d.getDate().toString().padStart(2, "0");
+  const month = d.toLocaleDateString("es-ES", { month: "short" }).toUpperCase();
+  const year = d.getFullYear();
+  const hours = d.getHours().toString().padStart(2, "0");
+  const minutes = d.getMinutes().toString().padStart(2, "0");
+  return { date: `${day} ${month} ${year}`, time: `${hours}:${minutes}` };
+};
+
+const fmtCal = (d: Date) =>
+  d.getUTCFullYear().toString().padStart(4, "0") +
+  (d.getUTCMonth() + 1).toString().padStart(2, "0") +
+  d.getUTCDate().toString().padStart(2, "0") + "T" +
+  d.getUTCHours().toString().padStart(2, "0") +
+  d.getUTCMinutes().toString().padStart(2, "0") +
+  "00Z";
 
 const nosotrosCards = [
   {
@@ -136,19 +158,81 @@ const gallery = [
           <span class="eyebrow">Operaciones</span>
           <h2>Proximas Operaciones</h2>
         </div>
-        <div class="operation-panel w-full">
-          <h3>Calendario Operacional</h3>
-          <ul>
-            <li>
-              <strong>Entrenamiento FR1 y CR1</strong>
-              <span>Todos los dias (programado 1700Hr - 7:00Pm)</span>
-            </li>
-            <li>
-              <strong>Operacion "Demonio Negro"</strong>
-              <span>Proximamente - Preparate</span>
-            </li>
-          </ul>
-        </div>
+
+        {nextEvent ? (
+          <div class="operation-panel featured-event w-full">
+            <div class="featured-event__badge">PROXIMA OPERACION</div>
+            <div class="featured-event__flex">
+              {nextEvent.image && (
+                <img
+                  src={resolvePath(nextEvent.image)}
+                  alt={nextEvent.title}
+                  class="featured-event__image"
+                  loading="lazy"
+                />
+              )}
+              <div class="featured-event__body">
+                <div class="featured-event__meta">
+                  <span class="featured-event__date">
+                    {formatFeaturedDate(nextEvent.startDate).date}
+                  </span>
+                  <span class="featured-event__time">
+                    {formatFeaturedDate(nextEvent.startDate).time} HRS
+                  </span>
+                </div>
+                <h3 class="featured-event__title">{nextEvent.title}</h3>
+                {nextEvent.description && (
+                  <p class="featured-event__desc">{nextEvent.description}</p>
+                )}
+                <div class="featured-event__actions">
+                  {nextEvent.eventUrl && (
+                    <a
+                      href={nextEvent.eventUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="featured-event__btn"
+                    >
+                      Participar
+                    </a>
+                  )}
+                  {nextEvent.interestedCount !== undefined && (
+                    <span class="featured-event__interested">
+                      <span class="featured-event__dot"></span>
+                      {nextEvent.interestedCount} interesados
+                    </span>
+                  )}
+                  <a
+                    href={`https://www.google.com/calendar/render?${new URLSearchParams({
+                      action: "TEMPLATE",
+                      text: nextEvent.title,
+                      dates: `${fmtCal(new Date(nextEvent.startDate))}/${nextEvent.endDate ? fmtCal(new Date(nextEvent.endDate)) : fmtCal(new Date(nextEvent.startDate))}`,
+                      details: nextEvent.description || "",
+                      location: nextEvent.location || "",
+                      ctz: "UTC",
+                    }).toString()}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="featured-event__btn featured-event__btn--outline"
+                  >
+                    Calendar
+                  </a>
+                  <a
+                    href={resolvePath("/operaciones")}
+                    class="featured-event__cta"
+                  >
+                    Ver todas &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div class="operation-panel w-full">
+            <p class="event-empty">
+              No hay operaciones programadas en este momento.
+            </p>
+          </div>
+        )}
       </div>
     </section>
 

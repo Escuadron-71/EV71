@@ -1,0 +1,115 @@
+---
+import { resolvePath } from "@/lib/base-url";
+import type { ServiceEvent } from "@/lib/services/event-service";
+
+interface Props {
+  event: ServiceEvent;
+}
+
+const { event } = Astro.props;
+
+const startDate = new Date(event.startDate);
+const day = startDate.getDate().toString().padStart(2, "0");
+const month = startDate
+  .toLocaleDateString("es-ES", { month: "short" })
+  .toUpperCase();
+const year = startDate.getFullYear();
+const hours = startDate.getHours().toString().padStart(2, "0");
+const minutes = startDate.getMinutes().toString().padStart(2, "0");
+const formattedDate = `${day} ${month} ${year}`;
+const formattedTime = `${hours}:${minutes}`;
+
+const statusLabel: Record<string, string> = {
+  upcoming: "PROXIMO",
+  ongoing: "EN CURSO",
+  ended: "FINALIZADO",
+  cancelled: "CANCELADO",
+};
+
+const statusClass: Record<string, string> = {
+  upcoming: "badge--upcoming",
+  ongoing: "badge--ongoing",
+  ended: "badge--ended",
+  cancelled: "badge--cancelled",
+};
+
+const fmtCal = (d: Date) =>
+  d.getUTCFullYear().toString().padStart(4, "0") +
+  (d.getUTCMonth() + 1).toString().padStart(2, "0") +
+  d.getUTCDate().toString().padStart(2, "0") + "T" +
+  d.getUTCHours().toString().padStart(2, "0") +
+  d.getUTCMinutes().toString().padStart(2, "0") +
+  "00Z";
+
+const calStart = fmtCal(startDate);
+const calEnd = event.endDate
+  ? fmtCal(new Date(event.endDate))
+  : calStart;
+
+const calParams = new URLSearchParams({
+  action: "TEMPLATE",
+  text: event.title,
+  dates: `${calStart}/${calEnd}`,
+  details: event.description || "",
+  location: event.location || "",
+  ctz: "UTC",
+});
+
+const calendarUrl = `https://www.google.com/calendar/render?${calParams.toString()}`;
+---
+
+<article class="event-card">
+  {event.image && (
+    <div class="event-card__img-wrapper">
+      <img
+        src={resolvePath(event.image)}
+        alt={event.title}
+        class="event-card__img"
+        loading="lazy"
+      />
+    </div>
+  )}
+  <div class="event-card__body">
+    <div class="event-card__header">
+      <h3 class="event-card__title">{event.title}</h3>
+      <span class={`event-card__badge ${statusClass[event.status]}`}>
+        {statusLabel[event.status]}
+      </span>
+    </div>
+    <p class="event-card__meta">
+      {formattedDate} &middot; {formattedTime} HRS
+      {event.location && <> &middot; {event.location}</>}
+    </p>
+    {event.description && (
+      <p class="event-card__desc">{event.description}</p>
+    )}
+
+    <div class="event-card__actions">
+      {event.eventUrl && (
+        <a
+          href={event.eventUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="event-card__btn"
+        >
+          Participar
+        </a>
+      )}
+      {event.interestedCount !== undefined && (
+        <span class="event-card__interested">
+          <span class="event-card__dot"></span>
+          {event.interestedCount} interesados
+        </span>
+      )}
+      <a
+        href={calendarUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="event-card__btn event-card__btn--outline"
+        title="Agregar a Google Calendar"
+      >
+        Calendar
+      </a>
+    </div>
+  </div>
+</article>

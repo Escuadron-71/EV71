@@ -1,0 +1,119 @@
+{
+  "success": true,
+  "timestamp": "2026-07-28T12:00:00.000Z",
+  "source": "discord",
+  "events": [
+    {
+      "id": "event-001",
+      "title": "Operacion Escudo del Desierto",
+      "description": "Mision de interdiccion nocturna en el teatro Caucasus. ROE modificadas para enfrentamiento BVR con amenazas SAM de largo alcance. Se requiere certificacion IFR vigente.",
+      "image": "assets/images/ScreenF18.jpg",
+      "startDate": "2026-07-30T20:00:00.000Z",
+      "endDate": "2026-07-30T23:00:00.000Z",
+      "location": "Caucasus - Base Aerea Beslan",
+      "eventUrl": "https://discord.com/events/000000000000000000/event-001",
+      "interestedCount": 14,
+      "status": "upcoming",
+      "source": {
+        "type": "discord",
+        "id": "event-001"
+      },
+      "metadata": {
+        "version": "1.0.0"
+      },
+      "createdAt": "2026-07-28T12:00:00.000Z",
+      "updatedAt": "2026-07-28T12:00:00.000Z"
+    },
+    {
+      "id": "event-002",
+      "title": "Entrenamiento Tactico BVR",
+      "description": "Sesion de entrenamiento enfocada en combate mas alla del alcance visual (BVR). Tacticas de defensa contra AMRAAM, uso de contramedidas y maniobras evasivas.",
+      "image": "assets/images/F16.png",
+      "startDate": "2026-08-02T18:00:00.000Z",
+      "endDate": "2026-08-02T21:00:00.000Z",
+      "location": "Caucasus - MP Server",
+      "eventUrl": "https://discord.com/events/000000000000000000/event-002",
+      "interestedCount": 8,
+      "status": "upcoming",
+      "source": {
+        "type": "discord",
+        "id": "event-002"
+      },
+      "metadata": {
+        "version": "1.0.0"
+      },
+      "createdAt": "2026-07-28T12:00:00.000Z",
+      "updatedAt": "2026-07-28T12:00:00.000Z"
+    },
+    {
+      "id": "event-003",
+      "title": "Ejercicio de Defensa Aerea",
+      "description": "Ejercicio conjunto de defensa aerea. Interceptacion de amenazas de bombarderos enemigos con escolta. Coordinacion entre controladores y pilotos en tiempo real.",
+      "image": "assets/images/F14.jpg",
+      "startDate": "2026-08-05T19:00:00.000Z",
+      "endDate": "2026-08-05T22:00:00.000Z",
+      "location": "Persian Gulf - THR",
+      "eventUrl": "https://discord.com/events/000000000000000000/event-003",
+      "interestedCount": 11,
+      "status": "upcoming",
+      "source": {
+        "type": "discord",
+        "id": "event-003"
+      },
+      "metadata": {
+        "version": "1.0.0"
+      },
+      "createdAt": "2026-07-28T12:00:00.000Z",
+      "updatedAt": "2026-07-28T12:00:00.000Z"
+    },
+    {
+      "id": "event-004",
+      "title": "Operacion Tormenta del Sur",
+      "description": "Campana ofensiva en el teatro Persian Gulf. CAS y SEAD para apoyar avance terrestre. Se requieren pilotos con experiencia en ataque a tierra y coordinacion JTAC.",
+      "image": "assets/images/DCS1.png",
+      "startDate": "2026-08-10T20:00:00.000Z",
+      "endDate": "2026-08-10T23:30:00.000Z",
+      "location": "Persian Gulf - Al Dhafra AB",
+      "eventUrl": "https://discord.com/events/000000000000000000/event-004",
+      "interestedCount": 6,
+      "status": "upcoming",
+      "source": {
+        "type": "discord",
+        "id": "event-004"
+      },
+      "metadata": {
+        "version": "1.0.0"
+      },
+      "createdAt": "2026-07-28T12:00:00.000Z",
+      "updatedAt": "2026-07-28T12:00:00.000Z"
+    },
+    {
+      "id": "event-005",
+      "title": "Mision CSAR Demonio Rojo",
+      "description": "Mision de Busqueda y Rescate en Combate (CSAR) tras linea enemiga. Extraccion de piloto derribado en territorio hostil. Se requiere escolta y helicoptero de rescate.",
+      "image": "assets/images/APACHE.jpg",
+      "startDate": "2026-08-15T17:00:00.000Z",
+      "endDate": "2026-08-15T20:00:00.000Z",
+      "location": "Caucasus - Zona Roja",
+      "eventUrl": "https://discord.com/events/000000000000000000/event-005",
+      "interestedCount": 10,
+      "status": "upcoming",
+      "source": {
+        "type": "discord",
+        "id": "event-005"
+      },
+      "metadata": {
+        "version": "1.0.0"
+      },
+      "createdAt": "2026-07-28T12:00:00.000Z",
+      "updatedAt": "2026-07-28T12:00:00.000Z"
+    }
+  ],
+  "stats": {
+    "total": 5,
+    "new": 5,
+    "updated": 0,
+    "expired": 0,
+    "errors": 0
+  }
+}
