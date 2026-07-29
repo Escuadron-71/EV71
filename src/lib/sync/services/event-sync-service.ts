@@ -2,7 +2,7 @@ import { DiscordAdapter } from "../adapters/discord/discord-adapter";
 import { EventTransformer } from "../adapters/discord/transformers/event-transformer";
 import { EventNormalizer } from "../core/normalizers/event-normalizer";
 import { JsonStorage } from "../core/storage/json-storage";
-import { DomainEvent, SyncResult } from "../core/types/domain-events";
+import { type DomainEvent, type SyncResult } from "../core/types/domain-events";
 
 export interface EventSyncOptions {
   adapter?: DiscordAdapter;

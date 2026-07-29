@@ -309,14 +309,17 @@
     top: auto;
     position: static;
     transform: none;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.25s ease, max-height 0.3s ease, visibility 0.25s ease, padding 0.25s ease;
     box-shadow: none;
     border: none;
     border-radius: 0;
     background: rgba($primary-dark, 0.5);
-    padding: 2em;
+    padding: 0 2em;
 
     &::before,
     &::after {
@@ -327,6 +330,14 @@
       padding: 12px 24px;
       font-size: 0.9rem;
     }
+  }
+
+  .nav-dropdown.open .nav-dropdown-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    max-height: 500px;
+    padding: 2em;
   }
 
   .nav-dropdown .nav-dropdown-trigger {

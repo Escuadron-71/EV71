@@ -79,6 +79,7 @@ src/
 - Commits pequenos y especificos: un commit = un cambio logico.
   No mezclar estilos con logica, ni features con fixes en el mismo commit.
   Esto permite revertir cambios puntuales sin afectar trabajo adyacente.
+- **Idioma:** Todos los mensajes de commit deben estar en ingles. Consistencia sobre el repositorio.
 
 ## Reglas de desarrollo
 

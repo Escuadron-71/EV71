@@ -12,13 +12,14 @@ export const DomainEventSchema = z.object({
   location: z.string().optional(),
   url: z.string().url().optional(),
   creator: z.string().optional(),
+  interestedCount: z.number().optional(),
   status: z.enum(["upcoming", "ongoing", "ended", "cancelled"]),
   source: z.object({
     type: z.enum(["discord", "google_drive", "youtube", "twitch"]),
     id: z.string(),
     url: z.string().url().optional(),
   }),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
 });

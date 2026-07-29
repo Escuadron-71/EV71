@@ -81,7 +81,14 @@ const calendarUrl = `https://www.google.com/calendar/render?${calParams.toString
       {event.location && <> &middot; {event.location}</>}
     </p>
     {event.description && (
-      <p class="event-card__desc">{event.description}</p>
+      <div class="event-card__desc-wrap">
+        <input type="checkbox" class="event-card__toggle" id={`desc-${event.id}`} hidden />
+        <p class="event-card__desc">{event.description}</p>
+        <label class="event-card__toggle-label" for={`desc-${event.id}`}>
+          <span class="event-card__toggle-more">Leer m&aacute;s</span>
+          <span class="event-card__toggle-less">Mostrar menos</span>
+        </label>
+      </div>
     )}
 
     <div class="event-card__actions">
