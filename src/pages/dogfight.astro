@@ -1,0 +1,13 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import DogfightApp from "@/islands/DogfightApp";
+import "@/styles/pages/_dogfight.scss";
+---
+
+<BaseLayout title="Dogfight - Escuadron 71" description="Torneo interno de combate aereo. Escalera de pilotos del Escuadron 71.">
+  <main class="section">
+    <div class="container">
+      <DogfightApp client:load />
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,897 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// ============================================
+// Dogfight App — King of the Hill
+// ============================================
+
+.dogfight-app {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+// ----------- Toast -----------
+.dogfight-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: $z-modal;
+  animation: dogfight-fade-in 0.25s ease-out;
+  box-shadow: $shadow-panel;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  &--success {
+    background: rgba($ok, 0.15);
+    color: $ok;
+    border: 1px solid rgba($ok, 0.3);
+  }
+  &--error {
+    background: rgba($danger, 0.15);
+    color: $danger;
+    border: 1px solid rgba($danger, 0.3);
+  }
+  &--info {
+    background: rgba($secondary, 0.12);
+    color: $secondary-light;
+    border: 1px solid rgba($secondary, 0.25);
+  }
+}
+
+@keyframes dogfight-fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+// ----------- Header -----------
+.dogfight-header {
+  margin-bottom: 28px;
+}
+
+.dogfight-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dogfight-title {
+  font-family: $font-heading;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $secondary;
+  margin: 0;
+}
+
+.dogfight-help-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba($secondary, 0.3);
+  background: rgba($secondary, 0.06);
+  color: $secondary;
+  font-family: $font-heading;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.1s;
+  flex-shrink: 0;
+
+  &:hover {
+    background: rgba($secondary, 0.15);
+    transform: scale(1.05);
+  }
+}
+
+.dogfight-subtitle {
+  color: $text-muted;
+  font-size: 1rem;
+  margin: 6px 0 0;
+  border-left: 4px solid $secondary;
+  padding-left: 16px;
+
+  strong {
+    color: $secondary;
+  }
+}
+
+// ----------- Help Panel -----------
+.dogfight-help-panel {
+  background: rgba($primary-light, 0.6);
+  border: 1px solid rgba($secondary, 0.15);
+  border-radius: 1.5rem;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  animation: dogfight-fade-in 0.2s ease-out;
+}
+
+.dogfight-help-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+
+  h4 {
+    font-family: $font-heading;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $secondary;
+    margin: 0 0 10px;
+  }
+
+  ol,
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  li {
+    color: $text-muted;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    padding-left: 18px;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba($secondary, 0.3);
+    }
+
+    strong {
+      color: $secondary-light;
+      font-weight: 600;
+    }
+  }
+}
+
+@include responsive($breakpoint-sm) {
+  .dogfight-help-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ----------- Controls -----------
+.dogfight-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  background: rgba($primary, 0.6);
+  border: 1px solid $border;
+  border-radius: 60px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+}
+
+.dogfight-input {
+  flex: 1 1 200px;
+  min-width: 140px;
+  background: $primary-dark;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 18px;
+  border-radius: 40px;
+  font-size: 0.95rem;
+  color: $text-light;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: $font-body;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  &:focus {
+    border-color: $secondary;
+    box-shadow: 0 0 0 3px rgba($secondary, 0.15);
+  }
+}
+
+.dogfight-btn--primary {
+  border-radius: 40px !important;
+  padding: 8px 24px !important;
+  font-size: 0.9rem !important;
+}
+
+.dogfight-btn--reset {
+  @include button-secondary;
+  border-radius: 40px;
+  padding: 8px 20px;
+  font-size: 0.85rem;
+  font-family: $font-heading;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border-color: rgba($danger, 0.4);
+  color: $danger;
+
+  &:hover {
+    background: rgba($danger, 0.1);
+    border-color: $danger;
+  }
+}
+
+// ----------- Queue -----------
+.dogfight-queue-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  span {
+    font-family: $font-heading;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $text-muted;
+  }
+
+  small {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.75rem;
+  }
+}
+
+.dogfight-queue {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid $border;
+  border-radius: 1.5rem;
+  margin-bottom: 24px;
+  min-height: 60px;
+  position: relative;
+  align-items: center;
+}
+
+.dogfight-queue-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  text-align: center;
+  padding: 8px 0;
+
+  span {
+    color: $text-muted;
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+
+  small {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.75rem;
+  }
+}
+
+.dogfight-queue-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: $primary-light;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 10px 6px 8px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  color: $text-light;
+  cursor: grab;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  user-select: none;
+
+  &:hover {
+    border-color: rgba($secondary, 0.4);
+    background: rgba($secondary, 0.05);
+  }
+
+  &:active {
+    cursor: grabbing;
+    transform: scale(0.96);
+  }
+
+  &--over {
+    border-color: $secondary;
+    background: rgba($secondary, 0.1);
+    transform: scale(1.02);
+  }
+}
+
+.dogfight-queue-grip {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.8rem;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.dogfight-queue-remove {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0 2px;
+  transition: color 0.15s;
+
+  &:hover {
+    color: $danger;
+  }
+}
+
+.dogfight-queue-dropzone {
+  min-width: 60px;
+  min-height: 32px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dogfight-queue-indicator {
+  color: $secondary;
+  font-size: 0.75rem;
+  font-style: italic;
+  padding: 4px 12px;
+  border: 1px dashed rgba($secondary, 0.3);
+  border-radius: 20px;
+}
+
+// ----------- Match -----------
+.dogfight-match {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.dogfight-slot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 16px;
+  border-radius: 1.5rem;
+  border: 1px solid $border;
+  background: rgba(0, 0, 0, 0.25);
+  transition: border-color 0.2s, background 0.2s;
+  min-height: 160px;
+
+  &[ondragover] {
+    border-color: $secondary;
+  }
+
+  &--empty {
+    border-style: dashed;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.dogfight-slot--champion {
+  background: rgba($secondary, 0.03);
+  border-color: rgba($secondary, 0.15);
+
+  .dogfight-slot-badge {
+    color: $secondary;
+    border-color: rgba($secondary, 0.3);
+  }
+}
+
+.dogfight-slot--challenger {
+  border-color: rgba(255, 255, 255, 0.06);
+
+  .dogfight-slot-badge {
+    color: $text-muted;
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.dogfight-slot-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dogfight-slot-badge {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 30px;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+
+.dogfight-slot-back {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+
+  &:hover {
+    color: $secondary;
+    background: rgba($secondary, 0.1);
+  }
+}
+
+.dogfight-slot-name {
+  font-family: $font-heading;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: $text-light;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.dogfight-slot-record {
+  font-size: 0.85rem;
+  color: $text-muted;
+}
+
+.dogfight-slot-empty-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+
+  span {
+    color: $text-muted;
+    font-size: 0.9rem;
+  }
+
+  small {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.75rem;
+  }
+}
+
+.dogfight-vs-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+
+.dogfight-vs-badge {
+  display: inline-block;
+  background: $secondary;
+  color: $primary-dark;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.dogfight-match-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.dogfight-match-waiting {
+  text-align: center;
+  color: $text-muted;
+  font-style: italic;
+  font-size: 0.9rem;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px dashed rgba(255, 255, 255, 0.06);
+  border-radius: 40px;
+}
+
+// ----------- Win / Lose buttons -----------
+.dogfight-btn--win {
+  padding: 10px 32px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 40px;
+  background: rgba($ok, 0.12);
+  border: 1px solid rgba($ok, 0.3);
+  color: $ok;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: 0.5px;
+  font-family: $font-heading;
+  text-transform: uppercase;
+
+  &:hover {
+    background: rgba($ok, 0.25);
+    transform: scale(1.02);
+  }
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+.dogfight-btn--lose {
+  padding: 10px 32px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 40px;
+  background: rgba($danger, 0.12);
+  border: 1px solid rgba($danger, 0.3);
+  color: $danger;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: 0.5px;
+  font-family: $font-heading;
+  text-transform: uppercase;
+
+  &:hover {
+    background: rgba($danger, 0.25);
+    transform: scale(1.02);
+  }
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+// ----------- Streak -----------
+.dogfight-streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
+  border-radius: 30px;
+  font-size: 0.7rem;
+  font-weight: 600;
+
+  &--win {
+    background: rgba($ok, 0.12);
+    color: $ok;
+    border: 1px solid rgba($ok, 0.2);
+  }
+
+  &--loss {
+    background: rgba($danger, 0.12);
+    color: $danger;
+    border: 1px solid rgba($danger, 0.2);
+  }
+}
+
+// ----------- History -----------
+.dogfight-history {
+  margin-bottom: 20px;
+}
+
+.dogfight-history-label {
+  font-family: $font-heading;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $text-muted;
+  margin-bottom: 10px;
+}
+
+.dogfight-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dogfight-history-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 40px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.dogfight-history-icon {
+  color: $text-muted;
+  font-size: 0.8rem;
+}
+
+.dogfight-history-winner {
+  color: $ok;
+  font-weight: 600;
+}
+
+.dogfight-history-vs {
+  color: $text-muted;
+  font-size: 0.8rem;
+}
+
+.dogfight-history-loser {
+  color: $danger;
+}
+
+// ----------- Footer -----------
+.dogfight-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+// ----------- Results: Podium -----------
+.podium {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding: 20px 0;
+}
+
+.podium__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 20px 16px 14px;
+  border-radius: 16px 16px 8px 8px;
+  min-width: 120px;
+  position: relative;
+  transition: all 0.2s;
+
+  &--1 {
+    height: 240px;
+    background: linear-gradient(180deg, rgba($secondary, 0.12) 0%, rgba($secondary, 0.04) 100%);
+    border: 1px solid rgba($secondary, 0.2);
+    box-shadow: 0 4px 24px rgba($secondary, 0.08);
+  }
+
+  &--2 {
+    height: 180px;
+    background: linear-gradient(180deg, rgba(148, 163, 184, 0.1) 0%, rgba(148, 163, 184, 0.03) 100%);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+  }
+
+  &--3 {
+    height: 140px;
+    background: linear-gradient(180deg, rgba(205, 127, 50, 0.1) 0%, rgba(205, 127, 50, 0.03) 100%);
+    border: 1px solid rgba(205, 127, 50, 0.15);
+  }
+}
+
+.podium__medal {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.podium__pos {
+  font-family: $font-heading;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.podium__name {
+  font-family: $font-heading;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: $text-light;
+  text-align: center;
+}
+
+.podium__record {
+  font-size: 0.8rem;
+  color: $text-muted;
+}
+
+.podium__wr {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $secondary;
+}
+
+// ----------- Results: Table -----------
+.results-table {
+  margin-bottom: 16px;
+}
+
+.dogfight-text-muted {
+  color: $text-muted;
+  font-size: 0.85rem;
+}
+
+// ----------- Table -----------
+.dogfight-table-wrap {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid $border;
+  border-radius: 1.5rem;
+  padding: 6px;
+  overflow-x: auto;
+}
+
+.dogfight-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: $text-light;
+  font-size: 0.9rem;
+
+  th {
+    text-align: left;
+    padding: 14px 10px 14px 6px;
+    font-weight: 500;
+    color: $text-muted;
+    border-bottom: 1px solid $border;
+    font-size: 0.75rem;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    font-family: $font-heading;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 12px 10px 12px 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    vertical-align: middle;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.dogfight-cell--rank {
+  width: 48px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.dogfight-cell--name {
+  min-width: 120px;
+}
+
+.dogfight-pilot {
+  font-weight: 500;
+}
+
+.dogfight-cell--stats {
+  min-width: 140px;
+}
+
+.dogfight-winrate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dogfight-bar {
+  flex: 1;
+  max-width: 100px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dogfight-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, $ok, #22d3ee);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.dogfight-winrate-text {
+  font-size: 0.8rem;
+  color: $text-muted;
+  white-space: nowrap;
+}
+
+// ----------- Responsive -----------
+@include responsive($breakpoint-md) {
+  .dogfight-controls {
+    border-radius: 24px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dogfight-btn--primary,
+  .dogfight-btn--reset {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .dogfight-match {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .dogfight-vs-divider {
+    padding: 4px 0;
+  }
+
+  .dogfight-slot {
+    min-height: 120px;
+    padding: 16px;
+  }
+
+  .podium {
+    gap: 8px;
+  }
+
+  .podium__step {
+    min-width: 90px;
+
+    &--1 { height: 200px; }
+    &--2 { height: 150px; }
+    &--3 { height: 110px; }
+  }
+}
+
+@include responsive($breakpoint-sm) {
+  .dogfight-queue {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dogfight-queue-item {
+    justify-content: space-between;
+  }
+
+  .dogfight-match-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dogfight-btn--win,
+  .dogfight-btn--lose {
+    text-align: center;
+    width: 100%;
+  }
+
+  .podium {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .podium__step {
+    width: 100%;
+    max-width: 280px;
+    height: auto !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 14px;
+    border-radius: 12px;
+  }
+}
