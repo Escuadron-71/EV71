@@ -1,7 +1,7 @@
-import { DiscordConfig, getDiscordConfig } from "./config";
+import { type DiscordConfig, getDiscordConfig } from "./config";
 import {
-  DiscordEvent,
-  DiscordGuildEventsResponse,
+  type DiscordEvent,
+  type DiscordGuildEventsResponse,
   DiscordEventSchema,
 } from "../../core/types/discord-types";
 import { z } from "zod";
@@ -20,7 +20,7 @@ export class DiscordAdapter {
    * Implementa manejo de rate limiting y paginación
    */
   async fetchGuildEvents(): Promise<DiscordEvent[]> {
-    const url = `${this.baseUrl}/guilds/${this.config.guildId}/scheduled-events`;
+    const url = `${this.baseUrl}/guilds/${this.config.guildId}/scheduled-events?with_user_count=true`;
 
     try {
       const response = await fetch(url, {

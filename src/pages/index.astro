@@ -182,7 +182,14 @@ const gallery = [
                 </div>
                 <h3 class="featured-event__title">{nextEvent.title}</h3>
                 {nextEvent.description && (
-                  <p class="featured-event__desc">{nextEvent.description}</p>
+                  <div class="featured-event__desc-wrap">
+                    <input type="checkbox" class="featured-event__toggle" id={`feat-desc-${nextEvent.id}`} hidden />
+                    <p class="featured-event__desc">{nextEvent.description}</p>
+                    <label class="featured-event__toggle-label" for={`feat-desc-${nextEvent.id}`}>
+                      <span class="featured-event__toggle-more">Leer m&aacute;s</span>
+                      <span class="featured-event__toggle-less">Mostrar menos</span>
+                    </label>
+                  </div>
                 )}
                 <div class="featured-event__actions">
                   {nextEvent.eventUrl && (

@@ -1,4 +1,4 @@
-import { DomainEvent, DomainEventSchema } from "../types/domain-events";
+import { type DomainEvent, DomainEventSchema } from "../types/domain-events";
 
 export class EventNormalizer {
   /**

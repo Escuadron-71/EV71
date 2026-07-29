@@ -1,21 +1,20 @@
-// # Tipos especificos de Discord
 import { z } from "zod";
 
-// Esquema de respuesta de la API de Discord para eventos de guild
 export const DiscordEventSchema = z.object({
   id: z.string(),
   name: z.string(),
-  description: z.string().optional(),
-  image: z.string().optional(),
-  location: z.string().optional(),
+  description: z.string().nullable().optional(),
+  image: z.string().nullable().optional(),
+  location: z.string().nullable().optional(),
   scheduled_start_time: z.string(),
-  scheduled_end_time: z.string().optional(),
+  scheduled_end_time: z.string().nullable().optional(),
   privacy_level: z.number(),
-  status: z.enum(["SCHEDULED", "ACTIVE", "COMPLETED", "CANCELED"]),
+  status: z.number(),
   entity_type: z.number(),
-  entity_id: z.string().optional(),
+  entity_id: z.string().nullable().optional(),
   creator_id: z.string(),
   guild_id: z.string(),
+  user_count: z.number().optional().nullable(),
 });
 
 export type DiscordEvent = z.infer<typeof DiscordEventSchema>;

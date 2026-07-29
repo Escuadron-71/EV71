@@ -1,6 +1,6 @@
 {
   "success": true,
-  "timestamp": "2026-07-29T17:56:43.655Z",
+  "timestamp": "2026-07-29T17:54:30.938Z",
   "source": "discord",
   "events": [
     {
@@ -10,7 +10,6 @@
       "image": "https://cdn.discordapp.com/guild-events/1529286566986383621/6c113ea065650839ca532f44a0828001.png",
       "startDate": "2026-08-17T23:00:00Z",
       "creator": "898699757965418516",
-      "interestedCount": 2,
       "status": "upcoming",
       "source": {
         "type": "discord",
@@ -22,11 +21,11 @@
         "entityType": 2,
         "entityId": null,
         "discordStatus": "SCHEDULED",
-        "normalizedAt": "2026-07-29T17:56:43.655Z",
+        "normalizedAt": "2026-07-29T17:54:30.938Z",
         "version": "1.0.0"
       },
-      "createdAt": "2026-07-29T17:56:43.651Z",
-      "updatedAt": "2026-07-29T17:56:43.651Z"
+      "createdAt": "2026-07-29T17:54:30.934Z",
+      "updatedAt": "2026-07-29T17:54:30.934Z"
     }
   ],
   "stats": {

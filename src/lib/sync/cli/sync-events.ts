@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import "dotenv/config";
 import { EventSyncService } from "../services/event-sync-service";
 import { DiscordAdapter } from "../adapters/discord/discord-adapter";
 import { JsonStorage } from "../core/storage/json-storage";
@@ -7,7 +8,7 @@ import { JsonStorage } from "../core/storage/json-storage";
 /**
  * Script CLI para sincronizar eventos de Discord
  *
- * Uso: node sync-events.js
+ * Uso: pnpm sync:events
  *
  * Variables de entorno requeridas:
  * - DISCORD_BOT_TOKEN: Token del bot de Discord
@@ -15,13 +16,13 @@ import { JsonStorage } from "../core/storage/json-storage";
  */
 
 async function main() {
-  console.log("🚀 Starting Discord Events Sync...");
-  console.log("📋 Environment:", process.env.NODE_ENV || "development");
+  console.log("Starting Discord Events Sync...");
+  console.log("Environment:", process.env.NODE_ENV || "development");
 
   try {
     const adapter = new DiscordAdapter();
     const storage = new JsonStorage({
-      dataDir: process.env.EVENTS_DATA_DIR || "data/events",
+      dataDir: process.env.EVENTS_DATA_DIR || "src/data/events",
     });
 
     const service = new EventSyncService({
@@ -32,20 +33,17 @@ async function main() {
     const result = await service.sync();
 
     if (result.success) {
-      console.log(`✅ Sync successful: ${result.events.length} events synced`);
-      console.log(`📊 Stats:`, result.stats);
+      console.log(`Sync successful: ${result.events.length} events synced`);
+      console.log("Stats:", result.stats);
       process.exit(0);
     } else {
-      console.error(`❌ Sync failed:`, result.errors);
+      console.error("Sync failed:", result.errors);
       process.exit(1);
     }
   } catch (error) {
-    console.error("❌ Fatal error:", error);
+    console.error("Fatal error:", error);
     process.exit(1);
   }
 }
 
-// Ejecutar si se llama directamente
-if (require.main === module) {
-  main();
-}
+main();

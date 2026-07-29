@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
-import { DomainEvent, SyncResult } from "../types/domain-events";
+import { type DomainEvent, type SyncResult } from "../types/domain-events";
 
 export interface StorageOptions {
   dataDir: string;

@@ -115,15 +115,60 @@
   margin: 0 0 8px;
 }
 
+.event-card__desc-wrap {
+  position: relative;
+  margin-bottom: 14px;
+}
+
 .event-card__desc {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.55);
   line-height: 1.5;
-  margin: 0 0 14px;
+  margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  transition: -webkit-line-clamp 0s;
+}
+
+.event-card__toggle:checked ~ .event-card__desc {
+  -webkit-line-clamp: unset;
+  display: block;
+}
+
+.event-card__toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $secondary;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+    color: $secondary-light;
+  }
+}
+
+.event-card__toggle-less {
+  display: none;
+}
+
+.event-card__toggle:checked ~ .event-card__toggle-label .event-card__toggle-more {
+  display: none;
+}
+
+.event-card__toggle:checked ~ .event-card__toggle-label .event-card__toggle-less {
+  display: inline;
 }
 
 // ============================================
@@ -277,12 +322,60 @@
   line-height: 1.2;
 }
 
+.featured-event__desc-wrap {
+  position: relative;
+  margin-bottom: 18px;
+}
+
 .featured-event__desc {
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.6;
-  margin: 0 0 18px;
+  margin: 0;
   max-width: 720px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: -webkit-line-clamp 0s;
+}
+
+.featured-event__toggle:checked ~ .featured-event__desc {
+  -webkit-line-clamp: unset;
+  display: block;
+}
+
+.featured-event__toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: $font-heading;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $secondary;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+    color: $secondary-light;
+  }
+}
+
+.featured-event__toggle-less {
+  display: none;
+}
+
+.featured-event__toggle:checked ~ .featured-event__toggle-label .featured-event__toggle-more {
+  display: none;
+}
+
+.featured-event__toggle:checked ~ .featured-event__toggle-label .featured-event__toggle-less {
+  display: inline;
 }
 
 .featured-event__cta {

@@ -1,6 +1,6 @@
 {
   "success": true,
-  "timestamp": "2026-07-29T17:56:43.655Z",
+  "timestamp": "2026-07-29T17:56:20.723Z",
   "source": "discord",
   "events": [
     {
@@ -22,11 +22,11 @@
         "entityType": 2,
         "entityId": null,
         "discordStatus": "SCHEDULED",
-        "normalizedAt": "2026-07-29T17:56:43.655Z",
+        "normalizedAt": "2026-07-29T17:56:20.722Z",
         "version": "1.0.0"
       },
-      "createdAt": "2026-07-29T17:56:43.651Z",
-      "updatedAt": "2026-07-29T17:56:43.651Z"
+      "createdAt": "2026-07-29T17:56:20.718Z",
+      "updatedAt": "2026-07-29T17:56:20.718Z"
     }
   ],
   "stats": {
