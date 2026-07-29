@@ -44,7 +44,7 @@ src/
     base/         # Reset, tipografia
     components/   # Buttons, cards, event-cards, forms, modals, social-icons
     layout/       # Header, footer, hero, sections
-    pages/        # Home, postulacion, sivoe71
+    pages/        # Home, postulacion, sivoe71, dogfight
     vendors/      # Reservado para librerias externas
   islands/        # Componentes React Islands (client:load, client:visible, etc.)
   lib/
@@ -252,3 +252,16 @@ Cada PR hacia `master` debe incluir:
 - **Participar:** Abre el enlace del evento en Discord (`eventUrl`) en nueva pestana.
 - **Calendar:** Genera URL de Google Calendar con titulo, fechas, descripcion y ubicacion precargados.
 - **Interesados:** Numero mock extraido del JSON (cuando llegue el pipeline real, vendra de la API de Discord).
+
+### Modulo Dogfight (King of the Hill)
+
+- La pagina `/dogfight` usa un React Island (`DogfightApp.tsx` en `src/islands/`) con `client:load`.
+- Modelo King of the Hill: un campeon se mantiene volando hasta que pierde. El retador viene de una cola de espera.
+- La cola de espera admite drag & drop reordenable (nativo, sin librerias externas). Cualquier piloto puede salir de la cola en cualquier momento.
+- El campeon (AS) no se marca como ganador final automaticamente; se debe presionar "Calcular Ganadores" para cerrar la sesion.
+- Al calcular ganadores se genera un podium visual (top 3 con alturas 240px, 180px, 140px) y tabla del 4° puesto en adelante.
+- Exportacion PNG nativa via Canvas API (sin librerias externas) con branding del escuadron.
+- Persistencia automatica en localStorage: la sesion sobrevive recargas del navegador.
+- Los estilos SCSS van en `src/styles/pages/_dogfight.scss` e importados en la pagina `.astro`.
+- El panel de instrucciones se integra como acordeon colapsable con boton "?" al lado del titulo.
+- Datos mock de pilotos incorporados; reemplazar con datos reales cuando llegue la integracion con Supabase.
