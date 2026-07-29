@@ -52,6 +52,7 @@ EV71/
 │   ├── pages/              # Rutas de Astro
 │   │   ├── index.astro     # Pagina principal
 │   │   ├── operaciones.astro # Eventos/operaciones
+│   │   ├── dogfight.astro  # King of the Hill (torneo interno)
 │   │   ├── postulacion.astro
 │   │   └── sivoe71.astro
 │   ├── layouts/            # Layouts compartidos
@@ -62,7 +63,8 @@ EV71/
 │   │   ├── Header.astro
 │   │   └── Footer.astro
 │   ├── islands/            # Componentes React Islands
-│   │   └── UserDropdown.tsx
+│   │   ├── UserDropdown.tsx
+│   │   └── DogfightApp.tsx  # King of the Hill (torneo interno)
 │   ├── styles/             # SCSS + TailwindCSS
 │   │   ├── global.css
 │   │   ├── main.scss

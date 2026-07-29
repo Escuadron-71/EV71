@@ -129,6 +129,7 @@ El sitio se despliega en **GitHub Pages** con dominio personalizado (`escuadron7
 - Blueprint de Laravel para SIVOE-71
 - Dominio personalizado `escuadron71.co` con SSL
 - Deploy automatico via GitHub Actions a GitHub Pages
+- Modulo Dogfight (`/dogfight`): sistema King of the Hill con cola drag & drop, campeon/retador, historial de rondas, podium visual con top 3 y exportacion PNG nativa
 
 ### En progreso
 
@@ -158,6 +159,7 @@ El sitio se despliega en **GitHub Pages** con dominio personalizado (`escuadron7
 - [ ] Dominio personalizado y SSL
 - [ ] Migrar contenido faltante del HTML legado
 - [ ] Pagina de postulacion funcional
+- [x] Pagina `/dogfight` con King of the Hill (colas, rondas, podium, exportacion PNG)
 
 ### Fase 2: Pipeline eventos real
 
