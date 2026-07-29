@@ -21,16 +21,18 @@ for (const [key, value] of Object.entries(svgModules)) {
 const navItems = [
   { label: "Inicio", href: resolvePath("/"), active: true },
   { label: "Nosotros", href: resolvePath("/#nosotros") },
-  { label: "Flota", href: resolvePath("/#flota") },
   { label: "Operaciones", href: resolvePath("/operaciones") },
   { label: "Galeria", href: resolvePath("/#galeria") },
 ];
 
 const academiaItems = [
-  { label: "Curso FR1", href: resolvePath("/academia/fr1") },
-  { label: "Curso CR1", href: resolvePath("/academia/cr1") },
+  { label: "Flota", href: resolvePath("/#flota") },
   { separator: true as const },
   { label: "Ingreso / Login", href: resolvePath("/login") },
+];
+
+const actividadItems = [
+  { label: "Dogfight", href: resolvePath("/dogfight") },
 ];
 
 const userItems = [
@@ -76,6 +78,22 @@ const userItems = [
               </a>
             );
           })}
+        </div>
+      </div>
+
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button class="nav-dropdown-trigger" data-nav-dropdown-trigger aria-haspopup="true" aria-expanded="false">
+          Actividades
+          <svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 1l4 4 4-4" />
+          </svg>
+        </button>
+        <div class="nav-dropdown-panel dropdown-panel" role="menu" aria-label="Actividades">
+          {actividadItems.map((item) => (
+            <a href={item.href} class="dropdown-item" role="menuitem">
+              {item.label}
+            </a>
+          ))}
         </div>
       </div>
     </nav>
@@ -126,23 +144,20 @@ const userItems = [
     });
   }
 
-  // Nav dropdown click toggle (Academia)
+  // Nav dropdown click toggle (Academia / Actividades)
   document.querySelectorAll<HTMLElement>("[data-nav-dropdown]").forEach((wrapper) => {
     const trigger = wrapper.querySelector<HTMLElement>("[data-nav-dropdown-trigger]");
     const panel = wrapper.querySelector<HTMLElement>(".nav-dropdown-panel");
     if (!trigger || !panel) return;
 
     const triggerEl = trigger!;
-    let isOpen = false;
 
     function open() {
-      isOpen = true;
       wrapper.classList.add("open");
       triggerEl.setAttribute("aria-expanded", "true");
     }
 
     function close() {
-      isOpen = false;
       wrapper.classList.remove("open");
       triggerEl.setAttribute("aria-expanded", "false");
     }
@@ -150,7 +165,15 @@ const userItems = [
     trigger.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      isOpen ? close() : open();
+      // Cerrar los demas dropdowns antes de abrir este
+      document.querySelectorAll<HTMLElement>("[data-nav-dropdown]").forEach((other) => {
+        if (other !== wrapper && other.classList.contains("open")) {
+          const ot = other.querySelector<HTMLElement>("[data-nav-dropdown-trigger]");
+          other.classList.remove("open");
+          ot?.setAttribute("aria-expanded", "false");
+        }
+      });
+      wrapper.classList.contains("open") ? close() : open();
     });
 
     panel.addEventListener("click", (e) => {
@@ -158,11 +181,11 @@ const userItems = [
     });
 
     document.addEventListener("click", () => {
-      if (isOpen) close();
+      if (wrapper.classList.contains("open")) close();
     });
 
     document.addEventListener("keydown", (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) close();
+      if (e.key === "Escape" && wrapper.classList.contains("open")) close();
     });
 
     panel.querySelectorAll("a").forEach((link) => {
