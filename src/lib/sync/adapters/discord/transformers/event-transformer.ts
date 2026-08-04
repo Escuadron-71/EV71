@@ -15,7 +15,7 @@ function normalizeDate(d: string | null | undefined): string | undefined {
 
 function buildImageUrl(eventId: string, hash: string | null | undefined): string | undefined {
   if (!hash) return undefined;
-  return `https://cdn.discordapp.com/guild-events/${eventId}/${hash}.png`;
+  return `https://cdn.discordapp.com/guild-events/${eventId}/${hash}.png?size=4096`;
 }
 
 export class EventTransformer {

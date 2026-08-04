@@ -164,12 +164,14 @@ const gallery = [
             <div class="featured-event__badge">PROXIMA OPERACION</div>
             <div class="featured-event__flex">
               {nextEvent.image && (
-                <img
-                  src={resolvePath(nextEvent.image)}
-                  alt={nextEvent.title}
-                  class="featured-event__image"
-                  loading="lazy"
-                />
+                <div class="featured-event__img-wrap">
+                  <img
+                    src={resolvePath(nextEvent.image)}
+                    alt={nextEvent.title}
+                    class="featured-event__image"
+                    loading="lazy"
+                  />
+                </div>
               )}
               <div class="featured-event__body">
                 <div class="featured-event__meta">

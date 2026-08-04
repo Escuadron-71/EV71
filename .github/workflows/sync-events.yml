@@ -2,8 +2,6 @@
 name: Sync Discord Events
 
 on:
-  schedule:
-    - cron: "0 6,18 * * *"
   workflow_dispatch:
 
 jobs:

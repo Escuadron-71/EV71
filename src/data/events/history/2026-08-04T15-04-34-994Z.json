@@ -1,13 +1,13 @@
 {
   "success": true,
-  "timestamp": "2026-08-04T16:08:43.634Z",
+  "timestamp": "2026-08-04T15:04:34.992Z",
   "source": "discord",
   "events": [
     {
       "id": "1534190413450055702",
       "title": "¡EL ESCUADRÓN 71 SERÁ ENTREVISTADO POR EL PERIÓDICO LA HORMIGA DE BOGOTA!",
       "description": "@seguidores\nNos complace anunciar que el Escuadrón 71 ha sido invitado por el Periódico La Hormiga, uno de los medios de comunicación locales más reconocidos de Bogotá, para una entrevista especial donde compartiremos nuestra historia, nuestra pasión por la aviación virtual y los proyectos que estamos desarrollando para la comunidad.\n\nQueremos invitar a todos nuestros pilotos, alumnos, amigos, seguidores y apasionados de la simulación aérea a acompañarnos durante esta transmisión y hacer parte de este importante momento para nuestra comunidad.\n\n🗓 Fecha: Martes 4 de agosto de 2026\n🕖 Hora: 7:00 p. m. (Hora de Colombia)\n💬 Plataforma: Discord\n\nDurante la entrevista hablaremos sobre:\n\n✈️ El Escuadrón 71 y su historia.\n🎮 DCS World y la simulación aérea militar.\n🎓 La Academia AVVA71 y nuestros programas de formación.\n🤝 Nuestra comunidad de pilotos y el crecimiento del escuadrón.\n🚀 Los proyectos y objetivos que vienen para el futuro.\n\nEsta entrevista representa un importante reconocimi",
-      "image": "https://cdn.discordapp.com/guild-events/1534190413450055702/5cdc09d8770ab2840c7bcc8658c68c8f.png?size=4096",
+      "image": "https://cdn.discordapp.com/guild-events/1534190413450055702/5cdc09d8770ab2840c7bcc8658c68c8f.png",
       "startDate": "2026-08-05T00:00:00Z",
       "creator": "898699757965418516",
       "interestedCount": 1,
@@ -22,17 +22,17 @@
         "entityType": 2,
         "entityId": null,
         "discordStatus": "SCHEDULED",
-        "normalizedAt": "2026-08-04T16:08:43.634Z",
+        "normalizedAt": "2026-08-04T15:04:34.991Z",
         "version": "1.0.0"
       },
-      "createdAt": "2026-08-04T16:08:43.631Z",
-      "updatedAt": "2026-08-04T16:08:43.631Z"
+      "createdAt": "2026-08-04T15:04:34.989Z",
+      "updatedAt": "2026-08-04T15:04:34.989Z"
     },
     {
       "id": "1532729275852001401",
       "title": "Curso Básico FR1 5ta Promocion",
       "description": "✈️ ¡ABIERTAS LAS INSCRIPCIONES!\nFR1 – FLY READY 1\n5.ª Promoción\nCurso Básico T-45 Goshawk – DCS World\n\n¿Siempre has querido aprender a volar correctamente en DCS World?\n\nEsta es tu oportunidad de iniciar tu formación en la Academia de Vuelo Virtual AVVA-71, donde aprenderás desde los fundamentos hasta las técnicas que todo piloto virtual debe dominar antes de pasar a un caza de combate. \n\nDurante el curso aprenderás:\n\n✅ Procedimientos de cabina.\n✅ Arranque, rodaje y despegue.\n✅ Maniobras básicas de vuelo.\n✅ Navegación VFR.\n✅ Comunicaciones y disciplina de radio.\n✅ Vuelo en formación.\n✅ Aterrizajes normales y de emergencia.\n✅ Procedimientos operacionales estándar (SOP).\n\n📅 Inicio de inscripciones10 de agosto\n\n🕕 Horario\n\nLunes, martes y miércoles\n18:00 a 21:00 (Hora Colombia)\n\n⏱️ Duración\n\n80 horas de formación\n30 horas de teoría.\n50 horas de práctica en vuelo.\n🎓 Al finalizar recibirás\n\n✔️ Examen final de certificación.\n✔️ Diploma de aprobación.\n✔️ Habilitación para continuar al curso",
-      "image": "https://cdn.discordapp.com/guild-events/1532729275852001401/2b00922d91c0512e783f23421cf609a8.png?size=4096",
+      "image": "https://cdn.discordapp.com/guild-events/1532729275852001401/2b00922d91c0512e783f23421cf609a8.png",
       "startDate": "2026-08-10T23:00:00Z",
       "creator": "898699757965418516",
       "interestedCount": 1,
@@ -47,17 +47,17 @@
         "entityType": 2,
         "entityId": null,
         "discordStatus": "SCHEDULED",
-        "normalizedAt": "2026-08-04T16:08:43.633Z",
+        "normalizedAt": "2026-08-04T15:04:34.991Z",
         "version": "1.0.0"
       },
-      "createdAt": "2026-08-04T16:08:43.631Z",
-      "updatedAt": "2026-08-04T16:08:43.631Z"
+      "createdAt": "2026-08-04T15:04:34.988Z",
+      "updatedAt": "2026-08-04T15:04:34.988Z"
     },
     {
       "id": "1529286566986383621",
       "title": "2do Cumpleaños de Reactivación: Operación Odisea",
       "description": "🛡️ CONVOCATORIA OFICIAL\n2.º ANIVERSARIO DE  REACTIVACIÓN DEL ESCUADRÓN 71\nOPERACIÓN ODISEA\n\n17 de agosto de 2026\n\nHace dos años iniciamos un nuevo vuelo.\n\nPor esta razón, el próximo 17 de agosto de 2026 celebraremos el Segundo Aniversario de la Reactivación del Escuadrón 71, con 1 misión especial diseñada para conmemorar este importante momento de nuestra historia.\n\nMISIÓN ESPECIAL\nOPERACIÓN ODISEA\n\nEn esta operación nos desplegaremos sobre el Mar Negro, utilizando el escenario Cáucaso de DCS World.\nSe recreará 1 operación aeronaval de alta intensidad, donde nuestras escuadrillas deberán obtener la superioridad aérea, apoyar fuerzas terrestres y ejecutar ataques estratégicos contra objetivos controlados por la Inteligencia Artificial.\n\nAeronaves disponibles:\n\n✈️ F-16C Viper\n✈️ F/A-18C Hornet\n✈️ A-10C II \n🚁 AH-64D Apache\n🚁 UH-1H Huey\n🚁 CH-47F Chinook\n✈️ C-130 \n\nINFORMACIÓN GENERAL\n\n📅 Fecha: Lunes festivo, 17 de agosto de 2026\n🕕 Briefing: 18:00 horas\n🎮 Simulador: DCS \n@Seguidores",
-      "image": "https://cdn.discordapp.com/guild-events/1529286566986383621/6c113ea065650839ca532f44a0828001.png?size=4096",
+      "image": "https://cdn.discordapp.com/guild-events/1529286566986383621/6c113ea065650839ca532f44a0828001.png",
       "startDate": "2026-08-17T23:00:00Z",
       "creator": "898699757965418516",
       "interestedCount": 2,
@@ -72,11 +72,11 @@
         "entityType": 2,
         "entityId": null,
         "discordStatus": "SCHEDULED",
-        "normalizedAt": "2026-08-04T16:08:43.633Z",
+        "normalizedAt": "2026-08-04T15:04:34.991Z",
         "version": "1.0.0"
       },
-      "createdAt": "2026-08-04T16:08:43.630Z",
-      "updatedAt": "2026-08-04T16:08:43.630Z"
+      "createdAt": "2026-08-04T15:04:34.987Z",
+      "updatedAt": "2026-08-04T15:04:34.987Z"
     }
   ],
   "stats": {

@@ -1,6 +1,6 @@
 {
   "success": true,
-  "timestamp": "2026-08-04T16:08:43.634Z",
+  "timestamp": "2026-08-04T15:45:08.845Z",
   "source": "discord",
   "events": [
     {
@@ -22,11 +22,11 @@
         "entityType": 2,
         "entityId": null,
         "discordStatus": "SCHEDULED",
-        "normalizedAt": "2026-08-04T16:08:43.634Z",
+        "normalizedAt": "2026-08-04T15:45:08.845Z",
         "version": "1.0.0"
       },
-      "createdAt": "2026-08-04T16:08:43.631Z",
-      "updatedAt": "2026-08-04T16:08:43.631Z"
+      "createdAt": "2026-08-04T15:45:08.842Z",
+      "updatedAt": "2026-08-04T15:45:08.842Z"
     },
     {
       "id": "1532729275852001401",
@@ -47,11 +47,11 @@
         "entityType": 2,
         "entityId": null,
         "discordStatus": "SCHEDULED",
-        "normalizedAt": "2026-08-04T16:08:43.633Z",
+        "normalizedAt": "2026-08-04T15:45:08.845Z",
         "version": "1.0.0"
       },
-      "createdAt": "2026-08-04T16:08:43.631Z",
-      "updatedAt": "2026-08-04T16:08:43.631Z"
+      "createdAt": "2026-08-04T15:45:08.842Z",
+      "updatedAt": "2026-08-04T15:45:08.842Z"
     },
     {
       "id": "1529286566986383621",
@@ -72,11 +72,11 @@
         "entityType": 2,
         "entityId": null,
         "discordStatus": "SCHEDULED",
-        "normalizedAt": "2026-08-04T16:08:43.633Z",
+        "normalizedAt": "2026-08-04T15:45:08.844Z",
         "version": "1.0.0"
       },
-      "createdAt": "2026-08-04T16:08:43.630Z",
-      "updatedAt": "2026-08-04T16:08:43.630Z"
+      "createdAt": "2026-08-04T15:45:08.841Z",
+      "updatedAt": "2026-08-04T15:45:08.841Z"
     }
   ],
   "stats": {
