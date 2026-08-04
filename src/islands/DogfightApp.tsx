@@ -113,7 +113,13 @@ function formatDate(date: Date): string {
 
 function generatePodiumImage(ranked: RankedPilot[], dateStr: string): Promise<Blob> {
   const W = 800;
-  const H = 620;
+  const restCount = Math.max(0, ranked.length - 3);
+  const tableTop = 380;
+  const rowH = 26;
+  const tableBottom = restCount > 0
+    ? tableTop + 30 + 24 + restCount * rowH + 16
+    : tableTop + 10;
+  const H = Math.max(620, tableBottom + 80);
   const canvas = document.createElement("canvas");
   canvas.width = W;
   canvas.height = H;
@@ -172,8 +178,8 @@ function generatePodiumImage(ranked: RankedPilot[], dateStr: string): Promise<Bl
     ctx.fillText(p.name.toUpperCase(), s.x, cy + 70);
 
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "14px Roboto";
-    ctx.fillText(`${p.wins}V ${p.losses}D  —  ${p.winRate}% efectividad`, s.x, cy + 98);
+    ctx.font = "12px Roboto";
+    ctx.fillText(`${p.wins}V ${p.losses}D • ${p.winRate}%`, s.x, cy + 98);
 
     ctx.fillStyle = colors[i];
     ctx.font = "bold 13px Oswald";
@@ -181,7 +187,7 @@ function generatePodiumImage(ranked: RankedPilot[], dateStr: string): Promise<Bl
   });
 
   if (ranked.length > 3) {
-    const tableY = 380;
+    const tableY = tableTop;
     ctx.strokeStyle = "rgba(255,255,255,0.08)";
     ctx.lineWidth = 1;
     ctx.beginPath();
