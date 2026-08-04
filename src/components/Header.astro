@@ -1,6 +1,10 @@
 ---
 import UserDropdown from "@/islands/UserDropdown.tsx";
-import { resolvePath } from "@/lib/base-url";
+import { resolvePath, getBase } from "@/lib/base-url";
+
+const norm = (p: string) => p.replace(/\/+$/, "") || "/";
+const routeOf = (href: string) => norm("/" + href.replace(getBase(), ""));
+const isCurrent = (href: string) => routeOf(href) === norm(Astro.url.pathname);
 
 const svgModules = import.meta.glob("/src/assets/icons/*.svg", {
   query: "?raw",
@@ -19,9 +23,9 @@ for (const [key, value] of Object.entries(svgModules)) {
 }
 
 const navItems = [
-  { label: "Inicio", href: resolvePath("/"), active: true },
+  { label: "Inicio", href: resolvePath("/"), active: isCurrent(resolvePath("/")) },
   { label: "Nosotros", href: resolvePath("/#nosotros") },
-  { label: "Operaciones", href: resolvePath("/operaciones") },
+  { label: "Operaciones", href: resolvePath("/operaciones"), active: isCurrent(resolvePath("/operaciones")) },
   { label: "Galeria", href: resolvePath("/#galeria") },
 ];
 
