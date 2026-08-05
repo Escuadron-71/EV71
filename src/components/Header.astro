@@ -24,9 +24,19 @@ for (const [key, value] of Object.entries(svgModules)) {
 
 const navItems = [
   { label: "Inicio", href: resolvePath("/"), active: isCurrent(resolvePath("/")) },
-  { label: "Nosotros", href: resolvePath("/#nosotros") },
   { label: "Operaciones", href: resolvePath("/operaciones"), active: isCurrent(resolvePath("/operaciones")) },
   { label: "Galeria", href: resolvePath("/#galeria") },
+];
+
+const nosotrosItems = [
+  { label: "Quiénes somos", href: resolvePath("/#nosotros") },
+  { separator: true as const },
+  { label: "Misión y Visión", href: resolvePath("/nosotros/mision-vision") },
+  { label: "Declaración", href: resolvePath("/nosotros/declaracion") },
+  { label: "Objetivos", href: resolvePath("/nosotros/objetivos") },
+  { label: "Reglamento", href: resolvePath("/nosotros/reglamento") },
+  { label: "Historia", href: resolvePath("/nosotros/historia") },
+  { label: "Estructura", href: resolvePath("/nosotros/estructura") },
 ];
 
 const academiaItems = [
@@ -63,6 +73,27 @@ const userItems = [
       {navItems.map((item) => (
         <a href={item.href} class:list={[{ active: item.active }]}>{item.label}</a>
       ))}
+
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button class="nav-dropdown-trigger" data-nav-dropdown-trigger aria-haspopup="true" aria-expanded="false">
+          Nosotros
+          <svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 1l4 4 4-4" />
+          </svg>
+        </button>
+        <div class="nav-dropdown-panel dropdown-panel" role="menu" aria-label="Nosotros">
+          {nosotrosItems.map((item) => {
+            if (item.separator) {
+              return <div class="dropdown-separator" role="separator" />;
+            }
+            return (
+              <a href={item.href} class="dropdown-item" role="menuitem">
+                {item.label}
+              </a>
+            );
+          })}
+        </div>
+      </div>
 
       <div class="nav-dropdown" data-nav-dropdown>
         <button class="nav-dropdown-trigger" data-nav-dropdown-trigger aria-haspopup="true" aria-expanded="false">
