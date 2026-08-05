@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import FlightPlanner from "@/islands/FlightPlanner";
+import "leaflet/dist/leaflet.css";
+import "@/styles/pages/_planificador.scss";
+---
+
+<BaseLayout
+  title="Planificador de Vuelo - Escuadron 71"
+  description="Carta de navegacion 2D con waypoints, rumbos, distancias y ETE para DCS World."
+>
+  <main class="planner-page">
+    <header class="planner-page-head">
+      <div class="container">
+        <h1>Planificador de Vuelo</h1>
+        <p>
+          Cartas de navegación interactivas de DCS World. Haz clic sobre el mapa para
+          trazar la ruta y obtén rumbo, distancia y tiempo estimado al instante.
+        </p>
+      </div>
+    </header>
+
+    <FlightPlanner client:load />
+  </main>
+</BaseLayout>
