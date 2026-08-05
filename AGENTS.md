@@ -266,3 +266,19 @@ Cada PR hacia `master` debe incluir:
 - Los estilos SCSS van en `src/styles/pages/_dogfight.scss` e importados en la pagina `.astro`.
 - El panel de instrucciones se integra como acordeon colapsable con boton "?" al lado del titulo.
 - Datos mock de pilotos incorporados; reemplazar con datos reales cuando llegue la integracion con Supabase.
+
+### Paginas institucionales (Nosotros)
+
+- Las paginas bajo `/nosotros/` (mision-vision, declaracion, objetivos, reglamento, historia, estructura) se construyen desde los documentos `.md` de `src/assets/docs/`.
+- Los `.md` se cargan como content collection (`docs`) definida en `src/content.config.ts` con `glob()`.
+- Para modificar el contenido de una pagina, editar el `.md` correspondiente; NO hardcodear el texto en la pagina.
+- Los IDs de la coleccion son el slug sin extension y en minusculas (ej: `Mision.md` -> `mision`).
+- Las paginas usan el componente compartido `DocPage.astro` y los estilos de `src/styles/pages/_nosotros.scss` (importado por pagina, no en `main.scss`).
+- El dropdown "Nosotros" del header enlaza a estas paginas siguiendo el patron `nav-dropdown` de Academia/Actividades.
+
+### Versionado y releases
+
+- Cada push a `master` dispara el workflow `release.yml`, que genera tag, release y patch bump de la version (inicia en `0.1.0`).
+- La version se gestiona en `package.json` y se registra en `CHANGELOG.md`; NO se muestra en el sitio.
+- El commit de release usa el mensaje `chore(release): vX.Y.Z [skip release]` para evitar loops con el deploy.
+- Los cambios de version los hace el workflow; no editar la version de `package.json` manualmente salvo necesidad explicita.

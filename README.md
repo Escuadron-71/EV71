@@ -54,17 +54,27 @@ EV71/
 │   │   ├── operaciones.astro # Eventos/operaciones
 │   │   ├── dogfight.astro  # King of the Hill (torneo interno)
 │   │   ├── postulacion.astro
-│   │   └── sivoe71.astro
+│   │   ├── sivoe71.astro
+│   │   └── nosotros/       # Paginas institucionales
+│   │       ├── mision-vision.astro
+│   │       ├── declaracion.astro
+│   │       ├── objetivos.astro
+│   │       ├── reglamento.astro
+│   │       ├── historia.astro
+│   │       └── estructura.astro
 │   ├── layouts/            # Layouts compartidos
 │   │   └── BaseLayout.astro
 │   ├── components/         # Componentes reutilizables
 │   │   ├── EventCard.astro
 │   │   ├── EventList.astro
 │   │   ├── Header.astro
-│   │   └── Footer.astro
+│   │   ├── Footer.astro
+│   │   └── DocPage.astro   # Plantilla de paginas documentales
 │   ├── islands/            # Componentes React Islands
 │   │   ├── UserDropdown.tsx
 │   │   └── DogfightApp.tsx  # King of the Hill (torneo interno)
+│   ├── assets/docs/        # Documentos institucionales (.md)
+│   ├── content.config.ts   # Content collections (coleccion "docs")
 │   ├── styles/             # SCSS + TailwindCSS
 │   │   ├── global.css
 │   │   ├── main.scss
@@ -72,7 +82,7 @@ EV71/
 │   │   ├── base/
 │   │   ├── components/     # buttons, cards, event-cards, forms, modals
 │   │   ├── layout/         # header, footer, hero, sections
-│   │   └── pages/          # home, postulacion, sivoe71
+│   │   └── pages/          # home, postulacion, sivoe71, nosotros
 │   ├── lib/
 │   │   ├── base-url.ts     # Utilidad resolvePath
 │   │   ├── services/       # Servicios (event-service.ts)
@@ -90,9 +100,11 @@ EV71/
 │   └── SIVOE71_LARAVEL_BLUEPRINT.md
 ├── .github/workflows/
 │   ├── deploy.yml          # Build + deploy a GitHub Pages
-│   └── sync-events.yml     # Sincronizacion de eventos Discord
+│   ├── sync-events.yml     # Sincronizacion de eventos Discord
+│   └── release.yml         # Versionado automatico (tag, release, version)
 ├── astro.config.mjs
 ├── tsconfig.json
+├── CHANGELOG.md            # Registro de versiones
 ├── AGENTS.md               # Guia para IA y desarrolladores
 ├── ABOUT.md                # Arquitectura y estado del proyecto
 └── README.md               # Este archivo
@@ -133,6 +145,22 @@ Para deploy manual local:
 pnpm build
 # El contenido de dist/ se sube al branch gh-pages o se sirve via preview
 ```
+
+## Versionado
+
+Cada publicacion en `master` genera automaticamente una nueva version del sitio (workflow `release.yml`):
+
+1. Lee la version actual de `package.json` (inicia en `0.1.0`).
+2. Aplica un **patch bump** (`0.1.0` -> `0.1.1`).
+3. Actualiza `package.json` y agrega las entradas de commits al `CHANGELOG.md`.
+4. Crea el **tag** `vX.Y.Z` y el **Release** en GitHub con las notas generadas.
+5. Crea un **Milestone** `vX.Y.Z` para seguimiento de la version (best effort).
+
+Detalles:
+
+- Los commits del workflow de release usan el mensaje `chore(release): vX.Y.Z [skip release]` para evitar bucles con el deploy.
+- La version no se muestra en el sitio; se gestiona exclusivamente como tag/release en el repositorio.
+- Para una release manual, usar la opcion `workflow_dispatch` del workflow `release.yml`.
 
 ## Contribucion
 

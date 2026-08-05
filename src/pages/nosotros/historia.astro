@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import DocPage from "@/components/DocPage.astro";
+import "../../styles/pages/_nosotros.scss";
+
+const docs = await getCollection("docs");
+const historia = docs.find((d) => d.id === "presentacion-del-escuadron")!;
+const { Content } = await render(historia);
+---
+
+<BaseLayout
+  title="Historia | Escuadron 71"
+  description="Historia y presentacion del Escuadron 71."
+>
+  <DocPage
+    eyebrow="Nosotros"
+    title="Historia"
+    description="Quienes somos y la trayectoria que nos define como comunidad de simulacion aerea militar."
+  >
+    <Content />
+  </DocPage>
+</BaseLayout>

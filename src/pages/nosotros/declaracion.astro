@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import DocPage from "@/components/DocPage.astro";
+import "../../styles/pages/_nosotros.scss";
+
+const docs = await getCollection("docs");
+const declaracion = docs.find((d) => d.id === "declaracion-constitucional")!;
+const { Content } = await render(declaracion);
+---
+
+<BaseLayout
+  title="Declaracion | Escuadron 71"
+  description="Declaracion institucional del Escuadron 71."
+>
+  <DocPage
+    eyebrow="Nosotros"
+    title="Declaración"
+    description="Los principios y compromisos que dan identidad al Escuadron 71."
+  >
+    <Content />
+  </DocPage>
+</BaseLayout>

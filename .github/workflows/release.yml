@@ -1,0 +1,133 @@
+name: Release and Version
+
+# Genera automaticamente un Release, un Tag y un numero de version (patch bump)
+# en cada publicacion a master, comenzando desde la 0.1.0.
+#
+# Flujo:
+#   1. Lee la version actual de package.json (ej: 0.1.0)
+#   2. Aplica patch bump (0.1.1)
+#   3. Actualiza package.json y genera las entradas de CHANGELOG.md
+#   4. Hace commit + push (GITHUB_TOKEN no re-dispara workflows, evita loops)
+#   5. Crea el tag vX.Y.Z y el GitHub Release con las notas generadas
+#   6. Crea el Milestone vX.Y.Z (best effort) para el seguimiento de la version
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "release"
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip release]')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Compute next version
+        id: version
+        run: |
+          CURRENT=$(node -p "require('./package.json').version")
+          MAJOR="${CURRENT%%.*}"
+          REST="${CURRENT#*.}"
+          MINOR="${REST%%.*}"
+          PATCH="${REST##*.}"
+          PATCH=$((PATCH + 1))
+          NEXT="$MAJOR.$MINOR.$PATCH"
+          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
+          echo "next=$NEXT" >> "$GITHUB_OUTPUT"
+
+      - name: Generate changelog notes
+        id: changelog
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
+          if [ -n "$PREV_TAG" ]; then
+            RANGE="$PREV_TAG..HEAD"
+          else
+            RANGE="HEAD"
+          fi
+          git log --pretty=format:'%s' "$RANGE" > /tmp/commits.txt
+          awk '
+            /^feat/    { added[++na]=$0; next }
+            /^fix/     { fixed[++nf]=$0; next }
+            /^docs/    { doc[++nd]=$0;  next }
+            /^style/   { style[++ns]=$0; next }
+            /^chore/   { chore[++nc]=$0; next }
+            /^ci/      { ci[++nci]=$0; next }
+            /^data/    { data[++nda]=$0; next }
+                         { other[++no]=$0 }
+            END {
+              if (na)  { print "### Agregado";            for(i=1;i<=na;i++)  print "- " added[i];  print "" }
+              if (nf)  { print "### Corregido";           for(i=1;i<=nf;i++)  print "- " fixed[i];  print "" }
+              if (nd)  { print "### Documentacion";       for(i=1;i<=nd;i++)  print "- " doc[i];    print "" }
+              if (ns)  { print "### Estilos";             for(i=1;i<=ns;i++)  print "- " style[i];  print "" }
+              if (nc)  { print "### Mantenimiento";       for(i=1;i<=nc;i++)  print "- " chore[i];  print "" }
+              if (nci) { print "### CI";                  for(i=1;i<=nci;i++) print "- " ci[i];     print "" }
+              if (nda) { print "### Datos";               for(i=1;i<=nda;i++) print "- " data[i];   print "" }
+              if (no)  { print "### Otros";               for(i=1;i<=no;i++)  print "- " other[i];  print "" }
+            }' /tmp/commits.txt > /tmp/notes.md
+          {
+            echo "notes<<CHANGELOG_EOF"
+            cat /tmp/notes.md
+            echo "CHANGELOG_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Bump version and update CHANGELOG
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.next }}
+          CHANGELOG_NOTES: ${{ steps.changelog.outputs.notes }}
+        run: |
+          npm version --no-git-tag-version "$NEXT_VERSION"
+          TODAY=$(date +%Y-%m-%d)
+          {
+            printf '\n## [%s] - %s\n\n' "$NEXT_VERSION" "$TODAY"
+            printf '%s\n' "$CHANGELOG_NOTES"
+          } >> CHANGELOG.md
+
+      - name: Commit and push version bump
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.next }}
+        run: |
+          git add package.json CHANGELOG.md
+          git commit -m "chore(release): v$NEXT_VERSION [skip release]"
+          git push origin master
+
+      - name: Create tag
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.next }}
+        run: |
+          git tag "v$NEXT_VERSION"
+          git push origin "v$NEXT_VERSION"
+
+      - name: Create GitHub Release
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.next }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v$NEXT_VERSION" \
+            --title "v$NEXT_VERSION" \
+            --notes "$(cat /tmp/notes.md)"
+
+      - name: Create Milestone (best effort)
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.next }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/Escuadron-71/EV71/milestones \
+            -f title="v$NEXT_VERSION" \
+            -f description="Version v$NEXT_VERSION del sitio web EV71" \
+            || echo "Milestone ya existe o no se pudo crear; continuando"
