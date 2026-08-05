@@ -133,6 +133,7 @@ El sitio se despliega en **GitHub Pages** con dominio personalizado (`escuadron7
 - Paginas institucionales bajo `/nosotros` (Mision y Vision, Declaracion, Objetivos, Reglamento, Historia y Estructura), construidas desde los documentos `.md` de `src/assets/docs/` via content collections
 - Dropdown "Nosotros" en el header con acceso a las paginas institucionales
 - Versionado automatico (tag, release y version patch) via workflow `release.yml`
+- Modulo Planificador (`/planificador`): cartas de navegacion 2D con Leaflet, teatros Cáucaso y Siria, waypoints con click, rumbo/distancia/ETE en gran circulo o loxodromica, capas satelite/mapa/hibrido/topo y persistencia en localStorage
 
 ### En progreso
 
@@ -165,6 +166,7 @@ El sitio se despliega en **GitHub Pages** con dominio personalizado (`escuadron7
 - [x] Pagina `/dogfight` con King of the Hill (colas, rondas, podium, exportacion PNG)
 - [x] Paginas institucionales `/nosotros` con dropdown en el header
 - [x] Versionado automatico (tag, release, version)
+- [x] Pagina `/planificador` con cartas de navegacion 2D (Leaflet, Cáucaso y Siria)
 
 ### Fase 2: Pipeline eventos real
 

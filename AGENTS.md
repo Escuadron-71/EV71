@@ -267,6 +267,23 @@ Cada PR hacia `master` debe incluir:
 - El panel de instrucciones se integra como acordeon colapsable con boton "?" al lado del titulo.
 - Datos mock de pilotos incorporados; reemplazar con datos reales cuando llegue la integracion con Supabase.
 
+### Modulo Planificador (cartas de navegacion 2D)
+
+- La pagina `/planificador` usa un React Island (`FlightPlanner.tsx` en `src/islands/`) con `client:load`.
+- El mapa usa **Leaflet directamente** (sin react-leaflet), importado dinamicamente dentro de `useEffect` (`await import("leaflet")`) para no romper el build estatico (Leaflet accede a `window` en SSR).
+- Los tipos de Leaflet se importan en tipo (`import type * as L from "leaflet"`); la referencia runtime se guarda en un ref. Las instancias se tipan con `L.Map`, `L.LayerGroup`, `L.LeafletMouseEvent`.
+- **No usar los iconos por defecto de Leaflet** (rutas relativas rompen con `BASE_PATH`): usar `L.divIcon` con el marcador HUD (`planner-marker`) estilado en `_planificador.scss`.
+- Capas de tiles gestionadas por el plugin `src/lib/planner/plugins/map-layers/` (`layers.ts` + barrel `index.ts`): **Satelite** (Esri World Imagery), **Mapa** (Esri World Street Map), **Hibrido** (Esri Imagery + overlay CartoDB `voyager_only_labels`) y **Topo** (Esri World Topo Map; NO usar OpenTopoMap). El island consume `MAP_LAYERS`/`getMapLayer` y renderiza base + `subLayers`; la capa activa se guarda en localStorage y se valida con `isMapLayerId`.
+- Teatros disponibles: **Cáucaso y Siria**. Los bounds lat/lon de cada teatro estan hardcodeados en `src/lib/planner/theaters.ts` (calculados desde las proyecciones DCS y los rectangulos de terreno de pydcs; NO usar `proj4` en runtime).
+- Logica de navegacion en `src/lib/planner/navigation.ts` (funciones puras): `haversineNm`, `initialBearing` (gran circulo), `rhumbLineBearing` (loxodromica, rumbo constante como la regla F10 de DCS), `eteMinutesForLeg`, `greatCirclePoints` (densifica la linea para graficar gran circulo), y formateo de HDG/NM/ETE.
+- Aeronaves en `src/lib/planner/aircraft.ts`: F/A-18C (400 kt), F-16C (450 kt), F-15C (450 kt), F-15E (450 kt), A-10C II (300 kt), T-45 (350 kt), C-130H (290 kt), CH-47F (140 kt), UH-60L (135 kt). La velocidad es editable y el ETE se recalcula al instante.
+- Interaccion: click agrega waypoint, click derecho elimina el ultimo, botones por waypoint para centrar/eliminar, "Limpiar" vacia la ruta. Los clicks fuera de los bounds del teatro se ignoran.
+- `maxBounds` del teatro activo restringe el paneo; al cambiar de teatro el mapa hace `fitBounds`.
+- Persistencia automatica en localStorage (`ev71-planner-state`) con el mismo patron de validacion de DogfightApp.
+- Layout desktop en `src/styles/pages/_planificador.scss`: `.planner-app` es **flex row** (HUD izquierda como columna con scroll, mapa `flex:1`, panel derecho 320px); los controles de zoom/attribution de Leaflet quedan dentro del mapa (topleft/bottomleft). En movil el mapa pasa a flujo vertical (HUD arriba, mapa, panel como hoja inferior).
+- El CSS de Leaflet se importa en el frontmatter de la pagina: `import "leaflet/dist/leaflet.css"`.
+- Patron de plugins aprobado: `src/lib/planner/plugins/<name>/` (logica + datos, SSR-safe, sin `window`) + barrel `index.ts`. Futuros widgets React en `src/islands/planner/widgets/`. Ver `AI_CONTEXT.md` para contexto completo de sesiones.
+
 ### Paginas institucionales (Nosotros)
 
 - Las paginas bajo `/nosotros/` (mision-vision, declaracion, objetivos, reglamento, historia, estructura) se construyen desde los documentos `.md` de `src/assets/docs/`.

@@ -13,6 +13,7 @@ Sitio en vivo: **[https://escuadron71.co](https://escuadron71.co)**
 | SCSS | Estilos complejos, variables de marca |
 | TypeScript | Lenguaje principal, tipado estricto |
 | React | Componentes interactivos (Islands) |
+| Leaflet | Mapas interactivos (planificador de vuelo) |
 | Supabase | Auth, base de datos, storage (futuro) |
 | GitHub Pages | Hosting y deploy con dominio personalizado |
 | pnpm | Paqueteria |
@@ -53,6 +54,7 @@ EV71/
 │   │   ├── index.astro     # Pagina principal
 │   │   ├── operaciones.astro # Eventos/operaciones
 │   │   ├── dogfight.astro  # King of the Hill (torneo interno)
+│   │   ├── planificador.astro # Planificador de vuelo / cartas 2D
 │   │   ├── postulacion.astro
 │   │   ├── sivoe71.astro
 │   │   └── nosotros/       # Paginas institucionales
@@ -72,7 +74,8 @@ EV71/
 │   │   └── DocPage.astro   # Plantilla de paginas documentales
 │   ├── islands/            # Componentes React Islands
 │   │   ├── UserDropdown.tsx
-│   │   └── DogfightApp.tsx  # King of the Hill (torneo interno)
+│   │   ├── DogfightApp.tsx  # King of the Hill (torneo interno)
+│   │   └── FlightPlanner.tsx # Mapa Leaflet del planificador
 │   ├── assets/docs/        # Documentos institucionales (.md)
 │   ├── content.config.ts   # Content collections (coleccion "docs")
 │   ├── styles/             # SCSS + TailwindCSS
@@ -85,6 +88,8 @@ EV71/
 │   │   └── pages/          # home, postulacion, sivoe71, nosotros
 │   ├── lib/
 │   │   ├── base-url.ts     # Utilidad resolvePath
+│   │   ├── planner/        # Planificador: navigation, theaters, aircraft
+│   │   │   └── plugins/    # Plugins del planificador (map-layers, etc.)
 │   │   ├── services/       # Servicios (event-service.ts)
 │   │   └── sync/           # Pipeline de sincronizacion (Discord, etc.)
 │   ├── data/
