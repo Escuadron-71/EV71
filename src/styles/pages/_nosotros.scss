@@ -164,6 +164,55 @@
     background: $border;
     margin: 2.4em 0;
   }
+
+  table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 1.6em 0 2em;
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow-x: auto;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  thead {
+    th {
+      font-family: $font-heading;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: $secondary;
+      background: $primary-light;
+      text-align: left;
+    }
+  }
+
+  th,
+  td {
+    padding: 0.85em 1.1em;
+    border: 1px solid $border;
+    vertical-align: top;
+  }
+
+  tbody {
+    tr {
+      &:nth-child(even) {
+        background: rgba($primary-light, 0.35);
+      }
+
+      &:hover {
+        background: rgba($secondary, 0.08);
+      }
+    }
+
+    strong {
+      color: $secondary-light;
+    }
+  }
 }
 
 // Bloques reutilizados por paginas que combinan varios documentos
