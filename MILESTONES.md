@@ -1,14 +1,14 @@
 # Posibles futuras implementaciones
 
-- Configurar el repositorio para que cada publicación en la rama **master**, que desencadena el despliegue en GitHub Pages, genere automáticamente un **Release**, un **Tag** y un **número de versión**, comenzando en la **0.1.0** y evolucionando progresivamente hasta la **1.0.0**.
+- ~~Configurar el repositorio para que cada publicación en la rama **master**, que desencadena el despliegue en GitHub Pages, genere automáticamente un **Release**, un **Tag** y un **número de versión**, comenzando en la **0.1.0** y evolucionando progresivamente hasta la **1.0.0**.~~ **COMPLETADO (0.1.0).**
 
-  Para ello será necesario configurar:
-  - Milestones.
-  - CHANGELOG.
-  - README.
-  - ABOUT.
-  - AGENTS.
-  - Cualquier otro elemento necesario para mantener un flujo de versionado adecuado.
+  Se implementó el flujo de versionado automático en `.github/workflows/release.yml`:
+  - **Milestones:** creados.
+  - **CHANGELOG:** creado.
+  - **README:** actualizado.
+  - **ABOUT:** actualizado.
+  - **AGENTS:** actualizado.
+  - Guarda `[skip release]` en `deploy.yml` para evitar loops con el deploy.
 
 - Dado que el proyecto incorporará componentes dinámicos mediante **React Islands**, es importante implementar pruebas automatizadas básicas para evitar romper funcionalidades existentes. A futuro se planea incorporar pruebas de QA utilizando **Playwright**.
 

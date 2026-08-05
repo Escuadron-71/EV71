@@ -130,6 +130,9 @@ El sitio se despliega en **GitHub Pages** con dominio personalizado (`escuadron7
 - Dominio personalizado `escuadron71.co` con SSL
 - Deploy automatico via GitHub Actions a GitHub Pages
 - Modulo Dogfight (`/dogfight`): sistema King of the Hill con cola drag & drop, campeon/retador, historial de rondas, podium visual con top 3 y exportacion PNG nativa
+- Paginas institucionales bajo `/nosotros` (Mision y Vision, Declaracion, Objetivos, Reglamento, Historia y Estructura), construidas desde los documentos `.md` de `src/assets/docs/` via content collections
+- Dropdown "Nosotros" en el header con acceso a las paginas institucionales
+- Versionado automatico (tag, release y version patch) via workflow `release.yml`
 
 ### En progreso
 
@@ -160,6 +163,8 @@ El sitio se despliega en **GitHub Pages** con dominio personalizado (`escuadron7
 - [ ] Migrar contenido faltante del HTML legado
 - [ ] Pagina de postulacion funcional
 - [x] Pagina `/dogfight` con King of the Hill (colas, rondas, podium, exportacion PNG)
+- [x] Paginas institucionales `/nosotros` con dropdown en el header
+- [x] Versionado automatico (tag, release, version)
 
 ### Fase 2: Pipeline eventos real
 
