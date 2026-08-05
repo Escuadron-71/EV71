@@ -1,4 +1,4 @@
-# Objetivos Estratégicos (versión actualizada)
+Objetivos Estratégicos (versión actualizada)
 
 1. **Formación de pilotos**
    Desarrollar pilotos virtuales competentes mediante un programa académico progresivo que combine conocimientos teóricos, entrenamiento práctico y evaluación permanente.

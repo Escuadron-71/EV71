@@ -1,9 +1,12 @@
-**_PRESENTACIÓN DEL ESCUADRÓN 71_**
+PRESENTACIÓN DEL ESCUADRÓN 71
 
-El Escuadrón 71 es una comunidad colombiana de simulación aérea militar dedicada a la formación de pilotos virtuales mediante entrenamiento estructurado, disciplina operacional y el empleo del simulador DCS World como plataforma principal de instrucción y operaciones.
+El **Escuadrón 71** es una organización colombiana dedicada a la simulación aérea militar de alta fidelidad, orientada a la formación de pilotos virtuales mediante un modelo de entrenamiento estructurado, disciplina operacional y aprendizaje continuo, utilizando **Digital Combat Simulator (DCS World)** como su principal plataforma de instrucción y operaciones.
 
-A través de la Academia de Vuelo Virtual AVVA71, desarrollamos programas de entrenamiento progresivo que preparan a nuestros pilotos para participar en misiones, campañas y ejercicios de alta exigencia, aplicando procedimientos, tácticas y doctrina inspirados en la aviación militar moderna.
+A través de la **Academia de Vuelo Virtual AVVA71**, desarrollamos un programa de formación progresiva que permite a nuestros integrantes adquirir los conocimientos, habilidades y competencias necesarias para participar en entrenamientos, ejercicios, campañas y operaciones de creciente complejidad. Nuestro proceso de instrucción integra procedimientos estandarizados, doctrina operacional y tácticas inspiradas en la aviación militar contemporánea, adaptadas al entorno de la simulación.
 
-Más que una comunidad de simulación, somos una organización comprometida con el desarrollo de la cultura aeronáutica en Colombia, promoviendo el liderazgo, la camaradería, el profesionalismo y la mejora continua de nuestros integrantes. Nuestro propósito es formar pilotos virtuales capaces de representar con orgullo al Escuadrón 71 en cada entrenamiento, operación y evento donde participen.
+Nuestra misión trasciende el entretenimiento. Buscamos fortalecer la cultura aeronáutica, fomentar el liderazgo, consolidar el trabajo en equipo y promover una comunidad basada en el respeto, el profesionalismo y la excelencia operacional. Creemos que el aprendizaje constante y la cooperación son los pilares sobre los que se construyen los mejores pilotos y las mejores organizaciones.
 
-Porque volar es una realidad virtual.
+Cada miembro del Escuadrón 71 asume el compromiso de representar estos valores en cada vuelo, entrenamiento y operación, contribuyendo al crecimiento colectivo de una comunidad que entiende la simulación aérea como una disciplina que exige preparación, responsabilidad y dedicación.
+
+**Escuadrón 71.**
+**Disciplina para entrenar. Profesionalismo para operar. Pasión por volar.**

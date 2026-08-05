@@ -1,555 +1,551 @@
-**_REGLAMENTO GENERAL DEL ESCUADRÓN 71_**
+# REGLAMENTO GENERAL DEL ESCUADRÓN 71
 
-**PARTE I**
-_PRINCIPIOS FUNDAMENTALES, ALCANCE Y NORMAS GENERALES_
-**Artículo 1.** Objeto del Reglamento
+**Versión:** 1.0
+**Estado:** Vigente
+**Aprobado por:** Consejo Directivo del Escuadrón 71
 
-El presente Reglamento General establece las normas de convivencia, organización y comportamiento que rigen a todos los integrantes del Escuadrón 71.
+---
 
-Su finalidad es garantizar un ambiente de respeto, disciplina, aprendizaje y cooperación, permitiendo el desarrollo de las actividades de entrenamiento, operaciones, campañas y eventos organizados por la comunidad.
+# CAPITULO I
 
-Toda persona que haga parte del Escuadrón 71 acepta cumplir las disposiciones aquí establecidas desde el momento de su ingreso.
+## DISPOSICIONES GENERALES
 
-**Artículo 2.** Principios Institucionales
+### Artículo 1. Objeto
 
-El Escuadrón 71 fundamenta todas sus actividades en los siguientes principios:
+El presente Reglamento General establece las normas que regulan la organización, el funcionamiento, la convivencia y el régimen disciplinario del Escuadrón 71.
 
-Camaradería.
-Respeto.
-Disciplina.
-Profesionalismo.
-Trabajo en equipo.
-Aprendizaje continuo.
-Liderazgo.
-Espíritu de servicio.
-Seguridad operacional.
-Pasión por la simulación aérea militar.
+Su finalidad es promover un ambiente de respeto, disciplina, profesionalismo y cooperación que permita el desarrollo de actividades de entrenamiento, operaciones, campañas, ejercicios y demás eventos organizados por la comunidad.
 
-Estos principios deberán reflejarse permanentemente en el comportamiento de todos los miembros, tanto dentro como fuera de las actividades oficiales del Escuadrón.
+Las disposiciones contenidas en este reglamento son de obligatorio cumplimiento para todos los miembros del Escuadrón 71, sin distinción de cargo, antigüedad o nivel de experiencia.
 
-**Artículo 3.** Alcance
+---
 
-El presente reglamento aplica a:
+### Artículo 2. Naturaleza de la organización
 
-Miembros activos.
-Aspirantes.
-Alumnos de la Academia AVVA71.
-Instructores.
-Pilotos certificados.
-Líderes de División.
-Directores de Academia.
-Moderadores.
-Administradores.
-Personal del Consejo Directivo.
-Invitados que participen en actividades oficiales.
+El Escuadrón 71 es una comunidad civil dedicada a la simulación aérea militar mediante **Digital Combat Simulator (DCS World)**.
 
-Toda actividad desarrollada bajo el nombre del Escuadrón 71 estará sujeta a este reglamento.
+Su estructura organizacional se inspira en principios doctrinales de la aviación militar con fines exclusivamente académicos, organizativos y recreativos. En consecuencia, los cargos, rangos, distintivos y procedimientos internos no representan autoridad militar real ni generan relación alguna con instituciones oficiales.
 
-Finalidad de la Comunidad
+---
 
-El Escuadrón 71 es una comunidad dedicada exclusivamente a la simulación aérea militar mediante DCS World.
+### Artículo 3. Finalidad institucional
 
-Su propósito principal es:
+El Escuadrón 71 tiene como propósito:
 
-Formar pilotos virtuales de alto nivel.
-Promover la cultura aeronáutica.
-Desarrollar operaciones militares virtuales realistas.
-Fortalecer el trabajo en equipo.
-Representar con profesionalismo al Escuadrón 71 en actividades nacionales e internacionales.
+a. Formar pilotos virtuales con altos estándares técnicos y operacionales.
 
-Toda actividad desarrollada dentro de la comunidad deberá contribuir al cumplimiento de estos objetivos.
+b. Promover la cultura aeronáutica y el estudio permanente de la aviación militar.
 
-**Artículo 5.** Autoridad Institucional
+c. Desarrollar operaciones virtuales caracterizadas por el realismo, la planificación y el trabajo coordinado.
 
-La estructura organizacional del Escuadrón 71 está conformada por diferentes niveles de responsabilidad.
+d. Fomentar el liderazgo, la disciplina y el espíritu de equipo.
 
-Las decisiones adoptadas por:
+e. Representar institucionalmente al Escuadrón 71 con profesionalismo en actividades nacionales e internacionales relacionadas con la simulación aérea.
 
-Consejo Directivo.
-Dirección General.
-Dirección de Operaciones.
-Dirección de la Academia.
-Comandantes de Ala de Vuelo.
-Instructores.
-Moderadores.
+---
 
-deberán ser respetadas por todos los integrantes cuando actúen dentro de las funciones propias de su cargo.
+### Artículo 4. Principios institucionales
 
-El ejercicio de la autoridad implica igualmente responsabilidad, imparcialidad, ejemplo y vocación de servicio hacia todos los miembros.
+Toda actuación desarrollada dentro del Escuadrón 71 deberá inspirarse en los siguientes principios:
 
-**Artículo 6.** Respeto Mutuo
+a. Camaradería.
 
-Todo integrante del Escuadrón 71 deberá mantener un trato respetuoso, cordial y profesional hacia los demás miembros.
+b. Respeto mutuo.
 
-No serán aceptados:
+c. Disciplina.
 
-Insultos.
-Humillaciones.
-Burlas personales.
-Ataques públicos.
-Acoso.
-Hostigamiento.
-Lenguaje ofensivo.
-Comportamientos destinados a deteriorar la convivencia.
+d. Profesionalismo.
 
-Las diferencias personales deberán resolverse mediante el diálogo o por conducto de los responsables designados por la organización.
+e. Trabajo en equipo.
 
-**Artículo 7.** Camaradería
+f. Liderazgo.
 
-La camaradería constituye uno de los pilares fundamentales del Escuadrón 71.
+g. Aprendizaje continuo.
 
-Todos los miembros deberán fomentar:
+h. Espíritu de servicio.
 
-El compañerismo.
-La cooperación.
-La solidaridad.
-La ayuda mutua.
-El espíritu de equipo.
+i. Seguridad operacional.
 
-El éxito de una misión se alcanza mediante el trabajo conjunto y no por los logros individuales.
+j. Integridad.
 
-**Artículo 8.** Integración de Nuevos Miembros
+Estos principios constituyen la base de todas las decisiones institucionales y orientan el comportamiento esperado de cada integrante dentro y fuera de las actividades oficiales.
 
-Los nuevos integrantes deberán recibir un trato digno, respetuoso y orientado al aprendizaje.
+---
 
-Los pilotos con mayor experiencia tendrán el deber moral de orientar a quienes inician su proceso de formación.
+### Artículo 5. Ámbito de aplicación
 
-El Escuadrón 71 considera que el crecimiento de la comunidad depende del compromiso colectivo con la enseñanza y el acompañamiento permanente de los nuevos pilotos.
+Las disposiciones del presente reglamento serán aplicables a:
 
-**Artículo 9.** Conducta Institucional
+a. Miembros activos.
 
-Todo miembro representa al Escuadrón 71 dentro y fuera de las actividades oficiales.
+b. Aspirantes.
 
-En consecuencia, deberá mantener una conducta acorde con los valores institucionales, evitando actuaciones que afecten la imagen, reputación o prestigio de la organización.
+c. Alumnos de la Academia AVVA71.
 
-La pertenencia al Escuadrón implica asumir un compromiso permanente con la ética, la responsabilidad y el profesionalismo.
+d. Pilotos certificados.
 
-**Artículo 10.** Igualdad y Respeto
+e. Instructores.
 
-El Escuadrón 71 promueve un ambiente inclusivo y de respeto para todas las personas.
+f. Moderadores.
 
-No se permitirá ningún acto de discriminación por motivos de nacionalidad, origen, raza, sexo, religión, condición social, orientación política u otras características personales.
+g. Líderes de División.
 
-Todos los integrantes tendrán los mismos derechos, deberes y oportunidades dentro de la comunidad, de acuerdo con sus méritos, participación y compromiso.
+h. Directores.
 
-**Artículo 11.** Espíritu del Escuadrón 71
+i. Integrantes del Consejo Directivo.
 
-El Escuadrón 71 adopta una organización inspirada en la doctrina militar únicamente con fines de simulación, entrenamiento, orden y liderazgo.
+j. Invitados que participen en actividades oficiales cuando así se determine expresamente.
 
-Los rangos, distintivos, cargos y procedimientos tienen carácter organizativo y no representan autoridad militar real.
+Toda actividad desarrollada bajo el nombre, la imagen o la representación institucional del Escuadrón 71 quedará sometida a las disposiciones aquí establecidas.
 
-El propósito de esta estructura es facilitar la coordinación de las operaciones, fortalecer la disciplina y ofrecer una experiencia de simulación inmersiva para todos los miembros.
+---
 
-**_PARTE II_**
-_NORMAS DE FUNCIONAMIENTO OPERACIONAL_
-**Artículo 13.** Participación Activa
+### Artículo 6. Definiciones
 
-Todo miembro del Escuadrón 71 deberá mantener una participación activa dentro de la comunidad.
+Para efectos de este reglamento se entenderá por:
 
-La participación comprende, entre otras actividades:
+**Miembro Activo:** Persona aceptada oficialmente dentro del Escuadrón 71 y que participa de forma regular en las actividades de la comunidad.
 
-Asistencia a entrenamientos.
-Participación en misiones oficiales.
-Campañas operacionales.
-Actividades académicas.
-Eventos institucionales.
-Aporte constructivo a la comunidad.
+**Aspirante:** Persona que se encuentra en proceso de ingreso y evaluación.
 
-La permanencia en el Escuadrón depende del compromiso demostrado por cada integrante.
+**Alumno:** Integrante inscrito en un programa de formación de la Academia AVVA71.
 
-**Artículo 14.** Puntualidad
+**Instructor:** Miembro autorizado para impartir formación, evaluar competencias y supervisar el aprendizaje de los alumnos.
 
-La puntualidad constituye una muestra de respeto hacia los demás miembros.
+**Operación Oficial:** Toda misión, entrenamiento, campaña, ejercicio o evento convocado por una autoridad competente del Escuadrón 71.
 
-Todo piloto deberá presentarse con la debida anticipación a:
+**Cadena de Mando:** Estructura organizacional mediante la cual se asignan responsabilidades y se ejerce la dirección de las actividades oficiales.
 
-Briefings.
-Entrenamientos.
-Clases.
-Misiones.
-Reuniones oficiales.
+**Canales Oficiales:** Todos los medios de comunicación autorizados por el Escuadrón 71, incluidos Discord, la página web, servidores, plataformas colaborativas y cualquier otro medio institucional.
 
-El retraso injustificado afecta la planificación operacional y podrá ser considerado como una falta disciplinaria cuando sea reiterativo.
+# CAPÍTULO II
 
-**Artículo 15.** Conducta en los Canales de Comunicación
+## DERECHOS, DEBERES Y PRINCIPIOS DE CONVIVENCIA
 
-Los canales oficiales del Escuadrón 71, incluyendo Discord, servidores de voz, foros, página web y demás plataformas autorizadas, deberán utilizarse exclusivamente para los fines de la comunidad.
+### Artículo 7. Derechos de los miembros
 
-Durante las actividades oficiales se deberá:
+Todo integrante del Escuadrón 71 gozará, como mínimo, de los siguientes derechos:
 
-Mantener disciplina en las comunicaciones.
-Utilizar lenguaje claro y profesional.
-Evitar interrupciones innecesarias.
-Respetar la prioridad de transmisión.
-Seguir las instrucciones del líder de misión.
+a. Ser tratado con dignidad, respeto, imparcialidad y consideración.
 
-Las comunicaciones operacionales deberán realizarse con la mayor precisión posible, procurando mantener una experiencia inmersiva y organizada.
+b. Participar en las actividades organizadas por el Escuadrón de acuerdo con los requisitos establecidos para cada una de ellas.
 
-**Artículo 16.** Uso del Call Sign
+c. Recibir formación, orientación y acompañamiento durante su proceso de aprendizaje.
 
-Todo miembro utilizará el Call Sign oficialmente asignado por el Escuadrón 71 en:
+d. Expresar opiniones, propuestas o inquietudes de manera respetuosa a través de los canales institucionales.
 
-Discord.
-Servidores.
-Misiones.
-Eventos.
-Academia.
-Documentación oficial.
+e. Conocer las decisiones que le afecten directamente y ejercer su derecho de defensa cuando corresponda.
 
-El Call Sign constituye la identidad operacional del piloto dentro de la comunidad.
+f. Acceder a los recursos académicos y operacionales autorizados para su nivel de formación.
 
-No se permitirá el uso de nombres ofensivos, inapropiados o que puedan generar confusión con otros miembros.
+g. Ser evaluado con criterios objetivos, transparentes y previamente establecidos.
 
-**Artículo 17.** Responsabilidad del Piloto
+El ejercicio de estos derechos deberá realizarse siempre con observancia de los principios y deberes establecidos en el presente reglamento.
 
-Cada piloto será responsable de mantener en adecuado estado de preparación:
+---
 
-Su equipo informático.
+### Artículo 8. Deberes generales
 
-Su simulador.
+Todo miembro del Escuadrón 71 tendrá el deber de:
 
-Los módulos requeridos.
+a. Cumplir las disposiciones del presente reglamento.
 
-Los controles de vuelo.
+b. Actuar con honestidad, responsabilidad y respeto en todas las actividades institucionales.
 
-El software de comunicaciones.
+c. Contribuir al fortalecimiento de la comunidad mediante una participación activa y constructiva.
 
-Ingresar a una misión sin las condiciones técnicas mínimas podrá impedir la participación cuando afecte el desarrollo normal de la operación.
+d. Acatar las decisiones adoptadas por las autoridades competentes dentro del ámbito de sus funciones.
 
-**Artículo 18.** Disciplina Durante las Operaciones
+e. Preservar el buen nombre y la imagen institucional del Escuadrón 71.
 
-Durante cualquier operación oficial, todos los participantes deberán respetar la cadena de mando establecida para la misión.
+f. Mantener una conducta coherente con los principios de disciplina, compañerismo y profesionalismo.
 
-Las órdenes emitidas por:
+g. Favorecer un ambiente de aprendizaje, cooperación y ayuda mutua.
 
-Mission Commander.
-Flight Lead.
-Instructor.
-Director de Operaciones.
+---
 
-deberán cumplirse salvo que comprometan la seguridad técnica de la simulación o exista una situación de emergencia que obligue a tomar otra decisión.
+### Artículo 9. Respeto y dignidad
 
-Una vez finalizada la misión, cualquier diferencia podrá exponerse durante el debriefing de manera respetuosa.
+El Escuadrón 71 reconoce el respeto mutuo como condición indispensable para el desarrollo de todas sus actividades.
 
-**Artículo 19.** Entrenamiento Permanente
+En consecuencia, cada integrante deberá abstenerse de realizar actos que vulneren la dignidad, integridad o reputación de cualquier miembro de la comunidad.
 
-El aprendizaje continuo constituye una obligación para todos los miembros.
+Se prohíbe toda conducta que constituya insulto, humillación, hostigamiento, intimidación, amenaza, acoso, discriminación o cualquier otra actuación incompatible con los valores institucionales.
 
-Cada piloto deberá procurar mejorar constantemente:
+---
 
-Procedimientos.
-Navegación.
-Comunicaciones.
-Tácticas.
-Empleo de armamento.
-Vuelo en formación.
-Reabastecimiento en vuelo.
-Operaciones nocturnas.
-Procedimientos de emergencia.
+### Artículo 10. Igualdad y no discriminación
 
-El crecimiento individual fortalece la capacidad operativa del Escuadrón.
+El Escuadrón 71 promoverá un ambiente inclusivo basado en la igualdad de oportunidades.
 
-**Artículo 20.** Responsabilidad de los Instructores
+Ningún integrante podrá recibir un trato diferenciado por razones de nacionalidad, origen, idioma, sexo, identidad de género, orientación sexual, raza, religión, discapacidad, condición económica, ideología o cualquier otra circunstancia personal ajena a su desempeño dentro de la comunidad.
 
-Los instructores representan el más alto estándar académico del Escuadrón 71.
+Las decisiones institucionales deberán fundamentarse exclusivamente en criterios de mérito, compromiso, conducta y participación.
 
-Su misión consiste en:
+---
 
-a. Enseñar con profesionalismo.
-b. Corregir con respeto.
-c. Evaluar con imparcialidad.
-d. Motivar el aprendizaje.
-e. Mantener actualizados los programas académicos.
+### Artículo 11. Camaradería y cooperación
 
-Todo instructor deberá actuar como ejemplo de disciplina, liderazgo y compañerismo.
+La cooperación constituye uno de los pilares fundamentales del Escuadrón 71.
 
-**Artículo 21.** Responsabilidad de los Alumnos
+Todos los integrantes deberán promover una cultura basada en la confianza, el compañerismo y la ayuda recíproca, comprendiendo que el éxito de una operación depende del desempeño coordinado de todos sus participantes.
 
-Los alumnos de la Academia AVVA71 deberán:
+El reconocimiento individual nunca deberá anteponerse al cumplimiento de los objetivos colectivos.
 
-Asistir puntualmente a las clases.
-Preparar previamente el material de estudio.
-Cumplir las tareas asignadas.
-Mantener una actitud respetuosa hacia instructores y compañeros.
-Demostrar interés permanente por aprender.
+---
 
-El proceso de formación requiere compromiso, disciplina y constancia.
+### Artículo 12. Integración y acompañamiento
 
-**Artículo 22.** Trabajo en Equipo
+Todo aspirante o nuevo integrante tendrá derecho a recibir orientación durante su proceso de incorporación.
 
-Las operaciones del Escuadrón 71 se fundamentan en el trabajo coordinado.
+Los miembros con mayor experiencia deberán contribuir activamente al proceso de formación mediante la transmisión de conocimientos, la resolución de dudas y el acompañamiento permanente, fomentando un ambiente que favorezca el aprendizaje y el crecimiento colectivo.
 
-El éxito de una misión dependerá de la cooperación entre:
+---
 
-Pilotos.
-JTAC.
-AWACS.
-Controladores.
-Helicópteros.
-Transporte.
-Aviación de combate.
-Personal de apoyo.
+### Artículo 13. Conducta institucional
 
-Se promoverá siempre el logro colectivo por encima del protagonismo individual.
+Todo integrante representa al Escuadrón 71 dentro y fuera de las actividades oficiales cuando actúe en nombre de la comunidad.
 
-**Artículo 23.** Uso Responsable de los Recursos
+Por tal motivo, deberá observar una conducta ejemplar que fortalezca la confianza, el prestigio y la credibilidad institucional.
 
-Los servidores, documentos, misiones, manuales, librerías, material académico y demás recursos del Escuadrón 71 constituyen patrimonio intelectual de la organización.
+Las actuaciones individuales que afecten gravemente la imagen del Escuadrón podrán dar lugar a las medidas disciplinarias previstas en este reglamento.
 
-Todo miembro deberá utilizarlos de manera responsable, respetando los derechos de autor, la confidencialidad cuando corresponda y las normas internas sobre distribución de información.
+---
 
-**Artículo 24.** Representación Institucional
+### Artículo 14. Conflictos entre miembros
 
-Todo integrante que participe en actividades públicas, competencias, campañas internacionales o eventos en nombre del Escuadrón 71 deberá mantener una conducta ejemplar.
+Las diferencias personales deberán resolverse mediante el diálogo respetuoso y los mecanismos internos de conciliación.
 
-Su comportamiento deberá reflejar los valores de:
+Cuando ello no sea posible, cualquiera de las partes podrá solicitar la intervención de un moderador, instructor o miembro del Consejo Directivo, quienes actuarán con imparcialidad y procurarán alcanzar una solución justa y equilibrada.
 
-Respeto.
-Disciplina.
-Profesionalismo.
-Humildad.
-Espíritu deportivo.
-Compañerismo.
+Se prohíbe trasladar conflictos personales a las actividades operacionales cuando ello afecte el desarrollo normal de la comunidad.
 
-Cada piloto representa no solo su desempeño personal, sino el prestigio y la imagen institucional del Escuadrón 71.
+# CAPÍTULO III
 
-**Artículo 25.** Compromiso Operacional
+## ORGANIZACIÓN INSTITUCIONAL Y ESTRUCTURA DE MANDO
 
-Todo miembro acepta que la simulación aérea militar exige preparación, responsabilidad y trabajo constante.
+### Artículo 15. Estructura organizacional
 
-El Escuadrón 71 busca formar pilotos virtuales capaces de operar con altos estándares de realismo, disciplina y coordinación, manteniendo siempre un ambiente de respeto, amistad y pasión por la aviación.
+El Escuadrón 71 adoptará una estructura organizacional jerárquica con el propósito de garantizar la adecuada planificación, coordinación y ejecución de sus actividades.
 
-El cumplimiento de estas normas garantiza el correcto funcionamiento de la comunidad y fortalece la excelencia operacional que caracteriza al Escuadrón 71.
+La autoridad será ejercida conforme a las competencias asignadas a cada cargo y siempre en beneficio de los intereses de la comunidad.
 
-**_PARTE III_**
-_RÉGIMEN DISCIPLINARIO_
-**Artículo 26.** Finalidad del Régimen Disciplinario
+Ningún cargo otorgará privilegios personales; su ejercicio implicará mayores responsabilidades, deberes y obligaciones frente a los demás integrantes.
 
-El Régimen Disciplinario tiene como propósito preservar el orden, la disciplina, el respeto y la sana convivencia dentro del Escuadrón 71.
+---
 
-Las medidas disciplinarias no tienen carácter punitivo, sino formativo y correctivo, buscando fortalecer la cohesión de la comunidad y garantizar el adecuado desarrollo de todas sus actividades.
+### Artículo 16. Órganos de dirección
 
-**Artículo 27.** Principios del Régimen Disciplinario
+La dirección del Escuadrón 71 estará integrada por los siguientes órganos:
 
-Toda actuación disciplinaria estará fundamentada en los siguientes principios:
+a. Consejo Directivo.
 
-Legalidad.
-Imparcialidad.
-Respeto.
-Debido proceso.
-Derecho de defensa.
-Proporcionalidad.
-Confidencialidad.
-Buena fe.
+b. Dirección General.
 
-Ningún miembro podrá ser sancionado sin haber sido escuchado y sin que exista una valoración objetiva de los hechos.
+c. Dirección de Operaciones.
 
-**Artículo 28.** Clasificación de las Faltas
+d. Dirección de la Academia AVVA71.
 
-Las faltas disciplinarias se clasifican en:
+e. Comandancias de Ala o Divisiones Operacionales.
 
-Faltas leves.
-Faltas graves.
-Faltas muy graves.
+f. Instructores.
 
-La gravedad será determinada teniendo en cuenta la conducta, el daño ocasionado, la reincidencia y el impacto sobre la comunidad.
+g. Moderadores y demás autoridades designadas por el Consejo Directivo.
 
-**Artículo 29.** Faltas Leves
+La creación, modificación o supresión de cualquier órgano institucional corresponderá exclusivamente al Consejo Directivo.
 
-Se consideran faltas leves, entre otras:
+---
 
-Llegadas tardías reiteradas.
-Ausencias sin previo aviso a entrenamientos o reuniones.
-Uso inadecuado de canales de comunicación.
-Incumplimiento menor de procedimientos operacionales.
-Lenguaje poco apropiado sin intención ofensiva.
-Desatención ocasional a instrucciones administrativas.
+### Artículo 17. Consejo Directivo
 
-Las faltas leves darán lugar, normalmente, a llamados de atención o medidas pedagógicas.
+El Consejo Directivo constituye la máxima autoridad administrativa del Escuadrón 71.
 
-**Artículo 30.** Faltas Graves
+Le corresponderá:
 
-Constituyen faltas graves:
+a. Definir la visión y los objetivos estratégicos de la comunidad.
 
-Desobedecer instrucciones durante una misión oficial.
-Incumplir deliberadamente procedimientos operacionales.
-Generar conflictos entre miembros.
-Utilizar lenguaje ofensivo o irrespetuoso.
-Publicar información interna sin autorización.
-Ausentarse repetidamente de actividades obligatorias.
-Incumplir compromisos adquiridos como instructor, líder o directivo.
-Afectar deliberadamente el desarrollo de entrenamientos o campañas.
+b. Aprobar reglamentos, manuales y políticas institucionales.
 
-**Artículo 31.** Faltas Muy Graves
+c. Designar o remover a quienes ocupen cargos directivos.
 
-Se consideran faltas muy graves:
+d. Resolver los asuntos disciplinarios cuya competencia le sea atribuida.
 
-Amenazar a cualquier miembro.
-Acosar o intimidar a otro integrante.
-Discriminar por razones de nacionalidad, sexo, religión, raza o cualquier condición personal.
-Realizar actos de acoso, hostigamiento o persecución.
-Difamar al Escuadrón 71 o a cualquiera de sus integrantes.
-Suplantar la identidad de otro miembro.
-Compartir material ilegal o que vulnere derechos de autor utilizando medios oficiales del Escuadrón.
-Divulgar información confidencial.
-Manipular evaluaciones, registros académicos o documentación institucional.
-Cualquier conducta que comprometa gravemente el prestigio, la seguridad o el funcionamiento del Escuadrón 71.
+e. Administrar el patrimonio material e intelectual del Escuadrón.
 
-**Artículo 32.** Conductas Prohibidas
+f. Representar institucionalmente a la organización cuando sea necesario.
 
-Dentro de la comunidad queda expresamente prohibido:
+Las decisiones del Consejo Directivo deberán adoptarse con criterios de objetividad, transparencia y beneficio colectivo.
 
-Insultar o ridiculizar a otros miembros.
-Practicar cualquier forma de acoso.
-Promover discursos de odio.
-Difundir contenido pornográfico.
-Publicar material violento o ilegal.
-Promover actividades delictivas.
-Difundir software ilegal o piratería.
-Realizar propaganda política o religiosa durante actividades oficiales.
-Utilizar el nombre del Escuadrón 71 para fines personales sin autorización.
+---
 
-**Artículo 33.** Investigación Disciplinaria
+### Artículo 18. Dirección General
 
-Cuando se presente una presunta infracción, la autoridad competente podrá abrir una investigación interna.
+La Dirección General será responsable de coordinar el funcionamiento integral del Escuadrón 71 y ejecutar las decisiones adoptadas por el Consejo Directivo.
 
-Durante dicho proceso se podrán recopilar:
+Entre sus funciones se encuentran:
 
-Declaraciones.
-Evidencias.
-Grabaciones.
-Capturas de pantalla.
-Registros de comunicaciones.
-Informes de instructores o líderes.
+a. Supervisar el cumplimiento del presente reglamento.
 
-Toda la información será analizada objetivamente antes de adoptar cualquier decisión.
+b. Coordinar las diferentes dependencias institucionales.
 
-**Artículo 34.** Derecho de Defensa
+c. Promover el desarrollo de nuevos proyectos.
 
-Todo miembro tendrá derecho a:
+d. Garantizar el adecuado funcionamiento administrativo de la comunidad.
 
-Conocer los hechos que se le atribuyen.
-Presentar su versión.
-Aportar pruebas.
-Solicitar la revisión de la decisión.
-Ser tratado con respeto durante todo el procedimiento.
+e. Velar por la correcta representación institucional del Escuadrón.
 
-Ninguna sanción será impuesta sin garantizar estos derechos.
+---
 
-**Artículo 35.** Medidas Disciplinarias
+### Artículo 19. Dirección de Operaciones
 
-Dependiendo de la gravedad de la conducta, podrán imponerse las siguientes medidas:
+La Dirección de Operaciones será responsable de la planificación, coordinación y supervisión de las actividades operacionales.
 
-Llamado de atención verbal.
-Llamado de atención escrito.
-Amonestación formal.
-Suspensión temporal de actividades.
-Suspensión de cargos administrativos.
-Pérdida temporal de privilegios.
-Repetición obligatoria de entrenamientos.
-Separación temporal de operaciones oficiales.
-Expulsión definitiva del Escuadrón 71.
+Sus funciones comprenderán, entre otras:
 
-**Artículo 36.** Circunstancias Agravantes
+a. Diseñar campañas y misiones oficiales.
 
-Se considerarán circunstancias agravantes:
+b. Establecer procedimientos operacionales.
 
-Reincidencia.
-Actuar con intención de causar daño.
-Aprovechar un cargo de autoridad.
-Comprometer el prestigio institucional.
-Afectar el desarrollo de una misión oficial.
-Negarse a colaborar durante la investigación.
+c. Coordinar ejercicios conjuntos.
 
-**Artículo 37.** Circunstancias Atenuantes
+d. Supervisar la seguridad operacional durante las actividades oficiales.
 
-Podrán considerarse circunstancias atenuantes:
+e. Evaluar el desempeño general de las operaciones con el fin de implementar acciones de mejora.
 
-Reconocimiento voluntario de la falta.
-Colaboración con la investigación.
-Reparación del daño ocasionado.
-Ausencia de antecedentes disciplinarios.
-Actitud de arrepentimiento demostrable.
+---
 
-**Artículo 38.** Reincidencia
+### Artículo 20. Dirección de la Academia
 
-La repetición de una conducta sancionada anteriormente permitirá aumentar la severidad de la medida disciplinaria correspondiente.
+La Dirección de la Academia AVVA71 será responsable de la formación técnica y doctrinal de los pilotos del Escuadrón.
 
-El historial disciplinario podrá ser tenido en cuenta al momento de evaluar ascensos, cargos de liderazgo o designaciones institucionales.
+Le corresponderá:
 
-**Artículo 39.** Autoridad Disciplinaria
+a. Diseñar los programas de formación.
 
-La aplicación del presente régimen corresponde al Consejo Directivo o a la autoridad que este designe.
+b. Definir los criterios de evaluación.
 
-Cuando la naturaleza del caso lo requiera, podrá conformarse un comité disciplinario encargado de estudiar los hechos y emitir una recomendación antes de adoptar la decisión definitiva.
+c. Nombrar instructores cuando corresponda.
 
-**Artículo 40.** Finalidad Institucional
+d. Supervisar los procesos académicos.
 
-Toda decisión disciplinaria buscará preservar la unidad, el prestigio y los valores del Escuadrón 71.
+e. Mantener actualizados los contenidos de enseñanza conforme a la evolución del simulador y de la doctrina institucional.
 
-El objetivo principal será mantener una comunidad caracterizada por la disciplina, el respeto, la excelencia operacional y el compañerismo, garantizando un ambiente seguro y agradable para todos sus integrantes.
+---
 
-**_PARTE IV_**
-_DISPOSICIONES FINALES_
+### Artículo 21. Autoridad y límites del ejercicio del cargo
 
-**Artículo 41.** Carácter Obligatorio del Reglamento
+Toda autoridad deberá ejercer sus funciones con imparcialidad, respeto y responsabilidad.
 
-El presente Reglamento General es de obligatorio cumplimiento para todos los integrantes del Escuadrón 71, independientemente de su cargo, antigüedad o nivel de experiencia.
+Queda prohibido utilizar un cargo para:
 
-El desconocimiento de sus disposiciones no exime a ningún miembro de su responsabilidad.
+a. Obtener beneficios personales.
 
-**Artículo 42.** Aceptación del Reglamento
+b. Favorecer injustificadamente a determinados miembros.
 
-El ingreso al Escuadrón 71 implica la aceptación libre y voluntaria del presente reglamento.
+c. Intimidar o ejercer presión indebida sobre otros integrantes.
 
-Todo aspirante, alumno o miembro activo declara conocer y comprometerse a cumplir las normas aquí establecidas como requisito para pertenecer a la comunidad.
+d. Adoptar decisiones motivadas por conflictos personales.
 
-**Artículo 43.** Interpretación del Reglamento
+Toda actuación deberá estar debidamente justificada y orientada al interés institucional.
 
-Las situaciones no contempladas expresamente en este reglamento serán resueltas por el Consejo Directivo del Escuadrón 71, aplicando los principios de equidad, respeto, disciplina, razonabilidad y el interés general de la comunidad.
+---
 
-Las decisiones adoptadas en estos casos constituirán criterio orientador para situaciones similares en el futuro.
+### Artículo 22. Delegación de funciones
 
-**Artículo 44.** Modificaciones
+Las autoridades podrán delegar funciones específicas cuando las necesidades operacionales o administrativas así lo requieran.
 
-El presente reglamento podrá ser modificado cuando las necesidades operacionales, académicas, administrativas o tecnológicas del Escuadrón 71 así lo requieran.
+La delegación no implicará la transferencia de la responsabilidad inherente al cargo, la cual continuará recayendo sobre la autoridad que la haya conferido.
 
-Toda modificación deberá ser aprobada por el Consejo Directivo y comunicada oportunamente a los miembros de la comunidad a través de los canales oficiales.
+---
 
-**Artículo 45.** Publicación Oficial
+### Artículo 23. Cadena de mando
 
-La versión oficial y vigente del Reglamento General será la publicada en la página web oficial del Escuadrón 71.
+Durante toda actividad oficial deberá respetarse la cadena de mando establecida para la misión o evento correspondiente.
 
-Cualquier copia impresa o digital diferente de la versión oficial tendrá únicamente carácter informativo.
+Las instrucciones impartidas por la autoridad competente deberán ser acatadas por los participantes, siempre que se encuentren dentro del marco de sus atribuciones y no comprometan la seguridad de la operación.
 
-**Artículo 46.** Conservación de los Valores Institucionales
+Las discrepancias sobre decisiones operacionales deberán plantearse una vez finalizada la actividad, a través de los mecanismos institucionales previstos para tal fin.
 
-Todos los integrantes tendrán el deber permanente de proteger y fortalecer los principios que identifican al Escuadrón 71.
+---
 
-Cada acción individual contribuye a consolidar una comunidad basada en el respeto, la disciplina, el compañerismo, la excelencia operacional y el aprendizaje continuo.
+### Artículo 24. Responsabilidad de los líderes
 
-**Artículo 47.** Imagen Institucional
+Quienes ejerzan funciones de dirección, coordinación o instrucción deberán actuar como ejemplo permanente de disciplina, liderazgo y profesionalismo.
 
-El nombre, logotipo, distintivos, emblemas, documentos oficiales y demás elementos de identidad institucional del Escuadrón 71 constituyen parte de su patrimonio.
+Su comportamiento será un referente para los demás integrantes, por lo que estarán sujetos a un mayor estándar de responsabilidad ética e institucional.
 
-Su utilización deberá realizarse únicamente con autorización de la Dirección General o de la autoridad competente, respetando los lineamientos establecidos para la representación institucional.
+El incumplimiento de estos deberes podrá constituir una circunstancia agravante dentro de un eventual procedimiento disciplinario.
 
-**Artículo 48.** Protección de la Información
+# CAPÍTULO IV
 
-Los miembros deberán proteger la información interna del Escuadrón 71, incluyendo documentación académica, material de entrenamiento, procedimientos operacionales, bases de datos, estrategias de campaña y cualquier otro contenido de uso interno.
+## RÉGIMEN OPERACIONAL
 
-La divulgación no autorizada podrá dar lugar a la aplicación de las medidas disciplinarias previstas en este reglamento.
+### Artículo 25. Participación activa
 
-**Artículo 49.** Espíritu de Permanencia
+La permanencia en el Escuadrón 71 implica un compromiso de participación activa en la vida institucional.
 
-El Escuadrón 71 promueve una cultura de crecimiento permanente, cooperación y mejora continua.
+Se entenderá por participación activa la asistencia y colaboración regular en actividades tales como:
 
-Cada integrante es responsable de contribuir al fortalecimiento de la comunidad mediante su participación, actitud, ejemplo y compromiso con los objetivos institucionales.
+a. Entrenamientos.
 
-El éxito colectivo será siempre el resultado del esfuerzo individual de cada uno de sus miembros.
+b. Misiones oficiales.
 
-**Artículo 50.** Entrada en Vigencia
+c. Campañas operacionales.
 
-El presente Reglamento General entrará en vigor a partir de la fecha de su publicación en la página web oficial del Escuadrón 71 y permanecerá vigente hasta que sea sustituido por una nueva versión oficialmente aprobada.
+d. Actividades académicas.
 
-Con su entrada en vigencia quedan derogadas todas aquellas normas, reglamentos o disposiciones internas anteriores que le sean contrarias.
+e. Reuniones institucionales.
+
+f. Eventos organizados por el Escuadrón.
+
+La inactividad prolongada e injustificada podrá dar lugar a la revisión de la condición de miembro activo, conforme a las políticas internas vigentes.
+
+---
+
+### Artículo 26. Puntualidad
+
+La puntualidad constituye un deber institucional y una manifestación de respeto hacia los demás participantes.
+
+Todo integrante deberá presentarse con la antelación suficiente para preparar los recursos necesarios y participar en el briefing previo a la actividad.
+
+Los retrasos reiterados e injustificados podrán ser objeto de medidas disciplinarias cuando afecten el normal desarrollo de las operaciones.
+
+---
+
+### Artículo 27. Preparación previa
+
+Antes del inicio de cualquier actividad oficial, cada piloto será responsable de verificar que dispone de las condiciones técnicas necesarias para participar.
+
+Dicha preparación comprenderá, entre otros aspectos:
+
+a. Correcto funcionamiento del simulador.
+
+b. Actualización de los módulos requeridos.
+
+c. Configuración de controles de vuelo.
+
+d. Disponibilidad del software de comunicaciones.
+
+e. Instalación de archivos, misiones o complementos previamente informados.
+
+La imposibilidad técnica atribuible al participante podrá impedir su incorporación a la actividad cuando comprometa el desarrollo de la misión.
+
+---
+
+### Artículo 28. Comunicaciones operacionales
+
+Las comunicaciones durante las actividades oficiales deberán caracterizarse por la claridad, brevedad y precisión.
+
+Todo participante deberá:
+
+a. Respetar la prioridad de las transmisiones.
+
+b. Evitar interrupciones innecesarias.
+
+c. Utilizar la fraseología establecida para la operación cuando corresponda.
+
+d. Mantener disciplina radiofónica.
+
+e. Atender las instrucciones del líder de misión.
+
+Las comunicaciones ajenas al desarrollo de la operación deberán limitarse al mínimo indispensable.
+
+---
+
+### Artículo 29. Identificación operacional
+
+Todo integrante utilizará el **Call Sign** oficialmente asignado por el Escuadrón 71 en las actividades institucionales y en los canales oficiales destinados a operaciones, entrenamiento o coordinación.
+
+No se autorizará el uso de identificadores ofensivos, ambiguos o susceptibles de generar confusión con otros miembros.
+
+---
+
+### Artículo 30. Desarrollo de las operaciones
+
+Durante toda misión oficial, los participantes deberán actuar conforme a la planificación previamente establecida y respetar la estructura de mando definida para la operación.
+
+Las decisiones adoptadas por el **Mission Commander**, el **Flight Lead** o la autoridad responsable de la misión deberán ser observadas por todos los participantes, salvo que su cumplimiento implique un riesgo técnico evidente para el desarrollo de la simulación.
+
+Las observaciones, desacuerdos o propuestas de mejora deberán presentarse durante el debriefing o mediante los canales institucionales correspondientes.
+
+---
+
+### Artículo 31. Debriefing
+
+Toda actividad operacional deberá concluir, siempre que sea posible, con una sesión de evaluación.
+
+El debriefing tendrá como finalidad:
+
+a. Analizar el cumplimiento de los objetivos.
+b. Identificar aciertos y oportunidades de mejora.
+c. Compartir experiencias y lecciones aprendidas.
+d. Fortalecer las capacidades individuales y colectivas.
+Las intervenciones deberán realizarse con objetividad, respeto y espíritu constructivo.
+
+---
+
+### Artículo 32. Entrenamiento permanente
+
+El aprendizaje continuo constituye un principio esencial del Escuadrón 71.
+
+Cada integrante procurará desarrollar y perfeccionar, entre otras competencias:
+
+a. Procedimientos de vuelo.
+
+b. Navegación.
+
+c. Comunicaciones.
+
+d. Empleo de armamento.
+
+e. Vuelo en formación.
+
+f. Reabastecimiento en vuelo.
+
+g. Operaciones nocturnas.
+
+h. Procedimientos de emergencia.
+
+i. Coordinación táctica.
+
+El progreso individual fortalece la capacidad operativa y el desempeño colectivo de la comunidad.
+
+---
+
+### Artículo 33. Responsabilidad de los instructores
+
+Los instructores representan la máxima referencia académica del Escuadrón 71.
+
+En ejercicio de sus funciones deberán:
+
+a. Enseñar con rigor técnico y profesionalismo.
+
+b. Corregir con respeto y fundamento.
+
+c. Evaluar con objetividad e imparcialidad.
+
+d. Promover un ambiente de confianza y aprendizaje.
+
+e. Mantener actualizados los contenidos académicos.
+
+Su conducta deberá reflejar los valores institucionales en todo momento.
+
+---
+
+### Artículo 34. Responsabilidad de los alumnos
+
+Los alumnos de la Academia AVVA71 deberán asumir un papel activo en su proceso de formación.
+
+En consecuencia, estarán obligados a:
+
+a. Asistir puntualmente a las actividades académicas.
+
+b. Preparar previamente el material de estudio.
+
+c. Cumplir las actividades asignadas.
+
+d. Participar de manera respetuosa y colaborativa.
+
+e. Demostrar disposición permanente para aprender y mejorar.
+
+El proceso formativo exigirá disciplina, constancia y compromiso personal.
