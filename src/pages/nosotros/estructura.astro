@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import DocPage from "@/components/DocPage.astro";
+import "../../styles/pages/_nosotros.scss";
+
+const docs = await getCollection("docs");
+const estructura = docs.find((d) => d.id === "como-funciona-el-escuadron-71")!;
+const { Content } = await render(estructura);
+---
+
+<BaseLayout
+  title="Estructura | Escuadron 71"
+  description="Como funciona el Escuadron 71."
+>
+  <DocPage
+    eyebrow="Nosotros"
+    title="Estructura"
+    description="Como se organiza y funciona el Escuadron 71: academia, operaciones, comunicaciones y cultura institucional."
+  >
+    <Content />
+  </DocPage>
+</BaseLayout>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import DocPage from "@/components/DocPage.astro";
+import "../../styles/pages/_nosotros.scss";
+
+const docs = await getCollection("docs");
+const mision = docs.find((d) => d.id === "mision")!;
+const vision = docs.find((d) => d.id === "vision")!;
+const lema = docs.find((d) => d.id === "lema")!;
+
+const { Content: MisionContent } = await render(mision);
+const { Content: VisionContent } = await render(vision);
+const { Content: LemaContent } = await render(lema);
+---
+
+<BaseLayout
+  title="Mision y Vision | Escuadron 71"
+  description="Mision, vision y lema del Escuadron 71."
+>
+  <DocPage
+    eyebrow="Nosotros"
+    title="Misión y Visión"
+    description="La razon de ser, el rumbo y el lema del Escuadron 71."
+  >
+    <div class="doc-block">
+      <MisionContent />
+    </div>
+    <div class="doc-block">
+      <VisionContent />
+    </div>
+    <div class="doc-lema">
+      <LemaContent />
+    </div>
+  </DocPage>
+</BaseLayout>

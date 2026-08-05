@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import DocPage from "@/components/DocPage.astro";
+import "../../styles/pages/_nosotros.scss";
+
+const docs = await getCollection("docs");
+const objetivos = docs.find((d) => d.id === "objetivos-estrategicos")!;
+const { Content } = await render(objetivos);
+---
+
+<BaseLayout
+  title="Objetivos | Escuadron 71"
+  description="Objetivos estrategicos del Escuadron 71."
+>
+  <DocPage
+    eyebrow="Nosotros"
+    title="Objetivos"
+    description="Las metas institucionales que orientan el crecimiento y la operacion del Escuadron 71."
+  >
+    <Content />
+  </DocPage>
+</BaseLayout>

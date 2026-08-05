@@ -1,0 +1,45 @@
+---
+import { getBase } from "@/lib/base-url";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { eyebrow, title, description, image } = Astro.props;
+const base = getBase();
+const heroImage = image ?? `${base}assets/images/Banner1.jpg`;
+---
+
+<main>
+  <section class="doc-hero hero relative overflow-hidden">
+    <picture class="absolute top-0 left-0 right-0 bottom-0 w-full h-full z-0">
+      <img
+        src={heroImage}
+        alt={title}
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+    </picture>
+    <div class="doc-hero__overlay absolute top-0 left-0 right-0 bottom-0 z-0" aria-hidden="true"></div>
+    <div class="container z-1">
+      <div class="doc-hero__content">
+        <span class="eyebrow">{eyebrow}</span>
+        <h1>{title}</h1>
+        {description && <p>{description}</p>}
+      </div>
+    </div>
+  </section>
+
+  <section class="section doc-section">
+    <div class="container">
+      <article class="doc-panel">
+        <div class="doc-content">
+          <slot />
+        </div>
+      </article>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import DocPage from "@/components/DocPage.astro";
+import "../../styles/pages/_nosotros.scss";
+
+const docs = await getCollection("docs");
+const reglamento = docs.find((d) => d.id === "reglamento")!;
+const { Content } = await render(reglamento);
+---
+
+<BaseLayout
+  title="Reglamento | Escuadron 71"
+  description="Reglamento general del Escuadron 71."
+>
+  <DocPage
+    eyebrow="Nosotros"
+    title="Reglamento"
+    description="Las normas de convivencia, organizacion y comportamiento que rigen al Escuadron 71."
+  >
+    <Content />
+  </DocPage>
+</BaseLayout>
