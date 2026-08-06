@@ -118,3 +118,100 @@ export function formatEte(totalMinutes: number): string {
   if (h === 0) return `${m} min`;
   return `${h} h ${String(m).padStart(2, "0")} min`;
 }
+
+// ============================================
+// B8 — Nav log / ETA (Zulu)
+// ============================================
+
+export const MINUTES_PER_DAY = 24 * 60;
+
+export function clampMinutesToDay(minutes: number): number {
+  return ((minutes % MINUTES_PER_DAY) + MINUTES_PER_DAY) % MINUTES_PER_DAY;
+}
+
+export function formatZuluClock(minutes: number): string {
+  const m = clampMinutesToDay(minutes);
+  const h = Math.floor(m / 60);
+  const mm = Math.round(m % 60);
+  return `${String(h).padStart(2, "0")}:${String(mm).padStart(2, "0")}Z`;
+}
+
+export function parseZuluClock(value: string): number | null {
+  const m = /^\s*(\d{1,2}):(\d{2})\s*Z?\s*$/i.exec(value);
+  if (!m) return null;
+  const h = Number(m[1]);
+  const mm = Number(m[2]);
+  if (h > 23 || mm > 59) return null;
+  return h * 60 + mm;
+}
+
+export interface LegTiming {
+  eteMin: number;
+}
+
+/**
+ * ETA en minutos desde medianoche (Zulu) para cada waypoint.
+ * Resultado tiene length = legs.length + 1; el índice 0 es el despegue.
+ */
+export function etaMinutesPerWaypoint(
+  legs: LegTiming[],
+  departureMinutes: number
+): number[] {
+  const eta: number[] = [clampMinutesToDay(departureMinutes)];
+  for (const leg of legs) {
+    const prev = eta[eta.length - 1];
+    eta.push(clampMinutesToDay(prev + leg.eteMin));
+  }
+  return eta;
+}
+
+/**
+ * ETE acumulado por leg (array de mismo length que legs).
+ */
+export function cumulativeEteMinutes(legs: LegTiming[]): number[] {
+  const acc: number[] = [];
+  let sum = 0;
+  for (const leg of legs) {
+    sum += leg.eteMin;
+    acc.push(sum);
+  }
+  return acc;
+}
+
+// ============================================
+// B6 — TOT (Time on Target)
+// ============================================
+
+/**
+ * Hora de despegue (minutos desde medianoche, Zulu) para impactar a totMinutes,
+ * volando con un ETE total dado.
+ */
+export function departureMinutesForTot(
+  totMinutes: number,
+  totalEteMin: number
+): number {
+  return clampMinutesToDay(totMinutes - totalEteMin);
+}
+
+/**
+ * Velocidad (kt) requerida para recorrer distNm en availableMinutes.
+ * Devuelve 0 si el tiempo no es válido (evita división por cero).
+ */
+export function requiredSpeedKt(
+  distNm: number,
+  availableMinutes: number
+): number {
+  if (!isFinite(availableMinutes) || availableMinutes <= 0) return 0;
+  return (distNm / availableMinutes) * 60;
+}
+
+/**
+ * TOT resultante (minutos desde medianoche, Zulu) despegando a departureMinutes
+ * con un ETE total dado.
+ */
+export function totForDeparture(
+  departureMinutes: number,
+  totalEteMin: number
+): number {
+  return clampMinutesToDay(departureMinutes + totalEteMin);
+}
