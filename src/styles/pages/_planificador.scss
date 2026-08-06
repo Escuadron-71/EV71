@@ -168,12 +168,54 @@
   }
 }
 
-.planner-hud-seg--row {
-  flex-direction: row;
+.planner-tools {
+  display: flex;
+  gap: 6px;
 
-  button {
+  .planner-tool {
     flex: 1;
-    width: auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 4px 7px;
+    background: transparent;
+    color: $text-muted;
+    border: 1px solid $border;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    svg {
+      flex: none;
+    }
+
+    &:hover {
+      background: rgba($secondary, 0.08);
+      color: $text-light;
+    }
+
+    &:focus-visible {
+      outline: 1px solid $secondary;
+      outline-offset: 1px;
+    }
+
+    &.is-active {
+      background: $secondary;
+      border-color: $secondary;
+      color: $primary-dark;
+    }
+  }
+
+  .planner-tool-label {
+    font-size: 0.52rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -290,6 +332,14 @@
   border-radius: 8px;
 }
 
+.planner-wp-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .planner-wp-index {
   font-family: $font-heading;
   font-size: 0.8rem;
@@ -299,8 +349,7 @@
 }
 
 .planner-wp-coords {
-  flex: 1;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-family: "Roboto Mono", monospace;
   color: $text-muted;
   white-space: nowrap;
@@ -338,6 +387,77 @@
 
 .planner-legs {
   margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.planner-leg-card {
+  padding: 8px 10px;
+  background: rgba($primary-light, 0.55);
+  border: 1px solid $border;
+  border-radius: 8px;
+}
+
+.planner-leg-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.planner-leg-pair {
+  font-family: $font-heading;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: $secondary;
+  white-space: nowrap;
+}
+
+.planner-leg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
+  gap: 6px;
+}
+
+.planner-leg-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.planner-leg-label {
+  font-size: 0.56rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: $text-muted;
+  white-space: nowrap;
+}
+
+.planner-leg-value {
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $text-light;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.planner-leg-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px 0;
+  border-top: 1px solid rgba($secondary, 0.35);
+  color: $secondary;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .planner-leg-table {
@@ -711,6 +831,263 @@
   }
 }
 
+// ----------- Fase 2 (B9): Bullseye, Frecuencias, Brevity -----------
+.planner-bullseye-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  background: rgba($primary-light, 0.55);
+  border: 1px solid rgba($secondary, 0.3);
+  border-radius: 8px;
+}
+
+.planner-braa-table td:first-child {
+  font-family: $font-heading;
+  font-weight: 700;
+  color: $secondary;
+  white-space: nowrap;
+}
+
+.planner-bullseye-note {
+  margin: 10px 0 0;
+  font-size: 0.68rem;
+  color: $text-muted;
+  line-height: 1.5;
+}
+
+.planner-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.planner-list-add {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  background: rgba($primary-light, 0.4);
+  border: 1px solid $border;
+  border-radius: 8px;
+
+  input {
+    width: 100%;
+    min-width: 0;
+    background: $primary-light;
+    color: $text-light;
+    border: 1px solid $border;
+    border-radius: 6px;
+    padding: 7px 9px;
+    font-size: 0.82rem;
+    font-family: $font-body;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: $secondary;
+    }
+  }
+
+  button {
+    background: transparent;
+    color: $secondary;
+    border: 1px solid rgba($secondary, 0.5);
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba($secondary, 0.12);
+    }
+  }
+}
+
+.planner-list-error {
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 0.72rem;
+  color: $danger;
+  background: rgba($danger, 0.1);
+  border: 1px solid rgba($danger, 0.35);
+  border-radius: 6px;
+}
+
+.planner-list-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.planner-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: rgba($primary-light, 0.55);
+  border: 1px solid $border;
+  border-radius: 8px;
+  cursor: grab;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &.is-over {
+    border-color: $secondary;
+    background: rgba($secondary, 0.1);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &.planner-list-item--edit {
+    flex-wrap: wrap;
+    cursor: default;
+    border-color: rgba($secondary, 0.5);
+
+    input {
+      flex: 1;
+      min-width: 90px;
+      background: $primary-light;
+      color: $text-light;
+      border: 1px solid $border;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      font-family: $font-body;
+      outline: none;
+
+      &:focus {
+        border-color: $secondary;
+      }
+    }
+  }
+}
+
+.planner-drag-grip {
+  flex: none;
+  color: $text-muted;
+  font-size: 0.9rem;
+  line-height: 1;
+  user-select: none;
+}
+
+.planner-item-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.planner-item-sub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.planner-list-label {
+  min-width: 0;
+  font-size: 0.8rem;
+  color: $text-light;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.planner-freq-value {
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.8rem;
+  color: $secondary;
+  white-space: nowrap;
+}
+
+.planner-band {
+  flex: none;
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  border-radius: 4px;
+  padding: 2px 6px;
+  white-space: nowrap;
+
+  &--vhf {
+    color: $ok;
+    background: rgba($ok, 0.12);
+    border: 1px solid rgba($ok, 0.4);
+  }
+
+  &--uhf {
+    color: $secondary;
+    background: rgba($secondary, 0.1);
+    border: 1px solid rgba($secondary, 0.35);
+  }
+
+  &--fm {
+    color: $warn;
+    background: rgba($warn, 0.1);
+    border: 1px solid rgba($warn, 0.35);
+  }
+}
+
+.planner-brev-code {
+  flex: none;
+  font-family: $font-heading;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: $secondary;
+  background: rgba($secondary, 0.1);
+  border: 1px solid rgba($secondary, 0.35);
+  border-radius: 4px;
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+
+.planner-brev-meaning {
+  min-width: 0;
+  font-size: 0.76rem;
+  color: $text-muted;
+  line-height: 1.35;
+}
+
+// ----------- Marker Bullseye (Leaflet) -----------
+.planner-bullseye-wrap {
+  background: transparent;
+  border: none;
+}
+
+.planner-bullseye-marker {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($primary, 0.9);
+  border: 2px solid $secondary;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba($secondary, 0.55);
+  color: $secondary;
+  font-family: $font-heading;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
 // ----------- Marker SAM (Leaflet) -----------
 .planner-sam-wrap {
   background: transparent;
@@ -737,6 +1114,24 @@
 }
 
 // ----------- Responsive -----------
+@include responsive($breakpoint-xl) {
+  .planner-hud {
+    flex: 0 0 244px;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .planner-panel {
+    flex: 0 0 304px;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .planner-tool-label {
+    font-size: 0.5rem;
+  }
+}
+
 @include responsive($breakpoint-md) {
   .planner-page-head {
     padding: 40px 0 20px;

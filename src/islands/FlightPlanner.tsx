@@ -8,6 +8,16 @@ import type { MapLayerId } from "@/lib/planner/plugins/map-layers";
 import { MAP_LAYERS, getMapLayer, isMapLayerId } from "@/lib/planner/plugins/map-layers";
 import type { SamId } from "@/lib/planner/plugins/sam-rings";
 import { SAM_SYSTEMS, getSam, isSamId } from "@/lib/planner/plugins/sam-rings";
+import type { BullseyePoint } from "@/lib/planner/plugins/bullseye";
+import {
+  braaFromBullseye,
+  formatBraa,
+  isBullseyePoint,
+} from "@/lib/planner/plugins/bullseye";
+import type { CommEntry } from "@/lib/planner/plugins/comms";
+import { isCommEntry } from "@/lib/planner/plugins/comms";
+import type { BrevityEntry } from "@/lib/planner/plugins/brevity";
+import { BREVITY_CODES, isBrevityEntry } from "@/lib/planner/plugins/brevity";
 import type { BearingMode } from "@/lib/planner/navigation";
 import {
   haversineNm,
@@ -29,6 +39,10 @@ import {
 
 import type * as L from "leaflet";
 import PlannerBlock from "@/islands/planner/widgets/PlannerBlock";
+import ToolSelector from "@/islands/planner/widgets/ToolSelector";
+import type { PlannerTool } from "@/islands/planner/widgets/ToolSelector";
+import CommList from "@/islands/planner/widgets/CommList";
+import BrevityList from "@/islands/planner/widgets/BrevityList";
 
 type LeafletModule = typeof import("leaflet");
 
@@ -45,8 +59,6 @@ interface Leg {
   distNm: number;
   eteMin: number;
 }
-
-type PlannerTool = "waypoint" | "threat";
 
 interface Threat {
   id: string;
@@ -67,6 +79,9 @@ interface PersistedPlannerState {
   totMinutes: number | null;
   departureMinutes: number | null;
   attackWpIndex: number | null;
+  bullseye: BullseyePoint | null;
+  frequencies: CommEntry[];
+  brevityCodes: BrevityEntry[];
   openBlocks?: Record<string, boolean>;
 }
 
@@ -78,6 +93,9 @@ const BLOCK_RUMBO = "hud-rumbo";
 const BLOCK_RUTA = "panel-ruta";
 const BLOCK_TRAMOS = "panel-tramos";
 const BLOCK_TIEMPOS = "panel-tiempos";
+const BLOCK_BULLSEYE = "panel-bullseye";
+const BLOCK_FRECUENCIAS = "panel-frecuencias";
+const BLOCK_BREVITY = "panel-brevity";
 const BLOCK_AMENAZAS = "panel-amenazas";
 const BLOCK_AYUDA = "panel-ayuda";
 
@@ -88,6 +106,9 @@ const DEFAULT_OPEN_BLOCKS: Record<string, boolean> = {
   [BLOCK_RUTA]: true,
   [BLOCK_TRAMOS]: false,
   [BLOCK_TIEMPOS]: false,
+  [BLOCK_BULLSEYE]: false,
+  [BLOCK_FRECUENCIAS]: false,
+  [BLOCK_BREVITY]: false,
   [BLOCK_AMENAZAS]: false,
   [BLOCK_AYUDA]: false,
 };
@@ -104,6 +125,9 @@ const DEFAULT_STATE: PersistedPlannerState = {
   totMinutes: null,
   departureMinutes: null,
   attackWpIndex: null,
+  bullseye: null,
+  frequencies: [],
+  brevityCodes: [...BREVITY_CODES],
   openBlocks: { ...DEFAULT_OPEN_BLOCKS },
 };
 
@@ -150,6 +174,12 @@ function loadState(): PersistedPlannerState {
       p.attackWpIndex === undefined ||
       p.attackWpIndex === null ||
       (typeof p.attackWpIndex === "number" && Number.isInteger(p.attackWpIndex));
+    const isValidBullseye =
+      p.bullseye === undefined || p.bullseye === null || isBullseyePoint(p.bullseye);
+    const hasValidFrequencies =
+      !Array.isArray(p.frequencies) || p.frequencies.every((f) => isCommEntry(f));
+    const hasValidBrevity =
+      !Array.isArray(p.brevityCodes) || p.brevityCodes.every((c) => isBrevityEntry(c));
     if (
       hasValidTheater &&
       hasValidAircraft &&
@@ -161,7 +191,10 @@ function loadState(): PersistedPlannerState {
       isValidTool &&
       isValidTot &&
       isValidDeparture &&
-      isValidAttackWp
+      isValidAttackWp &&
+      isValidBullseye &&
+      hasValidFrequencies &&
+      hasValidBrevity
     ) {
       base = {
         theaterId: p.theaterId as TheaterId,
@@ -175,6 +208,14 @@ function loadState(): PersistedPlannerState {
         totMinutes: p.totMinutes ?? null,
         departureMinutes: p.departureMinutes ?? null,
         attackWpIndex: p.attackWpIndex ?? null,
+        bullseye:
+          p.bullseye === undefined || p.bullseye === null
+            ? null
+            : (p.bullseye as BullseyePoint),
+        frequencies: Array.isArray(p.frequencies) ? (p.frequencies as CommEntry[]) : [],
+        brevityCodes: Array.isArray(p.brevityCodes)
+          ? (p.brevityCodes as BrevityEntry[])
+          : [...BREVITY_CODES],
       };
     }
   } catch {}
@@ -204,6 +245,9 @@ export default function FlightPlanner() {
     DEFAULT_STATE.departureMinutes
   );
   const [attackWpIndex, setAttackWpIndex] = useState<number | null>(DEFAULT_STATE.attackWpIndex);
+  const [bullseye, setBullseye] = useState<BullseyePoint | null>(DEFAULT_STATE.bullseye);
+  const [frequencies, setFrequencies] = useState<CommEntry[]>(DEFAULT_STATE.frequencies);
+  const [brevityCodes, setBrevityCodes] = useState<BrevityEntry[]>(DEFAULT_STATE.brevityCodes);
   const [openBlocks, setOpenBlocks] = useState<Record<string, boolean>>({
     ...DEFAULT_OPEN_BLOCKS,
   });
@@ -218,11 +262,13 @@ export default function FlightPlanner() {
   const theaterIdRef = useRef<TheaterId>(theaterId);
   const waypointsRef = useRef<Waypoint[]>(waypoints);
   const threatsRef = useRef<Threat[]>(threats);
+  const bullseyeRef = useRef<BullseyePoint | null>(bullseye);
   const toolRef = useRef<PlannerTool>(tool);
   const samIdRef = useRef<SamId>("sa2");
   theaterIdRef.current = theaterId;
   waypointsRef.current = waypoints;
   threatsRef.current = threats;
+  bullseyeRef.current = bullseye;
   toolRef.current = tool;
   samIdRef.current = activeSamId;
 
@@ -239,6 +285,9 @@ export default function FlightPlanner() {
     setTotMinutes(s.totMinutes);
     setDepartureMinutes(s.departureMinutes);
     setAttackWpIndex(s.attackWpIndex);
+    setBullseye(s.bullseye);
+    setFrequencies(s.frequencies);
+    setBrevityCodes(s.brevityCodes);
     setOpenBlocks(s.openBlocks ?? { ...DEFAULT_OPEN_BLOCKS });
   }, []);
 
@@ -275,6 +324,9 @@ export default function FlightPlanner() {
         totMinutes,
         departureMinutes,
         attackWpIndex,
+        bullseye,
+        frequencies,
+        brevityCodes,
         openBlocks,
       })
     );
@@ -290,6 +342,9 @@ export default function FlightPlanner() {
     totMinutes,
     departureMinutes,
     attackWpIndex,
+    bullseye,
+    frequencies,
+    brevityCodes,
     openBlocks,
   ]);
 
@@ -315,6 +370,11 @@ export default function FlightPlanner() {
         },
       ]);
       setOpenBlocks((prev) => ({ ...prev, [BLOCK_AMENAZAS]: true }));
+      return;
+    }
+    if (toolRef.current === "bullseye") {
+      setBullseye({ lat: Number(lat.toFixed(5)), lon: Number(lng.toFixed(5)) });
+      setOpenBlocks((prev) => ({ ...prev, [BLOCK_BULLSEYE]: true }));
       return;
     }
     setWaypoints((prev) => [
@@ -349,6 +409,13 @@ export default function FlightPlanner() {
           if (threatsRef.current.length > 0) {
             setThreats((prev) => prev.slice(0, -1));
             showToast("Última amenaza eliminada");
+          }
+          return;
+        }
+        if (toolRef.current === "bullseye") {
+          if (bullseyeRef.current) {
+            setBullseye(null);
+            showToast("Bullseye eliminado");
           }
           return;
         }
@@ -479,9 +546,24 @@ export default function FlightPlanner() {
       L.marker(center, { icon }).addTo(group);
     });
 
+    if (bullseye) {
+      const bullIcon = L.divIcon({
+        className: "planner-bullseye-wrap",
+        html: `<div class="planner-bullseye-marker">◎</div>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 18],
+      });
+      const marker = L.marker([bullseye.lat, bullseye.lon], { icon: bullIcon, draggable: true });
+      marker.on("dragend", () => {
+        const pos = marker.getLatLng();
+        setBullseye({ lat: Number(pos.lat.toFixed(5)), lon: Number(pos.lng.toFixed(5)) });
+      });
+      marker.addTo(group);
+    }
+
     group.addTo(map);
     overlayRef.current = group;
-  }, [mapReady, waypoints, threats, theaterId, bearingMode]);
+  }, [mapReady, waypoints, threats, bullseye, theaterId, bearingMode]);
 
   const legs = useMemo<Leg[]>(() => {
     const result: Leg[] = [];
@@ -519,6 +601,12 @@ export default function FlightPlanner() {
       showToast("Amenazas limpiadas");
       return;
     }
+    if (tool === "bullseye") {
+      if (!bullseye) return;
+      setBullseye(null);
+      showToast("Bullseye eliminado");
+      return;
+    }
     if (waypoints.length === 0) return;
     setWaypoints([]);
     showToast("Ruta limpiada");
@@ -536,6 +624,7 @@ export default function FlightPlanner() {
     setTheaterId(id);
     setWaypoints([]);
     setThreats([]);
+    setBullseye(null);
     setAttackWpIndex(null);
     setTool("waypoint");
     showToast("Teatro cambiado — plan limpio");
@@ -564,9 +653,15 @@ export default function FlightPlanner() {
     if (next === "threat") {
       setOpenBlocks((prev) => ({ ...prev, [BLOCK_AMENAZAS]: true }));
     }
-    showToast(
-      next === "threat" ? "Modo amenazas: clic coloca un SAM" : "Modo navegación: clic agrega waypoint"
-    );
+    if (next === "bullseye") {
+      setOpenBlocks((prev) => ({ ...prev, [BLOCK_BULLSEYE]: true }));
+    }
+    const toolToasts: Record<PlannerTool, string> = {
+      waypoint: "Modo navegación: clic agrega waypoint",
+      threat: "Modo amenazas: clic coloca un SAM",
+      bullseye: "Modo referencia: clic coloca el bullseye",
+    };
+    showToast(toolToasts[next]);
   };
 
   const onSamChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -714,26 +809,7 @@ export default function FlightPlanner() {
 
         <div className="planner-hud-toolbar">
           <span className="planner-hud-toolbar-label">Herramienta</span>
-          <div
-            className="planner-hud-seg planner-hud-seg--row"
-            role="group"
-            aria-label="Herramienta activa"
-          >
-            <button
-              className={tool === "waypoint" ? "is-active" : ""}
-              onClick={() => onToolChange("waypoint")}
-              title="Clic agrega waypoints de navegación"
-            >
-              Navegación
-            </button>
-            <button
-              className={tool === "threat" ? "is-active" : ""}
-              onClick={() => onToolChange("threat")}
-              title="Clic coloca una amenaza SAM"
-            >
-              Amenazas
-            </button>
-          </div>
+          <ToolSelector tool={tool} onToolChange={onToolChange} />
         </div>
 
         <PlannerBlock
@@ -764,7 +840,13 @@ export default function FlightPlanner() {
           <button
             className="planner-hud-action"
             onClick={clearAll}
-            disabled={tool === "threat" ? threats.length === 0 : waypoints.length === 0}
+            disabled={
+              tool === "threat"
+                ? threats.length === 0
+                : tool === "bullseye"
+                  ? !bullseye
+                  : waypoints.length === 0
+            }
           >
             Limpiar
           </button>
@@ -808,9 +890,11 @@ export default function FlightPlanner() {
             <ul className="planner-wp-list">
               {waypoints.map((w, i) => (
                 <li key={w.id} className="planner-wp-item">
-                  <span className="planner-wp-index">WP{i}</span>
-                  <span className="planner-wp-coords">
-                    {w.lat.toFixed(4)}, {w.lon.toFixed(4)}
+                  <span className="planner-wp-main">
+                    <span className="planner-wp-index">WP{i}</span>
+                    <span className="planner-wp-coords">
+                      {w.lat.toFixed(4)}, {w.lon.toFixed(4)}
+                    </span>
                   </span>
                   <span className="planner-wp-actions">
                     <button
@@ -845,53 +929,44 @@ export default function FlightPlanner() {
         >
           {legs.length > 0 ? (
             <div className="planner-legs">
-              <table className="planner-leg-table">
-              <thead>
-                <tr>
-                  <th>Tramo</th>
-                  <th>HDG</th>
-                  <th>NM</th>
-                  <th>ETE</th>
-                  <th>Acum</th>
-                  {etaByWp !== null && <th>ETA</th>}
-                </tr>
-              </thead>
-              <tbody>
-                {legs.map((l, i) => {
-                  const eta = etaByWp !== null ? etaByWp[l.to] : undefined;
-                  return (
-                    <tr key={`${l.from}-${l.to}`}>
-                      <td>
-                        WP{l.from} → WP{l.to}
-                      </td>
-                      <td>{formatHeading(l.heading)}</td>
-                      <td>{formatDistNm(l.distNm)}</td>
-                      <td>{formatEte(l.eteMin)}</td>
-                      <td>{formatEte(cumulativeArr[i])}</td>
-                      {etaByWp !== null && (
-                        <td className="planner-leg-eta">
-                          {eta !== undefined ? formatZuluClock(eta) : "—"}
-                        </td>
+              {legs.map((l, i) => {
+                const eta = etaByWp !== null ? etaByWp[l.to] : undefined;
+                return (
+                  <div key={`${l.from}-${l.to}`} className="planner-leg-card">
+                    <div className="planner-leg-head">
+                      <span className="planner-leg-pair">
+                        WP{l.from} <span aria-hidden="true">→</span> WP{l.to}
+                      </span>
+                      {eta !== undefined && (
+                        <span className="planner-leg-eta">{formatZuluClock(eta)}</span>
                       )}
-                    </tr>
-                  );
-                })}
-                <tr className="planner-leg-total">
-                  <td>TOTAL</td>
-                  <td>—</td>
-                  <td>{formatDistNm(totalNm)}</td>
-                  <td>{formatEte(totalEteMin)}</td>
-                  <td>{formatEte(totalEteMin)}</td>
-                  {etaByWp !== null && (
-                    <td className="planner-leg-eta">
-                      {etaByWp[etaByWp.length - 1] !== undefined
-                        ? formatZuluClock(etaByWp[etaByWp.length - 1])
-                        : "—"}
-                    </td>
-                  )}
-                </tr>
-              </tbody>
-              </table>
+                    </div>
+                    <div className="planner-leg-grid">
+                      <div className="planner-leg-stat">
+                        <span className="planner-leg-label">Rumbo</span>
+                        <span className="planner-leg-value">{formatHeading(l.heading)}</span>
+                      </div>
+                      <div className="planner-leg-stat">
+                        <span className="planner-leg-label">Distancia</span>
+                        <span className="planner-leg-value">{formatDistNm(l.distNm)}</span>
+                      </div>
+                      <div className="planner-leg-stat">
+                        <span className="planner-leg-label">ETE</span>
+                        <span className="planner-leg-value">{formatEte(l.eteMin)}</span>
+                      </div>
+                      <div className="planner-leg-stat">
+                        <span className="planner-leg-label">ACUM</span>
+                        <span className="planner-leg-value">{formatEte(cumulativeArr[i])}</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              <div className="planner-leg-total">
+                <span>TOTAL</span>
+                <span>{formatDistNm(totalNm)}</span>
+                <span>{formatEte(totalEteMin)}</span>
+              </div>
             </div>
           ) : (
             <div className="planner-empty">
@@ -965,6 +1040,86 @@ export default function FlightPlanner() {
             )}
             </div>
           )}
+        </PlannerBlock>
+
+        {(bullseye !== null || tool === "bullseye") && (
+          <PlannerBlock
+            id={BLOCK_BULLSEYE}
+            title="Bullseye"
+            badge={bullseye ? "BR" : undefined}
+            open={openBlocks[BLOCK_BULLSEYE]}
+            onToggle={toggleBlock}
+          >
+            {bullseye === null ? (
+              <div className="planner-empty">
+                <span>Sin bullseye</span>
+                <small>Clic en el mapa coloca la referencia</small>
+              </div>
+            ) : (
+              <div className="planner-bullseye">
+                <div className="planner-bullseye-head">
+                  <span className="planner-wp-coords">
+                    {bullseye.lat.toFixed(4)}, {bullseye.lon.toFixed(4)}
+                  </span>
+                  <button
+                    className="planner-wp-btn planner-wp-btn--danger"
+                    title="Eliminar bullseye"
+                    aria-label="Eliminar bullseye"
+                    onClick={() => setBullseye(null)}
+                  >
+                    ×
+                  </button>
+                </div>
+                {waypoints.length === 0 ? (
+                  <div className="planner-empty">
+                    <span>Sin waypoints</span>
+                    <small>Agrega waypoints para ver su BR</small>
+                  </div>
+                ) : (
+                  <table className="planner-leg-table planner-braa-table">
+                    <thead>
+                      <tr>
+                        <th>WP</th>
+                        <th>BR desde bullseye</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {waypoints.map((w, i) => (
+                        <tr key={w.id}>
+                          <td>WP{i}</td>
+                          <td className="planner-leg-eta">{formatBraa(braaFromBullseye(w, bullseye))}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+                <p className="planner-bullseye-note">
+                  Callout de posicion relativa al bullseye (rumbo/alcance). El marcador se puede
+                  arrastrar sobre el mapa.
+                </p>
+              </div>
+            )}
+          </PlannerBlock>
+        )}
+
+        <PlannerBlock
+          id={BLOCK_FRECUENCIAS}
+          title="Frecuencias"
+          badge={frequencies.length > 0 ? `${frequencies.length}` : undefined}
+          open={openBlocks[BLOCK_FRECUENCIAS]}
+          onToggle={toggleBlock}
+        >
+          <CommList entries={frequencies} onChange={setFrequencies} />
+        </PlannerBlock>
+
+        <PlannerBlock
+          id={BLOCK_BREVITY}
+          title="Brevity"
+          badge={brevityCodes.length > 0 ? `${brevityCodes.length}` : undefined}
+          open={openBlocks[BLOCK_BREVITY]}
+          onToggle={toggleBlock}
+        >
+          <BrevityList codes={brevityCodes} onChange={setBrevityCodes} />
         </PlannerBlock>
 
         {(threats.length > 0 || tool === "threat") && (
@@ -1041,8 +1196,10 @@ export default function FlightPlanner() {
               <li>El rumbo, distancia y ETE se calculan al instante</li>
               <li>Clic derecho elimina el último elemento según la herramienta</li>
               <li>Modo Amenazas: clic coloca un SAM con sus círculos de detección y disparo</li>
+              <li>Modo Referencia: clic coloca el bullseye; cada WP muestra su BR (rumbo/alcance)</li>
               <li>Fija un TOT en el panel para calcular la velocidad requerida y la hora de despegue</li>
-              <li>La ruta y amenazas se guardan automáticamente en tu navegador</li>
+              <li>Agrega frecuencias y códigos brevity como referencia del plan</li>
+              <li>La ruta, amenazas y datos se guardan automáticamente en tu navegador</li>
             </ol>
           </div>
         </PlannerBlock>
