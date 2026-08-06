@@ -646,17 +646,6 @@ export default function FlightPlanner() {
         </div>
       )}
 
-      {focusMode && (
-        <button
-          type="button"
-          className="planner-focus-exit"
-          onClick={() => setFocusMode(false)}
-          aria-label="Salir del modo enfoque"
-        >
-          ✕ Salir
-        </button>
-      )}
-
       <div className="planner-hud">
         <PlannerBlock
           id={BLOCK_MISION}
@@ -784,12 +773,23 @@ export default function FlightPlanner() {
             onClick={() => setFocusMode((prev) => !prev)}
             title="Ocultar paneles y maximizar el mapa"
           >
-            Enfoque
+            {focusMode ? "Salir" : "Enfoque"}
           </button>
         </div>
       </div>
 
-      <div className="planner-map" ref={containerRef} aria-label="Mapa del planificador" />
+      <div className="planner-map" ref={containerRef} aria-label="Mapa del planificador">
+        {focusMode && (
+          <button
+            type="button"
+            className="planner-focus-exit"
+            onClick={() => setFocusMode(false)}
+            aria-label="Salir del modo enfoque"
+          >
+            ✕ Salir
+          </button>
+        )}
+      </div>
 
       <aside className="planner-panel" aria-label="Waypoints y tramos">
         <PlannerBlock

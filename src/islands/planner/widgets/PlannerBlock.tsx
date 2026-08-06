@@ -23,7 +23,7 @@ export default function PlannerBlock({
       open={open}
       onToggle={(e) => onToggle(id, e.currentTarget.open)}
     >
-      <summary className="planner-block-toggle">
+      <summary className="planner-block-toggle flex justify-between">
         <span className="planner-block-title">{title}</span>
         {badge !== undefined && badge !== "" && (
           <span className="planner-block-badge">{badge}</span>
