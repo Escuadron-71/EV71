@@ -92,23 +92,25 @@ const DEFAULT_OPEN_BLOCKS: Record<string, boolean> = {
   [BLOCK_AYUDA]: false,
 };
 
+const DEFAULT_STATE: PersistedPlannerState = {
+  theaterId: "caucasus",
+  aircraftId: "f18",
+  speedKt: 400,
+  layerId: "satellite",
+  bearingMode: "great-circle",
+  waypoints: [],
+  threats: [],
+  tool: "waypoint",
+  totMinutes: null,
+  departureMinutes: null,
+  attackWpIndex: null,
+  openBlocks: { ...DEFAULT_OPEN_BLOCKS },
+};
+
 const uid = () => Math.random().toString(36).slice(2, 10);
 
 function loadState(): PersistedPlannerState {
-  const fallback: PersistedPlannerState = {
-    theaterId: "caucasus",
-    aircraftId: "f18",
-    speedKt: 400,
-    layerId: "satellite",
-    bearingMode: "great-circle",
-    waypoints: [],
-    threats: [],
-    tool: "waypoint",
-    totMinutes: null,
-    departureMinutes: null,
-    attackWpIndex: null,
-    openBlocks: { ...DEFAULT_OPEN_BLOCKS },
-  };
+  const fallback: PersistedPlannerState = DEFAULT_STATE;
   let base: PersistedPlannerState = fallback;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -188,25 +190,23 @@ function loadState(): PersistedPlannerState {
 }
 
 export default function FlightPlanner() {
-  const [theaterId, setTheaterId] = useState<TheaterId>(() => loadState().theaterId);
-  const [aircraftId, setAircraftId] = useState<AircraftId>(() => loadState().aircraftId);
-  const [speedKt, setSpeedKt] = useState<number>(() => loadState().speedKt);
-  const [layerId, setLayerId] = useState<MapLayerId>(() => loadState().layerId);
-  const [bearingMode, setBearingMode] = useState<BearingMode>(() => loadState().bearingMode);
-  const [waypoints, setWaypoints] = useState<Waypoint[]>(() => loadState().waypoints);
-  const [threats, setThreats] = useState<Threat[]>(() => loadState().threats);
-  const [tool, setTool] = useState<PlannerTool>(() => loadState().tool);
+  const [theaterId, setTheaterId] = useState<TheaterId>(DEFAULT_STATE.theaterId);
+  const [aircraftId, setAircraftId] = useState<AircraftId>(DEFAULT_STATE.aircraftId);
+  const [speedKt, setSpeedKt] = useState<number>(DEFAULT_STATE.speedKt);
+  const [layerId, setLayerId] = useState<MapLayerId>(DEFAULT_STATE.layerId);
+  const [bearingMode, setBearingMode] = useState<BearingMode>(DEFAULT_STATE.bearingMode);
+  const [waypoints, setWaypoints] = useState<Waypoint[]>(DEFAULT_STATE.waypoints);
+  const [threats, setThreats] = useState<Threat[]>(DEFAULT_STATE.threats);
+  const [tool, setTool] = useState<PlannerTool>(DEFAULT_STATE.tool);
   const [activeSamId, setActiveSamId] = useState<SamId>("sa2");
-  const [totMinutes, setTotMinutes] = useState<number | null>(() => loadState().totMinutes);
-  const [departureMinutes, setDepartureMinutes] = useState<number | null>(() =>
-    loadState().departureMinutes
+  const [totMinutes, setTotMinutes] = useState<number | null>(DEFAULT_STATE.totMinutes);
+  const [departureMinutes, setDepartureMinutes] = useState<number | null>(
+    DEFAULT_STATE.departureMinutes
   );
-  const [attackWpIndex, setAttackWpIndex] = useState<number | null>(() =>
-    loadState().attackWpIndex
-  );
-  const [openBlocks, setOpenBlocks] = useState<Record<string, boolean>>(
-    () => loadState().openBlocks ?? { ...DEFAULT_OPEN_BLOCKS }
-  );
+  const [attackWpIndex, setAttackWpIndex] = useState<number | null>(DEFAULT_STATE.attackWpIndex);
+  const [openBlocks, setOpenBlocks] = useState<Record<string, boolean>>({
+    ...DEFAULT_OPEN_BLOCKS,
+  });
   const [mapReady, setMapReady] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [focusMode, setFocusMode] = useState(false);
@@ -225,6 +225,22 @@ export default function FlightPlanner() {
   threatsRef.current = threats;
   toolRef.current = tool;
   samIdRef.current = activeSamId;
+
+  useEffect(() => {
+    const s = loadState();
+    setTheaterId(s.theaterId);
+    setAircraftId(s.aircraftId);
+    setSpeedKt(s.speedKt);
+    setLayerId(s.layerId);
+    setBearingMode(s.bearingMode);
+    setWaypoints(s.waypoints);
+    setThreats(s.threats);
+    setTool(s.tool);
+    setTotMinutes(s.totMinutes);
+    setDepartureMinutes(s.departureMinutes);
+    setAttackWpIndex(s.attackWpIndex);
+    setOpenBlocks(s.openBlocks ?? { ...DEFAULT_OPEN_BLOCKS });
+  }, []);
 
   const showToast = useCallback((msg: string) => {
     setToast(msg);
