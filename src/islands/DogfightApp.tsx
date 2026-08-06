@@ -27,6 +27,14 @@ interface RankedPilot {
 
 const STORAGE_KEY = "ev71-dogfight-state";
 
+const DEFAULT_STATE: PersistedState = {
+  queue: ["Alex", "Bianca", "Carlos", "Diana"],
+  champion: null,
+  challenger: null,
+  history: [],
+  phase: "fighting",
+};
+
 function loadState(): PersistedState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -42,7 +50,7 @@ function loadState(): PersistedState {
       }
     }
   } catch {}
-  return { queue: ["Alex", "Bianca", "Carlos", "Diana"], champion: null, challenger: null, history: [], phase: "fighting" };
+  return DEFAULT_STATE;
 }
 
 function computeRecords(history: MatchRecord[]): Record<string, { wins: number; losses: number }> {
@@ -230,11 +238,11 @@ function generatePodiumImage(ranked: RankedPilot[], dateStr: string): Promise<Bl
 }
 
 export default function DogfightApp() {
-  const [queue, setQueue] = useState<string[]>(() => loadState().queue);
-  const [champion, setChampion] = useState<string | null>(() => loadState().champion);
-  const [challenger, setChallenger] = useState<string | null>(() => loadState().challenger);
-  const [history, setHistory] = useState<MatchRecord[]>(() => loadState().history);
-  const [phase, setPhase] = useState<Phase>(() => loadState().phase);
+  const [queue, setQueue] = useState<string[]>(DEFAULT_STATE.queue);
+  const [champion, setChampion] = useState<string | null>(DEFAULT_STATE.champion);
+  const [challenger, setChallenger] = useState<string | null>(DEFAULT_STATE.challenger);
+  const [history, setHistory] = useState<MatchRecord[]>(DEFAULT_STATE.history);
+  const [phase, setPhase] = useState<Phase>(DEFAULT_STATE.phase);
   const [inputValue, setInputValue] = useState("");
   const [toast, setToast] = useState<{ text: string; type: ToastType } | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
@@ -245,6 +253,15 @@ export default function DogfightApp() {
   const showToast = useCallback((text: string, type: ToastType = "info") => {
     setToast({ text, type });
     setTimeout(() => setToast(null), 2500);
+  }, []);
+
+  useEffect(() => {
+    const s = loadState();
+    setQueue(s.queue);
+    setChampion(s.champion);
+    setChallenger(s.challenger);
+    setHistory(s.history);
+    setPhase(s.phase);
   }, []);
 
   useEffect(() => {
