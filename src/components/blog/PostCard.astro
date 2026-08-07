@@ -1,0 +1,21 @@
+---
+import type { BlogItem } from "@/types/multimedia";
+
+interface Props {
+  post: BlogItem;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="post-card">
+  <div class="post-card__header">
+    {post.categoria && (
+      <span class="post-card__category">{post.categoria}</span>
+    )}
+    <time class="post-card__date">{post.date}</time>
+  </div>
+  <h2 class="post-card__title">{post.title}</h2>
+  <p class="post-card__summary">{post.summary}</p>
+  {post.autor && <span class="post-card__author">{post.autor}</span>}
+</article>

@@ -1,0 +1,237 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ============================================
+// Blog y Noticias
+// ============================================
+
+.blog-eyebrow {
+  @include eyebrow;
+  font-family: $font-heading;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+}
+
+// Hero
+.blog-hero {
+  min-height: 56vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 160px 0 100px;
+}
+
+.blog-hero__overlay {
+  background: linear-gradient(
+    180deg,
+    rgba($primary-dark, 0.78) 0%,
+    rgba($primary-dark, 0.4) 55%,
+    rgba($primary, 0.94) 100%
+  );
+}
+
+.blog-hero__content {
+  max-width: 860px;
+}
+
+.blog-hero__title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  text-transform: uppercase;
+  line-height: 0.95;
+  text-shadow: 0 5px 25px rgba(0, 0, 0, 0.55);
+}
+
+.blog-hero__description {
+  font-size: 1.2rem;
+  max-width: 680px;
+  margin-top: 20px;
+  color: rgba($text-light, 0.9);
+}
+
+// Seccion principal
+.blog-section {
+  padding-top: 80px;
+}
+
+.blog-section-title {
+  @include section-title;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  margin-bottom: 16px;
+}
+
+.blog-note {
+  max-width: 760px;
+  color: $text-muted;
+  margin-bottom: 44px;
+}
+
+// Grid de posts
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+// Card de post
+.post-card {
+  @include panel;
+  padding: 26px;
+  background: rgba($primary, 0.92);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($secondary, 0.6);
+  }
+}
+
+.post-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.post-card__category {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $secondary;
+  background: rgba($primary-dark, 0.7);
+  border: 1px solid rgba($secondary, 0.4);
+  border-radius: 999px;
+}
+
+.post-card__date {
+  font-size: 0.75rem;
+  color: $text-muted;
+}
+
+.post-card__title {
+  font-family: $font-heading;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.post-card__summary {
+  font-size: 0.9rem;
+  color: $text-muted;
+  margin-bottom: 18px;
+  flex-grow: 1;
+}
+
+.post-card__author {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $secondary-light;
+}
+
+// Timeline de noticias
+.news-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 860px;
+}
+
+.news-entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 20px;
+  padding: 26px 0 26px 28px;
+  border-left: 1px solid rgba($secondary, 0.25);
+
+  & + .news-entry {
+    border-top: 1px solid $border;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 34px;
+    width: 9px;
+    height: 9px;
+    background: $secondary;
+    transform: rotate(45deg);
+  }
+}
+
+.news-entry__date {
+  font-family: $font-heading;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $secondary;
+  padding-top: 4px;
+}
+
+.news-entry__body {
+  @include panel;
+  padding: 20px 24px;
+  background: rgba($primary, 0.92);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: rgba($secondary, 0.6);
+  }
+}
+
+.news-entry__title {
+  font-family: $font-heading;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.news-entry__summary {
+  font-size: 0.9rem;
+  color: $text-muted;
+  margin-bottom: 10px;
+}
+
+.news-entry__fuente {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $secondary-light;
+}
+
+// CTA inferior
+.blog-back {
+  display: inline-block;
+  margin-top: 48px;
+  @include button-secondary;
+}
+
+// ============================================
+// Responsive
+// ============================================
+@include responsive($breakpoint-md) {
+  .blog-hero {
+    padding: 120px 0 70px;
+  }
+
+  .blog-hero__title {
+    font-size: 2.6rem;
+  }
+
+  .news-entry {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding-left: 20px;
+  }
+}

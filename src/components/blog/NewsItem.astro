@@ -1,0 +1,20 @@
+---
+import type { NewsItem } from "@/types/multimedia";
+
+interface Props {
+  item: NewsItem;
+}
+
+const { item } = Astro.props;
+---
+
+<article class="news-entry">
+  <time class="news-entry__date" datetime={item.date}>
+    {item.date}
+  </time>
+  <div class="news-entry__body">
+    <h2 class="news-entry__title">{item.title}</h2>
+    <p class="news-entry__summary">{item.summary}</p>
+    {item.fuente && <span class="news-entry__fuente">{item.fuente}</span>}
+  </div>
+</article>
