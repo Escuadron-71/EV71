@@ -627,6 +627,7 @@
   padding: 2px 8px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  margin-left: auto;
 }
 
 .planner-block-chevron {
@@ -1111,6 +1112,453 @@
   white-space: nowrap;
   box-shadow: 0 0 8px rgba($danger, 0.35);
   cursor: default;
+}
+
+// ----------- Fase 3 (B3): Bases aéreas -----------
+.planner-tools-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.planner-tool--toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  color: $text-muted;
+  border: 1px dashed rgba($secondary, 0.45);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  svg {
+    flex: none;
+  }
+
+  &:hover {
+    background: rgba($secondary, 0.08);
+    color: $text-light;
+  }
+
+  &:focus-visible {
+    outline: 1px solid $secondary;
+    outline-offset: 1px;
+  }
+
+  &.is-active {
+    background: rgba($secondary, 0.16);
+    border-color: $secondary;
+    border-style: solid;
+    color: $secondary;
+  }
+
+  .planner-tool-label {
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+}
+
+.planner-bases {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.planner-bases-search {
+  width: 100%;
+  background: $primary-light;
+  color: $text-light;
+  border: 1px solid $border;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  font-family: $font-body;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &:focus {
+    border-color: $secondary;
+  }
+}
+
+.planner-bases-note {
+  margin: 0;
+  font-size: 0.72rem;
+  color: $text-muted;
+
+  strong {
+    color: $secondary;
+  }
+}
+
+.planner-bases-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid $border;
+  border-radius: 6px;
+}
+
+.planner-bases-item {
+  border-bottom: 1px solid $border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.planner-bases-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  background: transparent;
+  color: $text-light;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: $font-body;
+  font-size: 0.8rem;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba($secondary, 0.08);
+  }
+
+  &:focus-visible {
+    outline: 1px solid $secondary;
+    outline-offset: -1px;
+  }
+}
+
+.planner-bases-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.planner-bases-meta {
+  flex: none;
+  font-size: 0.66rem;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+// ----------- Fase 3 (B7): Kneeboard -----------
+.planner-kneeboard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.planner-kneeboard-desc {
+  margin: 0;
+  font-size: 0.74rem;
+  color: $text-muted;
+  line-height: 1.5;
+}
+
+.planner-kneeboard-gen {
+  color: $secondary;
+  border-color: rgba($secondary, 0.5);
+
+  &:hover:not(:disabled) {
+    background: rgba($secondary, 0.12);
+  }
+}
+
+.planner-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba($primary-dark, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.planner-modal {
+  width: min(880px, 100%);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px;
+  background: $primary;
+  border: 1px solid $border;
+  border-radius: 12px;
+  box-shadow: $shadow-panel;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.planner-modal-head {
+  h3 {
+    margin: 0 0 6px;
+    font-family: $font-heading;
+    color: $secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  p {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    color: $text-muted;
+
+    code {
+      color: $text-light;
+      background: $primary-light;
+      border: 1px solid $border;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 0.72rem;
+    }
+  }
+}
+
+.planner-modal-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.planner-modal-btn {
+  background: transparent;
+  color: $text-light;
+  border: 1px solid $border;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  font-family: $font-heading;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: rgba($secondary, 0.08);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &--primary {
+    color: $primary-dark;
+    background: $secondary;
+    border-color: $secondary;
+    font-weight: 700;
+
+    &:hover:not(:disabled) {
+      background: lighten($secondary, 6%);
+    }
+  }
+
+  &--small {
+    padding: 5px 10px;
+    font-size: 0.64rem;
+  }
+}
+
+.planner-kneeboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 14px;
+}
+
+.planner-kneeboard-card {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  img {
+    width: 100%;
+    height: auto;
+    border: 1px solid $border;
+    border-radius: 8px;
+    display: block;
+  }
+
+  figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-family: $font-heading;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: $secondary;
+  }
+}
+
+// ----------- Marker Base Aérea (Leaflet) -----------
+.planner-airfield-wrap {
+  background: transparent;
+  border: none;
+}
+
+.planner-airfield-marker {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $secondary;
+  background: rgba($primary, 0.92);
+  border: 1px solid rgba($secondary, 0.85);
+  border-radius: 6px 6px 6px 2px;
+  box-shadow: 0 0 8px rgba($secondary, 0.3);
+  transform: rotate(45deg);
+
+  svg {
+    transform: rotate(-45deg);
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.planner-airfield-popup-wrap {
+  .leaflet-popup-content-wrapper {
+    background: $primary;
+    color: $text-light;
+    border: 1px solid $border;
+    border-radius: 8px;
+    box-shadow: $shadow-panel;
+  }
+
+  .leaflet-popup-tip {
+    background: $primary;
+    border: 1px solid $border;
+  }
+
+  .leaflet-popup-close-button {
+    color: $text-muted;
+  }
+
+  .leaflet-popup-content {
+    margin: 12px 14px;
+  }
+}
+
+.planner-airfield-popup {
+  font-family: $font-body;
+  font-size: 0.8rem;
+
+  h4 {
+    font-family: $font-heading;
+    color: $secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .planner-airfield-tag {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: $text-muted;
+    border: 1px solid $border;
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+
+  .planner-airfield-coords {
+    margin: 0 0 8px;
+    color: $text-muted;
+    font-size: 0.72rem;
+  }
+
+  .planner-airfield-tacan {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 8px;
+
+    strong {
+      color: $secondary;
+    }
+  }
+
+  .planner-airfield-freqs {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 10px;
+
+    th,
+    td {
+      text-align: left;
+      padding: 3px 6px;
+      border-bottom: 1px solid $border;
+      font-size: 0.74rem;
+      font-weight: 400;
+    }
+
+    th {
+      color: $text-muted;
+    }
+
+    td {
+      color: $text-light;
+    }
+
+    small {
+      color: $secondary;
+    }
+  }
+
+  .planner-airfield-runways {
+    strong {
+      color: $secondary;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .planner-airfield-rw {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 3px 0;
+      border-bottom: 1px solid $border;
+      font-size: 0.74rem;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      span {
+        color: $text-muted;
+      }
+    }
+  }
+
+  .planner-airfield-empty {
+    color: $text-muted;
+    font-size: 0.74rem;
+  }
 }
 
 // ----------- Responsive -----------

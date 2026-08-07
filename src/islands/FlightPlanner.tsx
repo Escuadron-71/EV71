@@ -18,6 +18,15 @@ import type { CommEntry } from "@/lib/planner/plugins/comms";
 import { isCommEntry } from "@/lib/planner/plugins/comms";
 import type { BrevityEntry } from "@/lib/planner/plugins/brevity";
 import { BREVITY_CODES, isBrevityEntry } from "@/lib/planner/plugins/brevity";
+import type { Airfield } from "@/lib/planner/plugins/airfields";
+import {
+  AIRFIELDS,
+  getAirfields,
+  formatFreqMhz,
+  bandLabelForFreqMhz,
+} from "@/lib/planner/plugins/airfields";
+import type { KneeboardInput } from "@/lib/planner/kneeboard";
+import { buildKneeboardCards } from "@/lib/planner/kneeboard";
 import type { BearingMode } from "@/lib/planner/navigation";
 import {
   haversineNm,
@@ -43,6 +52,7 @@ import ToolSelector from "@/islands/planner/widgets/ToolSelector";
 import type { PlannerTool } from "@/islands/planner/widgets/ToolSelector";
 import CommList from "@/islands/planner/widgets/CommList";
 import BrevityList from "@/islands/planner/widgets/BrevityList";
+import KneeboardExport from "@/islands/planner/widgets/KneeboardExport";
 
 type LeafletModule = typeof import("leaflet");
 
@@ -82,6 +92,7 @@ interface PersistedPlannerState {
   bullseye: BullseyePoint | null;
   frequencies: CommEntry[];
   brevityCodes: BrevityEntry[];
+  airfieldsVisible: boolean;
   openBlocks?: Record<string, boolean>;
 }
 
@@ -97,6 +108,8 @@ const BLOCK_BULLSEYE = "panel-bullseye";
 const BLOCK_FRECUENCIAS = "panel-frecuencias";
 const BLOCK_BREVITY = "panel-brevity";
 const BLOCK_AMENAZAS = "panel-amenazas";
+const BLOCK_BASES = "panel-bases";
+const BLOCK_KNEEDBOARD = "panel-kneeboard";
 const BLOCK_AYUDA = "panel-ayuda";
 
 const DEFAULT_OPEN_BLOCKS: Record<string, boolean> = {
@@ -110,6 +123,8 @@ const DEFAULT_OPEN_BLOCKS: Record<string, boolean> = {
   [BLOCK_FRECUENCIAS]: false,
   [BLOCK_BREVITY]: false,
   [BLOCK_AMENAZAS]: false,
+  [BLOCK_BASES]: false,
+  [BLOCK_KNEEDBOARD]: false,
   [BLOCK_AYUDA]: false,
 };
 
@@ -128,10 +143,47 @@ const DEFAULT_STATE: PersistedPlannerState = {
   bullseye: null,
   frequencies: [],
   brevityCodes: [...BREVITY_CODES],
+  airfieldsVisible: false,
   openBlocks: { ...DEFAULT_OPEN_BLOCKS },
 };
 
 const uid = () => Math.random().toString(36).slice(2, 10);
+
+function buildAirfieldPopupHtml(af: Airfield): string {
+  const atc = af.atc;
+  const freqRows = atc
+    ? ([
+        ["HF", atc.hf],
+        ["VHF (LO)", atc.vhfLow],
+        ["VHF (HI)", atc.vhfHigh],
+        ["UHF", atc.uhf],
+      ] as const)
+        .map(([label, value]) => {
+          const band = bandLabelForFreqMhz(value);
+          return `<tr><th>${label}</th><td>${formatFreqMhz(value)}${band ? ` <small>${band}</small>` : ""}</td></tr>`;
+        })
+        .join("")
+    : "";
+  const runways = af.runways
+    .map(
+      (rw) =>
+        `<div class="planner-airfield-rw"><strong>${rw.name}</strong>` +
+        `<span>${rw.main ? rw.main.name : "?"} → ${rw.opposite ? rw.opposite.name : "?"}` +
+        ` · ${rw.main ? String(rw.main.heading).padStart(3, "0") : "???"}°/${rw.opposite ? String(rw.opposite.heading).padStart(3, "0") : "???"}°</span></div>`
+    )
+    .join("");
+  return (
+    `<div class="planner-airfield-popup">` +
+    `<h4>${af.name}${af.civilian ? '<span class="planner-airfield-tag">Civil</span>' : ""}</h4>` +
+    `<p class="planner-airfield-coords">${af.lat.toFixed(4)}, ${af.lon.toFixed(4)}</p>` +
+    `<p class="planner-airfield-tacan"><strong>TACAN</strong><span>${af.tacan ?? "—"}</span></p>` +
+    (freqRows
+      ? `<table class="planner-airfield-freqs"><tbody>${freqRows}</tbody></table>`
+      : `<p class="planner-airfield-empty">Sin radio ATC</p>`) +
+    `<div class="planner-airfield-runways"><strong>Pistas</strong>${runways}</div>` +
+    `</div>`
+  );
+}
 
 function loadState(): PersistedPlannerState {
   const fallback: PersistedPlannerState = DEFAULT_STATE;
@@ -180,6 +232,8 @@ function loadState(): PersistedPlannerState {
       !Array.isArray(p.frequencies) || p.frequencies.every((f) => isCommEntry(f));
     const hasValidBrevity =
       !Array.isArray(p.brevityCodes) || p.brevityCodes.every((c) => isBrevityEntry(c));
+    const isValidAirfieldsVisible =
+      p.airfieldsVisible === undefined || typeof p.airfieldsVisible === "boolean";
     if (
       hasValidTheater &&
       hasValidAircraft &&
@@ -194,7 +248,8 @@ function loadState(): PersistedPlannerState {
       isValidAttackWp &&
       isValidBullseye &&
       hasValidFrequencies &&
-      hasValidBrevity
+      hasValidBrevity &&
+      isValidAirfieldsVisible
     ) {
       base = {
         theaterId: p.theaterId as TheaterId,
@@ -216,6 +271,7 @@ function loadState(): PersistedPlannerState {
         brevityCodes: Array.isArray(p.brevityCodes)
           ? (p.brevityCodes as BrevityEntry[])
           : [...BREVITY_CODES],
+        airfieldsVisible: p.airfieldsVisible ?? false,
       };
     }
   } catch {}
@@ -248,6 +304,9 @@ export default function FlightPlanner() {
   const [bullseye, setBullseye] = useState<BullseyePoint | null>(DEFAULT_STATE.bullseye);
   const [frequencies, setFrequencies] = useState<CommEntry[]>(DEFAULT_STATE.frequencies);
   const [brevityCodes, setBrevityCodes] = useState<BrevityEntry[]>(DEFAULT_STATE.brevityCodes);
+  const [airfieldsVisible, setAirfieldsVisible] = useState(DEFAULT_STATE.airfieldsVisible);
+  const [kneeboardOpen, setKneeboardOpen] = useState(false);
+  const [basesQuery, setBasesQuery] = useState("");
   const [openBlocks, setOpenBlocks] = useState<Record<string, boolean>>({
     ...DEFAULT_OPEN_BLOCKS,
   });
@@ -259,6 +318,8 @@ export default function FlightPlanner() {
   const mapRef = useRef<L.Map | null>(null);
   const leafletRef = useRef<LeafletModule | null>(null);
   const overlayRef = useRef<L.LayerGroup | null>(null);
+  const airfieldMarkersRef = useRef<Map<number, L.Marker>>(new Map());
+  const pendingAirfieldFocusRef = useRef<number | null>(null);
   const theaterIdRef = useRef<TheaterId>(theaterId);
   const waypointsRef = useRef<Waypoint[]>(waypoints);
   const threatsRef = useRef<Threat[]>(threats);
@@ -288,6 +349,7 @@ export default function FlightPlanner() {
     setBullseye(s.bullseye);
     setFrequencies(s.frequencies);
     setBrevityCodes(s.brevityCodes);
+    setAirfieldsVisible(s.airfieldsVisible);
     setOpenBlocks(s.openBlocks ?? { ...DEFAULT_OPEN_BLOCKS });
   }, []);
 
@@ -327,6 +389,7 @@ export default function FlightPlanner() {
         bullseye,
         frequencies,
         brevityCodes,
+        airfieldsVisible,
         openBlocks,
       })
     );
@@ -345,6 +408,7 @@ export default function FlightPlanner() {
     bullseye,
     frequencies,
     brevityCodes,
+    airfieldsVisible,
     openBlocks,
   ]);
 
@@ -485,6 +549,7 @@ export default function FlightPlanner() {
       overlayRef.current = null;
     }
     const group = L.layerGroup();
+    airfieldMarkersRef.current.clear();
 
     if (waypoints.length >= 2) {
       const points: [number, number][] = [];
@@ -561,9 +626,33 @@ export default function FlightPlanner() {
       marker.addTo(group);
     }
 
+    if (airfieldsVisible) {
+      getAirfields(theaterId).forEach((af) => {
+        const icon = L.divIcon({
+          className: "planner-airfield-wrap",
+          html: `<div class="planner-airfield-marker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21h6"/><path d="M12 21v-8"/><path d="M10 13 12 9l2 4"/><path d="M12 9V4"/><path d="M8 4h8l-1 2h-6Z"/></svg></div>`,
+          iconSize: [26, 26],
+          iconAnchor: [13, 13],
+        });
+        const marker = L.marker([af.lat, af.lon], { icon });
+        marker.bindPopup(buildAirfieldPopupHtml(af), {
+          maxWidth: 300,
+          className: "planner-airfield-popup-wrap",
+        });
+        marker.addTo(group);
+        airfieldMarkersRef.current.set(af.id, marker);
+      });
+    }
+
     group.addTo(map);
     overlayRef.current = group;
-  }, [mapReady, waypoints, threats, bullseye, theaterId, bearingMode]);
+
+    if (pendingAirfieldFocusRef.current !== null) {
+      const target = airfieldMarkersRef.current.get(pendingAirfieldFocusRef.current);
+      if (target) target.openPopup();
+      pendingAirfieldFocusRef.current = null;
+    }
+  }, [mapReady, waypoints, threats, bullseye, theaterId, bearingMode, airfieldsVisible]);
 
   const legs = useMemo<Leg[]>(() => {
     const result: Leg[] = [];
@@ -616,6 +705,26 @@ export default function FlightPlanner() {
     if (!mapRef.current) return;
     const map = mapRef.current;
     map.setView([lat, lon], Math.max(map.getZoom(), 9), { animate: true });
+  };
+
+  const focusAirfield = (af: Airfield) => {
+    pendingAirfieldFocusRef.current = af.id;
+    if (!airfieldsVisible) {
+      setAirfieldsVisible(true);
+    } else {
+      const marker = airfieldMarkersRef.current.get(af.id);
+      if (marker) marker.openPopup();
+    }
+    const map = mapRef.current;
+    if (map) {
+      map.setView([af.lat, af.lon], Math.max(map.getZoom(), 9), { animate: true });
+    }
+  };
+
+  const toggleAirfields = () => {
+    const next = !airfieldsVisible;
+    setAirfieldsVisible(next);
+    showToast(next ? "Bases aéreas visibles" : "Bases aéreas ocultas");
   };
 
   const onTheaterChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -733,6 +842,53 @@ export default function FlightPlanner() {
   const theater = getTheater(theaterId);
   const aircraft = getAircraft(aircraftId);
 
+  const airfields = useMemo(() => getAirfields(theaterId), [theaterId]);
+  const filteredAirfields = useMemo(() => {
+    const q = basesQuery.trim().toLowerCase();
+    if (!q) return airfields;
+    return airfields.filter((a) => a.name.toLowerCase().includes(q));
+  }, [airfields, basesQuery]);
+
+  const kneeboardInput = useMemo<KneeboardInput>(
+    () => ({
+      theaterNombre: theater.nombre,
+      aircraftNombre: aircraft.nombre,
+      speedKt,
+      bearingLabel: bearingMode === "great-circle" ? "Gran círculo" : "Loxodrómica",
+      waypoints,
+      legs,
+      totalNm,
+      totalEteMin,
+      cumulativeMin: cumulativeArr,
+      etaByWp,
+      totMinutes,
+      departureMinutes: effectiveDeparture,
+      bullseye,
+      frequencies,
+      brevityCodes,
+      threats: threats.map((t) => ({ samNombre: getSam(t.samId).nombre, lat: t.lat, lon: t.lon })),
+    }),
+    [
+      theater.nombre,
+      aircraft.nombre,
+      speedKt,
+      bearingMode,
+      waypoints,
+      legs,
+      totalNm,
+      totalEteMin,
+      cumulativeArr,
+      etaByWp,
+      totMinutes,
+      effectiveDeparture,
+      bullseye,
+      frequencies,
+      brevityCodes,
+      threats,
+    ]
+  );
+  const kneeboardCards = useMemo(() => buildKneeboardCards(kneeboardInput), [kneeboardInput]);
+
   return (
     <div className="planner-app">
       {toast && (
@@ -809,7 +965,35 @@ export default function FlightPlanner() {
 
         <div className="planner-hud-toolbar">
           <span className="planner-hud-toolbar-label">Herramienta</span>
-          <ToolSelector tool={tool} onToolChange={onToolChange} />
+          <div className="planner-tools-row">
+            <ToolSelector tool={tool} onToolChange={onToolChange} />
+            <button
+              type="button"
+              className={`planner-tool planner-tool--toggle${airfieldsVisible ? " is-active" : ""}`}
+              onClick={toggleAirfields}
+              title="Mostrar u ocultar los aeródromos del teatro"
+              aria-pressed={airfieldsVisible}
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 21h6" />
+                <path d="M12 21v-8" />
+                <path d="M10 13 12 9l2 4" />
+                <path d="M12 9V4" />
+                <path d="M8 4h8l-1 2h-6Z" />
+              </svg>
+              <span className="planner-tool-label">Bases</span>
+            </button>
+          </div>
         </div>
 
         <PlannerBlock
@@ -1184,6 +1368,78 @@ export default function FlightPlanner() {
         )}
 
         <PlannerBlock
+          id={BLOCK_BASES}
+          title="Bases aéreas"
+          badge={airfields.length > 0 ? `${airfields.length}` : undefined}
+          open={openBlocks[BLOCK_BASES]}
+          onToggle={toggleBlock}
+        >
+          <div className="planner-bases">
+            <input
+              type="search"
+              className="planner-bases-search"
+              placeholder="Buscar base..."
+              value={basesQuery}
+              onChange={(e) => setBasesQuery(e.target.value)}
+              aria-label="Buscar base aérea"
+            />
+            {!airfieldsVisible && (
+              <p className="planner-bases-note">
+                La capa está oculta. Activa <strong>Bases</strong> en la herramienta para ver los
+                marcadores en el mapa.
+              </p>
+            )}
+            {filteredAirfields.length === 0 ? (
+              <div className="planner-empty">
+                <span>Sin resultados</span>
+              </div>
+            ) : (
+              <ul className="planner-bases-list">
+                {filteredAirfields.map((af) => (
+                  <li key={af.id} className="planner-bases-item">
+                    <button
+                      type="button"
+                      className="planner-bases-btn"
+                      onClick={() => focusAirfield(af)}
+                    >
+                      <span className="planner-bases-name">
+                        {af.name}
+                        {af.civilian ? " · Civil" : ""}
+                      </span>
+                      <span className="planner-bases-meta">
+                        {af.runways.length} pista{af.runways.length > 1 ? "s" : ""}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </PlannerBlock>
+
+        <PlannerBlock
+          id={BLOCK_KNEEDBOARD}
+          title="Kneeboard"
+          badge={kneeboardCards.length > 0 ? `${kneeboardCards.length}` : undefined}
+          open={openBlocks[BLOCK_KNEEDBOARD]}
+          onToggle={toggleBlock}
+        >
+          <div className="planner-kneeboard">
+            <p className="planner-kneeboard-desc">
+              Genera cards PNG 512×512 con el plan actual (waypoints, tramos, frecuencias, brevity
+              y amenazas) listas para el kneeboard de DCS.
+            </p>
+            <button
+              type="button"
+              className="planner-hud-action planner-kneeboard-gen"
+              onClick={() => setKneeboardOpen(true)}
+            >
+              Generar kneeboard
+            </button>
+          </div>
+        </PlannerBlock>
+
+        <PlannerBlock
           id={BLOCK_AYUDA}
           title="Ayuda"
           open={openBlocks[BLOCK_AYUDA]}
@@ -1197,8 +1453,15 @@ export default function FlightPlanner() {
               <li>Clic derecho elimina el último elemento según la herramienta</li>
               <li>Modo Amenazas: clic coloca un SAM con sus círculos de detección y disparo</li>
               <li>Modo Referencia: clic coloca el bullseye; cada WP muestra su BR (rumbo/alcance)</li>
+              <li>
+                Bases aéreas: activa <strong>Bases</strong> para ver los aeródromos del teatro;
+                clic en un marcador muestra ATC, TACAN y pistas
+              </li>
               <li>Fija un TOT en el panel para calcular la velocidad requerida y la hora de despegue</li>
               <li>Agrega frecuencias y códigos brevity como referencia del plan</li>
+              <li>
+                Exporta el plan como cards PNG para el kneeboard de DCS desde el bloque Kneeboard
+              </li>
               <li>La ruta, amenazas y datos se guardan automáticamente en tu navegador</li>
             </ol>
           </div>
@@ -1211,6 +1474,12 @@ export default function FlightPlanner() {
           <span>{bearingMode === "great-circle" ? "Gran círculo" : "Loxodrómica"}</span>
         </div>
       </aside>
+
+      <KneeboardExport
+        open={kneeboardOpen}
+        onClose={() => setKneeboardOpen(false)}
+        cards={kneeboardCards}
+      />
     </div>
   );
 }
