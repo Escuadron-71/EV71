@@ -139,7 +139,7 @@ export function buildNav(pathname: string): NavEntry[] {
       match: ["/tienda", "/donaciones"],
       items: decorate(
         [
-          link("Tienda", resolvePath("/tienda")),
+          link("VitrinaVirtual", resolvePath("/tienda")),
           link("Donaciones", resolvePath("/donaciones")),
         ],
         pathname,

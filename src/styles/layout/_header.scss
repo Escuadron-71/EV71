@@ -36,6 +36,8 @@
   background: rgba($primary-dark, 0.92);
   border-bottom: 1px solid $border;
   backdrop-filter: blur(14px);
+  border-top: 0.0315rem solid rgba($secondary, .25);
+  background: $primary;
 }
 
 // ============================================
@@ -102,6 +104,7 @@
 .main-nav {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
   max-width: 1280px;
   width: min(92%, 1280px);
