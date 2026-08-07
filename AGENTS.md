@@ -258,6 +258,17 @@ Cada PR hacia `master` debe incluir:
 - Verificar que las imagenes existan en `public/assets/images/` antes de referenciarlas.
 - No usar `window`, `document` o APIs del navegador en componentes Astro (solo en React Islands).
 - Ejecutar `pnpm check` despues de cambios significativos para verificar tipos.
+- La validacion completa antes de mergear a `dev` es `pnpm check && pnpm build && pnpm test`.
+
+### Testing (Vitest)
+
+- Los tests unitarios corren con **Vitest** (`pnpm test` para una pasada, `pnpm test:watch` para desarrollo).
+- Configuracion en `vitest.config.ts` (alias `@/` → `src/`, environment node).
+- Los tests se co-localizan junto al modulo bajo test (`src/**/*.test.ts`).
+- Cubren logica pura SSR-safe: `base-url`, `services/event-service` y el pipeline de `sync/**`
+  (normalizador, transformador Discord, storage JSON, adaptador con retries, sync service).
+- `EventService` acepta una ruta de archivo opcional en el constructor para testear sin tocar `latest.json`.
+- Los modulos del planner (`src/lib/planner/**`) se testearan cuando `plannerDCS` se fusione a `dev`.
 
 ### Sistema de eventos
 
