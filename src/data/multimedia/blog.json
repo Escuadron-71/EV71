@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-08-07T12:00:00.000Z",
+  "blog": [
+    {
+      "id": "blog-001",
+      "title": "Primeros pasos en DCS World: guía para aspirantes",
+      "date": "2026-07-20",
+      "summary": "Todo lo que necesitas saber antes de postularte: requisitos de hardware, módulos recomendados y preparación.",
+      "url": "/blog"
+    },
+    {
+      "id": "blog-002",
+      "title": "Cómo planificamos una misión de escolta",
+      "date": "2026-07-06",
+      "summary": "El proceso de planeamiento táctico que sigue el escuadrón antes de cada operación.",
+      "url": "/blog"
+    },
+    {
+      "id": "blog-003",
+      "title": "Radiofraseología: la clave de la coordinación",
+      "date": "2026-06-22",
+      "summary": "Por qué el lenguaje estándar (brevity) mantiene a la escuadrilla segura y sincronizada en el aire.",
+      "url": "/blog"
+    }
+  ]
+}

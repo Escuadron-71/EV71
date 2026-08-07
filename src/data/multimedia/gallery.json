@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-08-07T12:00:00.000Z",
+  "gallery": [
+    {
+      "id": "gal-001",
+      "title": "Formación en el hangar - F-16C",
+      "image": "/assets/images/F16.png",
+      "date": "2026-07-18"
+    },
+    {
+      "id": "gal-002",
+      "title": "Despegue nocturno de la escuadrilla",
+      "image": "/assets/images/Screen_260217_194224.jpg",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "gal-003",
+      "title": "Misión de escolta - Tomcat",
+      "image": "/assets/images/F14.jpg",
+      "date": "2026-07-25"
+    },
+    {
+      "id": "gal-004",
+      "title": "Interceptación en el Mar Negro",
+      "image": "/assets/images/ScreenF18.jpg",
+      "date": "2026-07-28"
+    },
+    {
+      "id": "gal-005",
+      "title": "Apoyo aéreo cercano - A-10C",
+      "image": "/assets/images/A10.jpg",
+      "date": "2026-08-01"
+    },
+    {
+      "id": "gal-006",
+      "title": "Entrenamiento de helicópteros - Huey",
+      "image": "/assets/images/HUEY.png",
+      "date": "2026-08-03"
+    }
+  ]
+}
