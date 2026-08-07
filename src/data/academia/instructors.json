@@ -1,0 +1,33 @@
+{
+  "note": "Lista preliminar de instructores. Los datos finales seran confirmados por la direccion del escuadron.",
+  "instructors": [
+    {
+      "callsign": "Apache",
+      "name": "Pendiente de confirmacion",
+      "roles": ["Comandante", "Instructor de vuelo"],
+      "aircraft": ["F/A-18C", "F-16C"],
+      "pending": true
+    },
+    {
+      "callsign": "Mirage",
+      "name": "Pendiente de confirmacion",
+      "roles": ["Instructor de vuelo", "Coordinador de misiones"],
+      "aircraft": ["F-16C", "A-10C"],
+      "pending": true
+    },
+    {
+      "callsign": "Raptor",
+      "name": "Pendiente de confirmacion",
+      "roles": ["Instructor de combate", "Lider de escuadrilla"],
+      "aircraft": ["F/A-18C", "F-14B"],
+      "pending": true
+    },
+    {
+      "callsign": "Vulture",
+      "name": "Pendiente de confirmacion",
+      "roles": ["Instructor de procedimientos"],
+      "aircraft": ["A-10C", "UH-60"],
+      "pending": true
+    }
+  ]
+}
