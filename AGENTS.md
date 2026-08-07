@@ -370,6 +370,20 @@ Cada PR hacia `master` debe incluir:
 - Cuando llegue el pipeline real (Drive/Discord), los JSON de `src/data/multimedia/` se generaran en
   build-time siguiendo el patron `sync-events`; la UI no debe depender de credenciales en el cliente.
 
+### Paginas Blog y Noticias
+
+- Las paginas `/blog` y `/noticias` reemplazaron los stubs y comparten `src/styles/pages/_blog.scss`
+  (importado por cada pagina, no en `main.scss`).
+- **Fuente unica de datos:** reutilizan `src/data/multimedia/blog.json` y `news.json` (los mismos de la
+  pagina `/multimedia`), NO se duplican en `src/data/blog/`. Para editar contenido, tocar esos JSON.
+- El servicio es `src/lib/services/multimedia-service.ts`: `getBlog()` y `getNews()`.
+- Tipos extendidos en `src/types/multimedia.ts`: `BlogItem.categoria?`, `BlogItem.autor?`,
+  `NewsItem.fuente?`.
+- Componentes Astro puros en `src/components/blog/`: `PostCard` (grid de articulos con badge de
+  categoria, fecha, summary y autor) y `NewsItem` (timeline con fecha, titulo, summary y fuente).
+- Ambas paginas muestran una nota "contenido de ejemplo": el contenido real llegara con el pipeline
+  de sincronizacion (Discord/multimedia) y no debe depender de credenciales en el cliente.
+
 ### Versionado y releases
 
 - Cada push a `master` dispara el workflow `release.yml`, que genera tag, release y patch bump de la version (inicia en `0.1.0`).
