@@ -316,7 +316,7 @@ Cada PR hacia `master` debe incluir:
 - La configuracion central del menu vive en `src/lib/navigation.ts` (`buildNav(pathname)`), SSR-safe; el componente `Header.astro` la renderiza con `resolvePath()` en todos los hrefs.
 - Los dropdowns usan el patron `nav-dropdown` (`_dropdowns.scss`): trigger con `aria-haspopup`/`aria-expanded`, cierre con Escape o click fuera, y clase `.is-active` en el padre cuando una sub-ruta coincide.
 - Rutas planas: Inicio (`/`), Operaciones (`/operaciones`). Dropdowns: Multimedia, Nosotros, Academia, Herramientas, Comunidad.
-- El CTA movil "POSTULATE" es un link real `.main-nav-cta` (ultimo item del menu), no un pseudo-elemento.
+- El CTA "POSTULATE" vive solo en `.header-top` (oculto en movil); no hay CTA duplicado en el subnav ni en el menu movil.
 - Paginas placeholder de rutas pendientes usan `src/styles/pages/_stub.scss` (importado por cada stub).
 
 ### Versionado y releases

@@ -189,11 +189,6 @@
   }
 }
 
-// Mobile CTA inside the collapsed menu (hidden on desktop)
-.main-nav-cta {
-  display: none;
-}
-
 // ============================================
 // Hamburger toggle
 // ============================================
@@ -317,32 +312,6 @@
         background: rgba($secondary, 0.08);
         color: $secondary;
       }
-    }
-  }
-
-  // Mobile CTA button as last link
-  .main-nav-cta {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 44px;
-    margin: 8px 24px 8px;
-    padding: 0 22px;
-    color: $secondary;
-    background: transparent;
-    border: 1px solid $secondary;
-    border-radius: 4px;
-    font-family: $font-heading;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.25s ease;
-
-    &:hover {
-      background: rgba($secondary, 0.12);
     }
   }
 }
