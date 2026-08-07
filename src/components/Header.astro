@@ -1,10 +1,9 @@
 ---
 import UserDropdown from "@/islands/UserDropdown.tsx";
-import { resolvePath, getBase } from "@/lib/base-url";
+import { buildNav, type NavItem } from "@/lib/navigation";
+import { resolvePath } from "@/lib/base-url";
 
-const norm = (p: string) => p.replace(/\/+$/, "") || "/";
-const routeOf = (href: string) => norm("/" + href.replace(getBase(), ""));
-const isCurrent = (href: string) => routeOf(href) === norm(Astro.url.pathname);
+const nav = buildNav(Astro.url.pathname);
 
 const svgModules = import.meta.glob("/src/assets/icons/*.svg", {
   query: "?raw",
@@ -22,43 +21,19 @@ for (const [key, value] of Object.entries(svgModules)) {
   }
 }
 
-const navItems = [
-  { label: "Inicio", href: resolvePath("/"), active: isCurrent(resolvePath("/")) },
-  { label: "Operaciones", href: resolvePath("/operaciones"), active: isCurrent(resolvePath("/operaciones")) },
-  { label: "Galeria", href: resolvePath("/#galeria") },
-];
-
-const nosotrosItems = [
-  { label: "Quiénes somos", href: resolvePath("/#nosotros") },
-  { separator: true as const },
-  { label: "Misión y Visión", href: resolvePath("/nosotros/mision-vision") },
-  { label: "Declaración", href: resolvePath("/nosotros/declaracion") },
-  { label: "Objetivos", href: resolvePath("/nosotros/objetivos") },
-  { label: "Reglamento", href: resolvePath("/nosotros/reglamento") },
-  { label: "Historia", href: resolvePath("/nosotros/historia") },
-  { label: "Estructura", href: resolvePath("/nosotros/estructura") },
-];
-
-const academiaItems = [
-  { label: "Flota", href: resolvePath("/#flota") },
-  { separator: true as const },
-  { label: "Ingreso / Login", href: resolvePath("/login") },
-];
-
-const actividadItems = [
-  { label: "Dogfight", href: resolvePath("/dogfight") },
-];
-
 const userItems = [
   { label: "Idioma", href: resolvePath("/#") },
   { separator: true as const },
   { label: "Iniciar sesión", href: resolvePath("/login") },
   { label: "Cerrar sesión", href: resolvePath("/#") },
 ];
+
+const isSeparator = (item: NavItem): item is Extract<NavItem, { separator: true }> =>
+  "separator" in item;
 ---
 
 <header class="site-header">
-  <div class="header-inner">
+  <div class="header-top">
     <a href={resolvePath("/")} class="brand">
       <div class="brand-logo">
         <img src={`${resolvePath("/")}assets/images/logo.png`} alt="Escudo EV71" />
@@ -69,71 +44,7 @@ const userItems = [
       </div>
     </a>
 
-    <nav class="main-nav" id="menu" aria-label="Navegacion principal">
-      {navItems.map((item) => (
-        <a href={item.href} class:list={[{ active: item.active }]}>{item.label}</a>
-      ))}
-
-      <div class="nav-dropdown" data-nav-dropdown>
-        <button class="nav-dropdown-trigger" data-nav-dropdown-trigger aria-haspopup="true" aria-expanded="false">
-          Nosotros
-          <svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M1 1l4 4 4-4" />
-          </svg>
-        </button>
-        <div class="nav-dropdown-panel dropdown-panel" role="menu" aria-label="Nosotros">
-          {nosotrosItems.map((item) => {
-            if (item.separator) {
-              return <div class="dropdown-separator" role="separator" />;
-            }
-            return (
-              <a href={item.href} class="dropdown-item" role="menuitem">
-                {item.label}
-              </a>
-            );
-          })}
-        </div>
-      </div>
-
-      <div class="nav-dropdown" data-nav-dropdown>
-        <button class="nav-dropdown-trigger" data-nav-dropdown-trigger aria-haspopup="true" aria-expanded="false">
-          Academia
-          <svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M1 1l4 4 4-4" />
-          </svg>
-        </button>
-        <div class="nav-dropdown-panel dropdown-panel" role="menu" aria-label="Academia">
-          {academiaItems.map((item) => {
-            if (item.separator) {
-              return <div class="dropdown-separator" role="separator" />;
-            }
-            return (
-              <a href={item.href} class="dropdown-item" role="menuitem">
-                {item.label}
-              </a>
-            );
-          })}
-        </div>
-      </div>
-
-      <div class="nav-dropdown" data-nav-dropdown>
-        <button class="nav-dropdown-trigger" data-nav-dropdown-trigger aria-haspopup="true" aria-expanded="false">
-          Actividades
-          <svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M1 1l4 4 4-4" />
-          </svg>
-        </button>
-        <div class="nav-dropdown-panel dropdown-panel" role="menu" aria-label="Actividades">
-          {actividadItems.map((item) => (
-            <a href={item.href} class="dropdown-item" role="menuitem">
-              {item.label}
-            </a>
-          ))}
-        </div>
-      </div>
-    </nav>
-
-    <div class="profile flex items-center gap-2">
+    <div class="header-actions">
       <a href={resolvePath("/postulacion")} class="header-cta">
         POSTÚLATE
       </a>
@@ -143,7 +54,7 @@ const userItems = [
         items={userItems}
         triggerIconHtml={userIconSvg}
       />
-    </div>    
+    </div>
 
     <button
       class="mobile-toggle"
@@ -156,6 +67,58 @@ const userItems = [
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
     </button>
+  </div>
+
+  <div class="header-subnav">
+    <nav class="main-nav" id="menu" aria-label="Navegacion principal">
+      {nav.map((entry) =>
+        entry.type === "link" ? (
+          <a
+            href={entry.href}
+            class:list={[{ active: entry.active }]}
+            aria-current={entry.active ? "page" : undefined}
+          >
+            {entry.label}
+          </a>
+        ) : (
+          <div class="nav-dropdown" data-nav-dropdown>
+            <button
+              class="nav-dropdown-trigger"
+              data-nav-dropdown-trigger
+              aria-haspopup="true"
+              aria-expanded="false"
+              class:list={[{ "is-active": entry.active }]}
+            >
+              {entry.label}
+              <svg class="chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 1l4 4 4-4" />
+              </svg>
+            </button>
+            <div class="nav-dropdown-panel dropdown-panel" role="menu" aria-label={entry.label}>
+              {entry.items?.map((item) => {
+                if (isSeparator(item)) {
+                  return <div class="dropdown-separator" role="separator" />;
+                }
+                return (
+                  <a
+                    href={item.href}
+                    class:list={["dropdown-item", { active: item.active }]}
+                    role="menuitem"
+                    aria-current={item.active ? "page" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        ),
+      )}
+
+      <a href={resolvePath("/postulacion")} class="main-nav-cta">
+        POSTÚLATE
+      </a>
+    </nav>
   </div>
 </header>
 
@@ -179,7 +142,7 @@ const userItems = [
     });
   }
 
-  // Nav dropdown click toggle (Academia / Actividades)
+  // Nav dropdown click toggle
   document.querySelectorAll<HTMLElement>("[data-nav-dropdown]").forEach((wrapper) => {
     const trigger = wrapper.querySelector<HTMLElement>("[data-nav-dropdown-trigger]");
     const panel = wrapper.querySelector<HTMLElement>(".nav-dropdown-panel");
