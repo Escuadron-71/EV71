@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath } from "@/lib/base-url";
+import "../styles/pages/_stub.scss";
+---
+
+<BaseLayout
+  title="Flota | Escuadrón 71"
+  description="Flota de aeronaves del Escuadrón 71 en DCS World: cazas, ataque y apoyo disponibles en el escuadrón."
+>
+  <main class="stub-page" role="main">
+    <div class="stub-panel">
+      <span class="stub-eyebrow">En construcción</span>
+      <h1 class="stub-title">Flota</h1>
+      <p class="stub-description">
+        Próximamente: catálogo de aeronaves del escuadrón con ficha técnica,
+        rol táctico y disponibilidad en DCS World.
+      </p>
+      <a class="stub-back" href={resolvePath("/")}>Regresar al inicio</a>
+    </div>
+  </main>
+</BaseLayout>

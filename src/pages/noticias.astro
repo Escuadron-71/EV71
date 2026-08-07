@@ -1,0 +1,21 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath } from "@/lib/base-url";
+import "../styles/pages/_stub.scss";
+---
+
+<BaseLayout
+  title="Noticias | Escuadrón 71"
+  description="Noticias del Escuadrón 71: novedades, misiones y anuncios oficiales de la comunidad."
+>
+  <main class="stub-page" role="main">
+    <div class="stub-panel">
+      <span class="stub-eyebrow">En construcción</span>
+      <h1 class="stub-title">Noticias</h1>
+      <p class="stub-description">
+        Próximamente: novedades, misiones y anuncios oficiales del escuadrón.
+      </p>
+      <a class="stub-back" href={resolvePath("/")}>Regresar al inicio</a>
+    </div>
+  </main>
+</BaseLayout>

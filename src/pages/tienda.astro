@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath } from "@/lib/base-url";
+import "../styles/pages/_stub.scss";
+---
+
+<BaseLayout
+  title="Tienda | Escuadrón 71"
+  description="Tienda del Escuadrón 71: merchandising e insignias oficiales para la comunidad."
+>
+  <main class="stub-page" role="main">
+    <div class="stub-panel">
+      <span class="stub-eyebrow">En construcción</span>
+      <h1 class="stub-title">Tienda</h1>
+      <p class="stub-description">
+        Próximamente: merchandising e insignias oficiales del escuadrón para
+        apoyar a la comunidad.
+      </p>
+      <a class="stub-back" href={resolvePath("/")}>Regresar al inicio</a>
+    </div>
+  </main>
+</BaseLayout>

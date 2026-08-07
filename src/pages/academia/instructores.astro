@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath } from "@/lib/base-url";
+import "../../styles/pages/_stub.scss";
+---
+
+<BaseLayout
+  title="Instructores | Academia | Escuadrón 71"
+  description="Lista de instructores de la academia del Escuadrón 71: pilotos con experiencia certificada."
+>
+  <main class="stub-page" role="main">
+    <div class="stub-panel">
+      <span class="stub-eyebrow">En construcción</span>
+      <h1 class="stub-title">Lista de instructores</h1>
+      <p class="stub-description">
+        Próximamente: instructores de la academia, especialidades y horarios de
+        formación del escuadrón.
+      </p>
+      <a class="stub-back" href={resolvePath("/")}>Regresar al inicio</a>
+    </div>
+  </main>
+</BaseLayout>

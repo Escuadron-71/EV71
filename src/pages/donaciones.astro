@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath } from "@/lib/base-url";
+import "../styles/pages/_stub.scss";
+---
+
+<BaseLayout
+  title="Donaciones | Escuadrón 71"
+  description="Donaciones al Escuadrón 71: apoya el hosting, servidores y recursos de la comunidad."
+>
+  <main class="stub-page" role="main">
+    <div class="stub-panel">
+      <span class="stub-eyebrow">En construcción</span>
+      <h1 class="stub-title">Donaciones</h1>
+      <p class="stub-description">
+        Próximamente: cómo apoyar al escuadrón con donaciones para hosting,
+        servidores y recursos de la comunidad.
+      </p>
+      <a class="stub-back" href={resolvePath("/")}>Regresar al inicio</a>
+    </div>
+  </main>
+</BaseLayout>

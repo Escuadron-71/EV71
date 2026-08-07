@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath } from "@/lib/base-url";
+import "../styles/pages/_stub.scss";
+---
+
+<BaseLayout
+  title="Multimedia | Escuadrón 71"
+  description="Documentos, galería, videos, noticias y blog del Escuadrón 71. Contenido multimedia de la comunidad."
+>
+  <main class="stub-page" role="main">
+    <div class="stub-panel">
+      <span class="stub-eyebrow">En construcción</span>
+      <h1 class="stub-title">Multimedia</h1>
+      <p class="stub-description">
+        Documentos, galería, videos, noticias y blog del escuadrón. Este
+        espacio reunirá el contenido multimedia de la comunidad.
+      </p>
+      <a class="stub-back" href={resolvePath("/")}>Regresar al inicio</a>
+    </div>
+  </main>
+</BaseLayout>

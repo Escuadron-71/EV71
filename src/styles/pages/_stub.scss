@@ -1,0 +1,45 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ============================================
+// Paginas placeholder (rutas en construccion)
+// ============================================
+
+.stub-page {
+  @include flex-center;
+  min-height: 60vh;
+  padding: 64px 24px;
+
+  .stub-panel {
+    @include panel;
+    max-width: 640px;
+    width: 100%;
+    padding: 48px 32px;
+    text-align: center;
+  }
+
+  .stub-eyebrow {
+    @include eyebrow;
+    margin-bottom: 16px;
+  }
+
+  .stub-title {
+    font-family: $font-heading;
+    font-size: 2.25rem;
+    text-transform: uppercase;
+    line-height: 1;
+    color: $text-light;
+    margin-bottom: 16px;
+  }
+
+  .stub-description {
+    color: $text-muted;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .stub-back {
+    @include button-secondary;
+  }
+}
