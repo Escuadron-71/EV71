@@ -1,0 +1,32 @@
+---
+import type { Aircraft } from "@/types/fleet";
+import { ROLE_LABELS } from "@/types/fleet";
+import { resolvePath } from "@/lib/base-url";
+
+interface Props {
+  aircraft: Aircraft;
+}
+
+const { aircraft } = Astro.props;
+const href = resolvePath(`/flota/${aircraft.slug}`);
+---
+
+<article class="fleet-card">
+  <a href={href} class="fleet-card__link">
+    <div class="fleet-card__media">
+      <img
+        src={resolvePath(aircraft.imagen)}
+        alt={`${aircraft.codigo} ${aircraft.nombre}`}
+        class="fleet-card__image"
+        loading="lazy"
+      />
+      <span class="fleet-card__role">{ROLE_LABELS[aircraft.rol]}</span>
+    </div>
+    <div class="fleet-card__body">
+      <span class="fleet-card__code">{aircraft.codigo}</span>
+      <h2 class="fleet-card__name">{aircraft.nombre}</h2>
+      <p class="fleet-card__tasks">{aircraft.tareas.join(" · ")}</p>
+      <span class="fleet-card__cta">Ver ficha técnica</span>
+    </div>
+  </a>
+</article>
