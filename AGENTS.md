@@ -328,6 +328,23 @@ Cada PR hacia `master` debe incluir:
 - Estilos en `src/styles/pages/_academia.scss` (importado por pagina, no en `main.scss`); la vista de
   curso reutiliza la tipografia markdown de `_nosotros.scss` (clase `.doc-content`).
 
+### Seccion Flota
+
+- Las paginas `/flota` (indice) y `/flota/[slug]` (vista por aeronave) reemplazaron el stub inicial.
+- Datos curados en `src/data/fleet/aircraft.json` (tipados en `src/types/fleet.ts`): slug, codigo, rol
+  (caza/ataque/transporte/helo), pais, tareas, specs, armamento, imagen, moduloOficialUrl y pilotos.
+  Sin libreria runtime de datos; los enlaces a modulos oficiales DCS estan verificados
+  (`digitalcombatsimulator.com/en/shop/modules/...`).
+- El indice agrupa por rol (orden: caza, ataque, transporte, helo). Con menos de 10 aeronaves no hay
+  filtro client-side; si la flota crece, anadir filtro con el patron vanilla TS de `/multimedia`.
+- La vista por aeronave usa `getStaticPaths` desde `aircraft.json`. Nota: si el frontmatter declara
+  `const { note, aircraft } = fleetData` y la variable se usa en el template, Astro la mueve dentro de
+  la funcion de render y `getStaticPaths` (scope de modulo) no puede verla; leer el JSON dentro de
+  `getStaticPaths` (`fleetData as FleetData`).
+- Componentes Astro puros: `AircraftCard`, `AircraftSpecs`, `PilotList` en `src/components/fleet/`.
+- Pilotos por aeronave son placeholder hasta que la direccion confirme la lista real.
+- Estilos en `src/styles/pages/_fleet.scss` (importado por pagina, no en `main.scss`).
+
 ### Header y navegacion (2 niveles)
 
 - El header usa **2 filas**: `.header-top` (logo + CTA POSTULATE + UserDropdown, no sticky) y `.header-subnav` (navbar sticky con `top: 0`).
