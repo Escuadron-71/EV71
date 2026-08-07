@@ -319,6 +319,21 @@ Cada PR hacia `master` debe incluir:
 - El CTA "POSTULATE" vive solo en `.header-top` (oculto en movil); no hay CTA duplicado en el subnav ni en el menu movil.
 - Paginas placeholder de rutas pendientes usan `src/styles/pages/_stub.scss` (importado por cada stub).
 
+### Pagina Multimedia (tabs + buscador)
+
+- La pagina `/multimedia` usa **5 tabs accesibles**: Documentos, Galeria, Videos, Noticias, Blog.
+- El estado activo se maneja por query param (`?tab=galeria`) para deep-linking; los tabs se renderizan
+  en `MultimediaTabs.astro` y el cambio de tab + busqueda se hace con vanilla TS en el `<script>` de la pagina.
+- Datos dummy en `src/data/multimedia/*.json` (documents, gallery, videos, news, blog); se importan via
+  `@/data/...` en build-time, sin `fs` ni APIs runtime.
+- `src/lib/services/multimedia-service.ts` expone getters por categoria y `searchAll(query)` (filtrado
+  client-side sobre los JSON ya cargados). Test en `multimedia-service.test.ts`.
+- Componentes Astro puros (sin React): `MultimediaTabs`, `MediaGrid`, `DocumentCard`, `MediaCard`,
+  `NewsList`, `SearchInput` en `src/components/multimedia/`.
+- Estilos en `src/styles/pages/_multimedia.scss` importados solo en la pagina.
+- Cuando llegue el pipeline real (Drive/Discord), los JSON de `src/data/multimedia/` se generaran en
+  build-time siguiendo el patron `sync-events`; la UI no debe depender de credenciales en el cliente.
+
 ### Versionado y releases
 
 - Cada push a `master` dispara el workflow `release.yml`, que genera tag, release y patch bump de la version (inicia en `0.1.0`).
