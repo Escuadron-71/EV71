@@ -29,7 +29,10 @@ export default function BrevityList({ codes, onChange }: BrevityListProps) {
       setError(err);
       return;
     }
-    onChange([...codes, { id: uid(), code: code.trim().toUpperCase(), meaning: meaning.trim() }]);
+    onChange([
+      ...codes,
+      { id: uid(), code: code.trim().toUpperCase(), meaning: meaning.trim() },
+    ]);
     setCode("");
     setMeaning("");
     setError(null);
@@ -55,9 +58,13 @@ export default function BrevityList({ codes, onChange }: BrevityListProps) {
     onChange(
       codes.map((c) =>
         c.id === id
-          ? { ...c, code: editCode.trim().toUpperCase(), meaning: editMeaning.trim() }
-          : c
-      )
+          ? {
+              ...c,
+              code: editCode.trim().toUpperCase(),
+              meaning: editMeaning.trim(),
+            }
+          : c,
+      ),
     );
     setEditingId(null);
   };
@@ -97,7 +104,10 @@ export default function BrevityList({ codes, onChange }: BrevityListProps) {
           renderItem={(entry, _i, handle) => {
             if (editingId === entry.id) {
               return (
-                <li key={entry.id} className="planner-list-item planner-list-item--edit">
+                <li
+                  key={entry.id}
+                  className="planner-list-item planner-list-item--edit"
+                >
                   <input
                     value={editCode}
                     onChange={(e) => setEditCode(e.target.value)}
@@ -143,7 +153,11 @@ export default function BrevityList({ codes, onChange }: BrevityListProps) {
                   <span className="planner-brev-meaning">{entry.meaning}</span>
                 </span>
                 <span className="planner-wp-actions">
-                  <button className="planner-wp-btn" title="Editar" onClick={() => startEdit(entry)}>
+                  <button
+                    className="planner-wp-btn"
+                    title="Editar"
+                    onClick={() => startEdit(entry)}
+                  >
                     ✎
                   </button>
                   <button
