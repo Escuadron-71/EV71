@@ -28,6 +28,7 @@ export interface NewsItem {
   date: string;
   summary: string;
   url: string;
+  fuente?: string;
 }
 
 export interface BlogItem {
@@ -36,6 +37,8 @@ export interface BlogItem {
   date: string;
   summary: string;
   url: string;
+  categoria?: string;
+  autor?: string;
 }
 
 export type MultimediaCategory = "documentos" | "galeria" | "videos" | "noticias" | "blog";
