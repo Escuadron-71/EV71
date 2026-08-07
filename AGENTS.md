@@ -309,6 +309,25 @@ Cada PR hacia `master` debe incluir:
 - Las paginas usan el componente compartido `DocPage.astro` y los estilos de `src/styles/pages/_nosotros.scss` (importado por pagina, no en `main.scss`).
 - El dropdown "Nosotros" del header enlaza a estas paginas siguiendo el patron `nav-dropdown` de Academia/Actividades.
 
+### Seccion Academia (AVVA71)
+
+- Las paginas `/academia/avva71` (landing), `/academia/curso-*` (4 cursos) y `/academia/instructores`
+  reemplazaron los stubs iniciales.
+- Los cursos se cargan como content collection `courses` (`src/content.config.ts`) desde
+  `src/assets/courses/*.md`, con schema zod tipado: `title`, `code` (FR1/CR1/CR2/CR3), `level`
+  (Basico/Avanzado), `duration`, `summary`, `status`, `order`, `prerequisites`, `modules`.
+  El `z` se importa de `astro/zod` (no de `astro:content`, deprecado en Astro 7).
+- Para modificar el contenido de un curso, editar el `.md` correspondiente; NO hardcodear el texto
+  en la pagina. Los IDs de la coleccion son el nombre del archivo (ej: `curso-fr1.md` -> `/academia/curso-fr1`).
+- La vista individual usa la ruta dinamica `src/pages/academia/[slug].astro` con `getStaticPaths`
+  (el archivo debe llamarse `[slug].astro`, no `curso-[slug].astro`, porque el id ya incluye el prefijo).
+- Los `.md` de cursos empiezan con `##` (no `#`) para evitar dos H1: el titulo ya esta en el hero de la pagina.
+- Instructores en `src/data/academia/instructors.json` (tipado en `src/types/academia.ts`); los datos
+  actuales son placeholder marcados con `pending: true` hasta que la direccion confirme los reales.
+- Componentes Astro puros: `CourseCard`, `InstructorCard` en `src/components/academia/`.
+- Estilos en `src/styles/pages/_academia.scss` (importado por pagina, no en `main.scss`); la vista de
+  curso reutiliza la tipografia markdown de `_nosotros.scss` (clase `.doc-content`).
+
 ### Header y navegacion (2 niveles)
 
 - El header usa **2 filas**: `.header-top` (logo + CTA POSTULATE + UserDropdown, no sticky) y `.header-subnav` (navbar sticky con `top: 0`).
