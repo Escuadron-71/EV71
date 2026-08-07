@@ -148,3 +148,6 @@ vite.config.ts.timestamp-*
 # Documentacion
 /docs/**
 /docs
+
+# Build-time airfields extraction (temporal; regenerar data TS con extract.mjs)
+/backend/scripts/airfields-extract/
