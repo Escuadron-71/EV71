@@ -1,0 +1,27 @@
+---
+import type { MultimediaCategory } from "@/types/multimedia";
+import { multimediaService } from "@/lib/services/multimedia-service";
+
+interface Props {
+  category: MultimediaCategory;
+  active: boolean;
+}
+
+const { category, active } = Astro.props;
+---
+
+<section
+  id={`panel-${category}`}
+  role="tabpanel"
+  aria-labelledby={`tab-${category}`}
+  data-panel={category}
+  hidden={!active}
+  class="multimedia-panel"
+>
+  <header class="multimedia-panel-head">
+    <h2>{multimediaService.getCategoryLabel(category)}</h2>
+    <span class="multimedia-count" data-panel-count hidden>0</span>
+  </header>
+  <slot />
+  <p class="multimedia-empty" data-panel-empty hidden>Sin resultados en esta categoría.</p>
+</section>

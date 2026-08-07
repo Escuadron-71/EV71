@@ -1,22 +1,194 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { multimediaService } from "@/lib/services/multimedia-service";
 import { resolvePath } from "@/lib/base-url";
-import "../styles/pages/_stub.scss";
+import MultimediaTabs from "@/components/multimedia/MultimediaTabs.astro";
+import MediaGrid from "@/components/multimedia/MediaGrid.astro";
+import DocumentCard from "@/components/multimedia/DocumentCard.astro";
+import MediaCard from "@/components/multimedia/MediaCard.astro";
+import NewsList from "@/components/multimedia/NewsList.astro";
+import SearchInput from "@/components/multimedia/SearchInput.astro";
+import type { MultimediaCategory } from "@/types/multimedia";
+import "../styles/pages/_multimedia.scss";
+
+const documents = multimediaService.getDocuments();
+const gallery = multimediaService.getGallery();
+const videos = multimediaService.getVideos();
+const news = multimediaService.getNews();
+const blog = multimediaService.getBlog();
+
+const active = "documentos" as MultimediaCategory;
+const resolve = (path: string) => resolvePath(path);
 ---
 
 <BaseLayout
   title="Multimedia | Escuadrón 71"
-  description="Documentos, galería, videos, noticias y blog del Escuadrón 71. Contenido multimedia de la comunidad."
+  description="Documentos, galería, videos, noticias y blog del Escuadrón 71. Contenido multimedia de la comunidad de simulación aérea."
 >
-  <main class="stub-page" role="main">
-    <div class="stub-panel">
-      <span class="stub-eyebrow">En construcción</span>
-      <h1 class="stub-title">Multimedia</h1>
-      <p class="stub-description">
-        Documentos, galería, videos, noticias y blog del escuadrón. Este
-        espacio reunirá el contenido multimedia de la comunidad.
+  <main class="multimedia-page" role="main">
+    <section class="multimedia-hero">
+      <span class="multimedia-eyebrow">Centro multimedia</span>
+      <h1 class="multimedia-title">Multimedia</h1>
+      <p class="multimedia-description">
+        Documentos, galería, videos, noticias y blog del escuadrón. Explora el
+        contenido de la comunidad.
       </p>
-      <a class="stub-back" href={resolvePath("/")}>Regresar al inicio</a>
-    </div>
+      <SearchInput />
+    </section>
+
+    <MultimediaTabs active={active} />
+
+    <section class="multimedia-results" data-results aria-live="polite" hidden>
+      <p class="multimedia-results-empty">Sin resultados para tu búsqueda.</p>
+    </section>
+
+    <section class="multimedia-panels">
+      <MediaGrid category="documentos" active={active === "documentos"}>
+        <div class="media-grid">
+          {documents.map((doc) => (
+            <DocumentCard document={doc} />
+          ))}
+        </div>
+      </MediaGrid>
+
+      <MediaGrid category="galeria" active={active === "galeria"}>
+        <div class="media-grid">
+          {gallery.map((item) => (
+            <MediaCard
+              title={item.title}
+              url={resolve(item.image)}
+              image={resolve(item.image)}
+              date={item.date}
+            />
+          ))}
+        </div>
+      </MediaGrid>
+
+      <MediaGrid category="videos" active={active === "videos"}>
+        <div class="media-grid">
+          {videos.map((video) => (
+            <MediaCard
+              title={video.title}
+              url={video.url}
+              image={resolve(video.thumbnail)}
+              date={video.date}
+            />
+          ))}
+        </div>
+      </MediaGrid>
+
+      <MediaGrid category="noticias" active={active === "noticias"}>
+        <NewsList items={news} />
+      </MediaGrid>
+
+      <MediaGrid category="blog" active={active === "blog"}>
+        <NewsList items={blog} />
+      </MediaGrid>
+    </section>
   </main>
 </BaseLayout>
+
+<script>
+  const panels = document.querySelectorAll<HTMLElement>("[data-panel]");
+  const tabs = document.querySelectorAll<HTMLElement>("[data-tab]");
+  const results = document.querySelector<HTMLElement>("[data-results]");
+  const resultsEmpty = document.querySelector<HTMLElement>(
+    ".multimedia-results-empty",
+  );
+  const input = document.querySelector<HTMLInputElement>("[data-search-input]");
+  const clearBtn = document.querySelector<HTMLButtonElement>("[data-search-clear]");
+
+  const VALID_TABS = ["documentos", "galeria", "videos", "noticias", "blog"];
+
+  function currentTab(): string {
+    const tab = new URLSearchParams(window.location.search).get("tab");
+    return tab && VALID_TABS.includes(tab) ? tab : "documentos";
+  }
+
+  function activateTab(tab: string, updateUrl: boolean) {
+    panels.forEach((panel) => {
+      const isActive = panel.dataset.panel === tab;
+      panel.hidden = !isActive;
+    });
+    tabs.forEach((t) => {
+      const isActive = t.dataset.tab === tab;
+      t.classList.toggle("is-active", isActive);
+      t.setAttribute("aria-selected", String(isActive));
+    });
+    if (updateUrl) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("tab", tab);
+      window.history.replaceState({}, "", url);
+    }
+  }
+
+  function runSearch(query: string) {
+    const q = query.trim().toLowerCase();
+    const hasQuery = q.length > 0;
+    let totalMatches = 0;
+
+    panels.forEach((panel) => {
+      const panelCards = Array.from(
+        panel.querySelectorAll<HTMLElement>("[data-card]"),
+      );
+      let matches = 0;
+      panelCards.forEach((card) => {
+        const haystack = card.dataset.search ?? "";
+        const visible = !hasQuery || haystack.includes(q);
+        card.hidden = !visible;
+        if (visible) matches += 1;
+      });
+
+      const count = panel.querySelector<HTMLElement>("[data-panel-count]");
+      const empty = panel.querySelector<HTMLElement>("[data-panel-empty]");
+      if (count) {
+        count.textContent = String(matches);
+        count.hidden = !hasQuery;
+      }
+      if (empty) empty.hidden = !hasQuery || matches > 0;
+
+      const showPanel = hasQuery ? matches > 0 : panel.dataset.panel === currentTab();
+      panel.hidden = !showPanel;
+      totalMatches += matches;
+    });
+
+    if (results && resultsEmpty) {
+      const showResults = hasQuery;
+      results.hidden = !showResults;
+      resultsEmpty.hidden = totalMatches > 0;
+      resultsEmpty.textContent =
+        totalMatches === 0
+          ? "Sin resultados para tu búsqueda."
+          : `${totalMatches} resultado${totalMatches === 1 ? "" : "s"} encontrado${totalMatches === 1 ? "" : "s"}.`;
+    }
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", (e) => {
+      e.preventDefault();
+      const name = tab.dataset.tab;
+      if (!name) return;
+      if (input) input.value = "";
+      if (clearBtn) clearBtn.hidden = true;
+      activateTab(name, true);
+      runSearch("");
+    });
+  });
+
+  input?.addEventListener("input", () => {
+    const hasValue = input.value.length > 0;
+    if (clearBtn) clearBtn.hidden = !hasValue;
+    runSearch(input.value);
+  });
+
+  clearBtn?.addEventListener("click", () => {
+    if (input) {
+      input.value = "";
+      runSearch("");
+    }
+    if (clearBtn) clearBtn.hidden = true;
+    input?.focus();
+  });
+
+  activateTab(currentTab(), false);
+</script>

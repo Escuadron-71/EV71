@@ -1,0 +1,37 @@
+---
+import type { MultimediaDocument } from "@/types/multimedia";
+
+interface Props {
+  document: MultimediaDocument;
+}
+
+const { document } = Astro.props;
+
+const typeLabel = (mime: string): string => {
+  if (mime.includes("pdf")) return "PDF";
+  if (mime.includes("svg")) return "SVG";
+  if (mime.includes("image")) return "Imagen";
+  if (mime.includes("sheet") || mime.includes("excel")) return "Hoja de cálculo";
+  if (mime.includes("doc")) return "Documento";
+  return "Archivo";
+};
+---
+
+<a
+  href={document.webViewLink}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="document-card"
+  data-search={`${document.name} ${document.folderPath}`.toLowerCase()}
+  data-card
+>
+  <span class="document-card-icon" aria-hidden="true">📄</span>
+  <span class="document-card-body">
+    <span class="document-card-title">{document.name}</span>
+    <span class="document-card-meta">
+      <span class="document-card-folder">{document.folderPath}</span>
+      <time class="document-card-date">{document.modifiedTime.slice(0, 10)}</time>
+    </span>
+  </span>
+  <span class="document-card-type">{typeLabel(document.mimeType)}</span>
+</a>

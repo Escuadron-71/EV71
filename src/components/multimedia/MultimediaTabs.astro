@@ -1,0 +1,35 @@
+---
+import type { MultimediaCategory } from "@/types/multimedia";
+import { multimediaService } from "@/lib/services/multimedia-service";
+import { resolvePath } from "@/lib/base-url";
+
+interface Props {
+  active: MultimediaCategory;
+}
+
+const { active } = Astro.props;
+
+const categories: MultimediaCategory[] = [
+  "documentos",
+  "galeria",
+  "videos",
+  "noticias",
+  "blog",
+];
+---
+
+<nav class="multimedia-tabs" role="tablist" aria-label="Categorías de contenido" data-tabs>
+  {categories.map((category) => (
+    <a
+      href={`${resolvePath("/multimedia")}?tab=${category}`}
+      id={`tab-${category}`}
+      role="tab"
+      aria-selected={active === category}
+      aria-controls={`panel-${category}`}
+      data-tab={category}
+      class:list={["multimedia-tab", { "is-active": active === category }]}
+    >
+      {multimediaService.getCategoryLabel(category)}
+    </a>
+  ))}
+</nav>
