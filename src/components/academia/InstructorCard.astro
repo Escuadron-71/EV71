@@ -1,0 +1,32 @@
+---
+import type { Instructor } from "@/types/academia";
+
+interface Props {
+  instructor: Instructor;
+}
+
+const { instructor } = Astro.props;
+const initials = instructor.callsign.slice(0, 2).toUpperCase();
+---
+
+<article class="instructor-card">
+  <div class="instructor-card__avatar" aria-hidden="true">
+    {initials}
+  </div>
+  <h2 class="instructor-card__callsign">{instructor.callsign}</h2>
+  <p class="instructor-card__name">
+    {instructor.name}
+    {instructor.pending && (
+      <span class="instructor-card__pending">Por confirmar</span>
+    )}
+  </p>
+  <ul class="instructor-card__roles">
+    {instructor.roles.map((role) => (
+      <li>{role}</li>
+    ))}
+  </ul>
+  <p class="instructor-card__aircraft">
+    <span class="instructor-card__label">Aeronaves</span>
+    {instructor.aircraft.join(" · ")}
+  </p>
+</article>

@@ -1,0 +1,552 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ============================================
+// Seccion Academia / AVVA71
+// ============================================
+
+// Eyebrow comun de la seccion
+.academia-eyebrow {
+  @include eyebrow;
+  font-family: $font-heading;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+}
+
+// Hero de la academia
+.academia-hero {
+  min-height: 58vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 160px 0 100px;
+
+  &--instructors {
+    min-height: 46vh;
+  }
+}
+
+.academia-hero__overlay {
+  background: linear-gradient(
+    180deg,
+    rgba($primary-dark, 0.78) 0%,
+    rgba($primary-dark, 0.4) 55%,
+    rgba($primary, 0.94) 100%
+  );
+}
+
+.academia-hero__content {
+  max-width: 860px;
+}
+
+.academia-hero__title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  text-transform: uppercase;
+  line-height: 0.95;
+  text-shadow: 0 5px 25px rgba(0, 0, 0, 0.55);
+}
+
+.academia-hero__description {
+  font-size: 1.2rem;
+  max-width: 680px;
+  margin-top: 20px;
+  color: rgba($text-light, 0.9);
+}
+
+.academia-hero__cta {
+  @include button-primary;
+  margin-top: 34px;
+}
+
+// Titulos de seccion
+.academia-section-title {
+  @include section-title;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  margin-bottom: 16px;
+}
+
+.academia-section-description {
+  max-width: 760px;
+  color: $text-muted;
+  margin-bottom: 44px;
+}
+
+// Grid de cursos
+.academia-course-grid {
+  @include card-grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.course-card {
+  position: relative;
+  background: rgba($primary, 0.92);
+  border: 1px solid $border;
+  border-radius: 8px;
+  box-shadow: $shadow-panel;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($secondary, 0.6);
+  }
+}
+
+.course-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 26px;
+  text-decoration: none;
+  color: $text-light;
+
+  &:focus-visible {
+    @include focus-visible;
+  }
+}
+
+.course-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.course-card__code {
+  font-family: $font-heading;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: $secondary;
+  letter-spacing: 1px;
+}
+
+.course-card__status {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  &--activo {
+    color: $ok;
+    background: rgba($ok, 0.12);
+    border: 1px solid rgba($ok, 0.4);
+  }
+
+  &--proximamente {
+    color: $warn;
+    background: rgba($warn, 0.12);
+    border: 1px solid rgba($warn, 0.4);
+  }
+}
+
+.course-card__title {
+  font-family: $font-heading;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.course-card__summary {
+  flex: 1;
+  font-size: 0.95rem;
+  color: $text-muted;
+  margin-bottom: 20px;
+}
+
+.course-card__meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  div {
+    padding: 10px 12px;
+    background: rgba($primary-light, 0.5);
+    border: 1px solid $border;
+    border-radius: 6px;
+  }
+
+  dt {
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $secondary;
+    margin-bottom: 2px;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+.course-card__cta {
+  display: inline-block;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  color: $secondary;
+  border-bottom: 1px solid rgba($secondary, 0.4);
+  padding-bottom: 2px;
+  align-self: flex-start;
+}
+
+// Panel "Como ingresar"
+.academia-join {
+  padding-top: 0;
+}
+
+.academia-join__panel {
+  @include panel;
+  padding: clamp(28px, 5vw, 56px);
+  text-align: center;
+  background-image: linear-gradient(
+    135deg,
+    rgba($secondary, 0.06),
+    rgba($secondary, 0.02)
+  );
+
+  h2 {
+    @include section-title;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    margin-bottom: 12px;
+  }
+
+  p {
+    max-width: 620px;
+    margin: 0 auto 28px;
+    color: $text-muted;
+  }
+
+  &--instructors {
+    margin-top: 60px;
+  }
+}
+
+.academia-join__cta {
+  @include button-primary;
+}
+
+// ============================================
+// Vista de curso individual
+// ============================================
+
+.course-hero {
+  min-height: 46vh;
+  display: flex;
+  align-items: center;
+  padding: 150px 0 80px;
+  background:
+    radial-gradient(1200px 480px at 80% -10%, rgba($secondary, 0.14), transparent 60%),
+    linear-gradient(180deg, $primary-dark 0%, $primary 100%);
+}
+
+.course-hero__title {
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.course-hero__summary {
+  max-width: 720px;
+  font-size: 1.1rem;
+  color: $text-muted;
+  margin-bottom: 26px;
+}
+
+.course-hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.course-hero__badge {
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $secondary;
+  border: 1px solid rgba($secondary, 0.45);
+  border-radius: 999px;
+
+  &--code {
+    color: $text-light;
+    border-color: $border;
+    background: rgba($primary-light, 0.6);
+  }
+}
+
+.course-section {
+  padding-top: 60px;
+}
+
+.course-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 36px;
+  align-items: start;
+}
+
+.course-panel {
+  @include panel;
+  padding: clamp(24px, 4vw, 48px);
+}
+
+.course-content {
+  > p:first-child {
+    font-family: $font-heading;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: $secondary-light;
+  }
+}
+
+.course-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.course-actions__primary {
+  @include button-primary;
+}
+
+.course-actions__back {
+  @include button-secondary;
+}
+
+// Aside: prerrequisitos y modulos
+.course-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.course-box {
+  @include panel;
+  padding: 24px;
+  background: rgba($primary, 0.92);
+
+  h2 {
+    @include section-title;
+    font-size: 1.1rem;
+    color: $secondary;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $border;
+  }
+}
+
+.course-prereq {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 10px;
+    font-size: 0.92rem;
+    color: rgba($text-light, 0.88);
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 7px;
+      height: 7px;
+      background: $secondary;
+      border-radius: 1px;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.course-modules {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: module;
+
+  li {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid $border;
+
+    &:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+.course-modules__index {
+  flex-shrink: 0;
+  font-family: $font-heading;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: $secondary;
+  letter-spacing: 1px;
+}
+
+.course-modules__name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.course-modules__aircraft {
+  display: block;
+  font-size: 0.82rem;
+  color: $text-muted;
+  margin-top: 2px;
+}
+
+// ============================================
+// Lista de instructores
+// ============================================
+
+.academia-instructor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.instructor-card {
+  @include panel;
+  padding: 28px 22px;
+  text-align: center;
+  background: rgba($primary, 0.92);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($secondary, 0.5);
+  }
+}
+
+.instructor-card__avatar {
+  @include flex-center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  font-family: $font-heading;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $secondary;
+  background: rgba($primary-light, 0.7);
+  border: 1px solid rgba($secondary, 0.4);
+  border-radius: 50%;
+}
+
+.instructor-card__callsign {
+  @include section-title;
+  font-size: 1.2rem;
+  color: $secondary-light;
+  margin-bottom: 4px;
+}
+
+.instructor-card__name {
+  font-size: 0.85rem;
+  color: $text-muted;
+  margin-bottom: 14px;
+}
+
+.instructor-card__pending {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $warn;
+  background: rgba($warn, 0.12);
+  border: 1px solid rgba($warn, 0.4);
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+.instructor-card__roles {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+
+  li {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: $secondary;
+    padding: 4px 10px;
+    border: 1px solid rgba($secondary, 0.3);
+    border-radius: 999px;
+  }
+}
+
+.instructor-card__aircraft {
+  font-size: 0.85rem;
+  color: $text-muted;
+  margin: 0;
+}
+
+.instructor-card__label {
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $secondary;
+  margin-bottom: 4px;
+}
+
+// ============================================
+// Responsive
+// ============================================
+@include responsive($breakpoint-lg) {
+  .course-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include responsive($breakpoint-md) {
+  .academia-hero {
+    padding: 120px 0 70px;
+  }
+
+  .academia-hero__title {
+    font-size: 2.6rem;
+  }
+
+  .course-hero {
+    padding: 120px 0 60px;
+  }
+
+  .course-actions {
+    flex-direction: column;
+    align-items: stretch;
+
+    a {
+      width: 100%;
+    }
+  }
+}

@@ -1,22 +1,83 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { resolvePath } from "@/lib/base-url";
-import "../../styles/pages/_stub.scss";
+import { getBase, resolvePath } from "@/lib/base-url";
+import { getCollection } from "astro:content";
+import CourseCard from "@/components/academia/CourseCard.astro";
+import "../../styles/pages/_academia.scss";
+
+const courses = (await getCollection("courses")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const base = getBase();
+const heroImage = `${base}assets/images/entrenamiento.png`;
 ---
 
 <BaseLayout
   title="AVVA71 | Academia | Escuadrón 71"
-  description="Escuela de Vuelo Virtual AVVA71: formación aeronáutica para pilotos del Escuadrón 71."
+  description="Academia de Vuelo Virtual AVVA71: formación aeronáutica progresiva para pilotos del Escuadrón 71. Cursos FR1, CR1, CR2 y CR3."
 >
-  <main class="stub-page" role="main">
-    <div class="stub-panel">
-      <span class="stub-eyebrow">En construcción</span>
-      <h1 class="stub-title">AVVA71</h1>
-      <p class="stub-description">
-        Escuela de Vuelo Virtual AVVA71. Próximamente: programa de formación,
-        temario y requisitos de ingreso.
-      </p>
-      <a class="stub-back" href={resolvePath("/")}>Regresar al inicio</a>
-    </div>
+  <main role="main">
+    <section class="academia-hero hero relative overflow-hidden">
+      <picture class="absolute top-0 left-0 right-0 bottom-0 w-full h-full z-0">
+        <img
+          src={heroImage}
+          alt="Cabina de aeronave del Escuadrón 71"
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      </picture>
+      <div
+        class="academia-hero__overlay absolute top-0 left-0 right-0 bottom-0 z-0"
+        aria-hidden="true"
+      ></div>
+      <div class="container z-1">
+        <div class="academia-hero__content">
+          <span class="academia-eyebrow">Academia de Vuelo Virtual</span>
+          <h1 class="academia-hero__title">AVVA71</h1>
+          <p class="academia-hero__description">
+            Formación aeronáutica estructurada para pilotos virtuales:
+            procedimientos, doctrina y combate con los estándares del
+            Escuadrón 71.
+          </p>
+          <a class="academia-hero__cta" href={resolvePath("/postulacion")}>
+            Postúlate
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section academia-courses" aria-labelledby="cursos-titulo">
+      <div class="container">
+        <span class="academia-eyebrow">Programa de formación</span>
+        <h2 id="cursos-titulo" class="academia-section-title">
+          Cursos del escuadrón
+        </h2>
+        <p class="academia-section-description">
+          Progresión de formación desde la familiarización hasta la
+          especialización táctica. Cada curso es evaluado por el staff de
+          instructores de la academia.
+        </p>
+        <div class="academia-course-grid">
+          {courses.map((course) => (
+            <CourseCard course={course} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section academia-join" aria-labelledby="ingreso-titulo">
+      <div class="container">
+        <div class="academia-join__panel">
+          <h2 id="ingreso-titulo">¿Cómo ingresar?</h2>
+          <p>
+            Completa el formulario de postulación, supera la entrevista
+            inicial y comienza tu formación con el Curso Básico FR1.
+          </p>
+          <a class="academia-join__cta" href={resolvePath("/postulacion")}>
+            Quiero ser parte del equipo
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 </BaseLayout>
