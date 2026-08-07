@@ -309,6 +309,16 @@ Cada PR hacia `master` debe incluir:
 - Las paginas usan el componente compartido `DocPage.astro` y los estilos de `src/styles/pages/_nosotros.scss` (importado por pagina, no en `main.scss`).
 - El dropdown "Nosotros" del header enlaza a estas paginas siguiendo el patron `nav-dropdown` de Academia/Actividades.
 
+### Header y navegacion (2 niveles)
+
+- El header usa **2 filas**: `.header-top` (logo + CTA POSTULATE + UserDropdown, no sticky) y `.header-subnav` (navbar sticky con `top: 0`).
+- En movil (`max-width: 1024px`) el subnav deja de ser sticky y se muestra el hamburguesa; el menu completo se despliega bajo `.header-top` incluyendo dropdowns en acordeon.
+- La configuracion central del menu vive en `src/lib/navigation.ts` (`buildNav(pathname)`), SSR-safe; el componente `Header.astro` la renderiza con `resolvePath()` en todos los hrefs.
+- Los dropdowns usan el patron `nav-dropdown` (`_dropdowns.scss`): trigger con `aria-haspopup`/`aria-expanded`, cierre con Escape o click fuera, y clase `.is-active` en el padre cuando una sub-ruta coincide.
+- Rutas planas: Inicio (`/`), Operaciones (`/operaciones`). Dropdowns: Multimedia, Nosotros, Academia, Herramientas, Comunidad.
+- El CTA movil "POSTULATE" es un link real `.main-nav-cta` (ultimo item del menu), no un pseudo-elemento.
+- Paginas placeholder de rutas pendientes usan `src/styles/pages/_stub.scss` (importado por cada stub).
+
 ### Versionado y releases
 
 - Cada push a `master` dispara el workflow `release.yml`, que genera tag, release y patch bump de la version (inicia en `0.1.0`).
