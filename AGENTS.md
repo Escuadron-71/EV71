@@ -212,9 +212,31 @@ pnpm dev              # Servidor de desarrollo
 pnpm build            # Build de produccion
 pnpm preview          # Preview del build
 pnpm check            # Verificacion de tipos y errores
+pnpm test             # Tests unitarios (Vitest)
 pnpm sync:events      # Ejecutar sincronizacion manual de eventos Discord
 pnpm legacy:server    # Backend legacy (scripts/server.js - temporal)
 ```
+
+## Roadmap de desarrollo (web)
+
+- El roadmap se ejecuta por ramas `feat/*` creadas desde `dev`. Cada rama tiene su plan
+  detallado en `.opencode/plans/<NOMBRE>.md` (fases, archivos, criterios de validacion).
+- Orden de entrega: `testing` -> `header-navigation` -> contenido (multimedia-hub, academia,
+  fleet, blog-news, store, donations) -> `postulacion` -> `i18n` (fase final).
+- Ramas y planes:
+  - `feat/testing` -> `.opencode/plans/TESTING.md` (Vitest + tests de `src/lib/**`). Se fusiona primero.
+  - `feat/header-navigation` -> `.opencode/plans/HEADER.md` (subheader 2 niveles + rutas stub).
+  - `feat/multimedia-hub` -> `.opencode/plans/MULTIMEDIA.md`
+  - `feat/academia` -> `.opencode/plans/ACADEMIA.md`
+  - `feat/fleet` -> `.opencode/plans/FLEET.md`
+  - `feat/blog-news` -> `.opencode/plans/BLOG-NEWS.md`
+  - `feat/store` -> `.opencode/plans/STORE.md`
+  - `feat/donations` -> `.opencode/plans/DONATIONS.md`
+  - `feat/postulacion` -> `.opencode/plans/POSTULACION.md` (Supabase)
+  - `feat/i18n` -> `.opencode/plans/I18N.md`
+- Cada rama debe validar `pnpm check`, `pnpm build` y `pnpm test` antes de mergear a `dev`.
+- Decisiones de diseno/arquitectura ya tomadas quedan fijadas en su plan y en esta guia;
+  no revertirlas sin decision explicita del equipo.
 
 ## Pull requests
 
