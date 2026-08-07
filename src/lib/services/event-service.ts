@@ -75,16 +75,17 @@ function isPipelineResult(data: unknown): data is PipelineSyncResult {
 }
 
 export class EventService {
+  private dataFilePath: string;
+
+  constructor(dataFilePath?: string) {
+    this.dataFilePath =
+      dataFilePath ??
+      path.join(process.cwd(), "src", "data", "events", "latest.json");
+  }
+
   async getUpcomingEvents(): Promise<ServiceEvent[]> {
     try {
-      const filePath = path.join(
-        process.cwd(),
-        "src",
-        "data",
-        "events",
-        "latest.json",
-      );
-      const data = await fs.readFile(filePath, "utf-8");
+      const data = await fs.readFile(this.dataFilePath, "utf-8");
       const parsed: SyncResult & { source?: string } = JSON.parse(data);
 
       if (isPipelineResult(parsed)) {
