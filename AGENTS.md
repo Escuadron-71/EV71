@@ -403,6 +403,22 @@ Cada PR hacia `master` debe incluir:
 - Imagenes placeholder SVG en `public/assets/images/products/` (reemplazar con fotos reales cuando
   existan). Nota visible: el stock se gestiona de forma manual.
 
+### Pagina Donaciones
+
+- `/donaciones` reemplazo el stub: hero institucional, seccion "En que se usa tu apoyo"
+  (servidores, equipos, herramientas, comunidad) y grid de plataformas de donacion.
+- **Datos en `src/data/donations/platforms.json`** (tipados en `src/types/donations.ts`): nombre,
+  descripcion, url, icono, badge (Recurrente/Unica/Local) y `disponible`. Solo Patreon
+  (`https://www.patreon.com/Escuadron71`, verificado en el footer) tiene URL activa; las demas
+  plataformas (BuyMeACoffee, PayPal, MercadoPago, Nequi) estan marcadas `disponible: false` y se
+  renderizan como "Proximamente" hasta que la direccion confirme las cuentas.
+- Sin integracion de pagos: esta fase solo redirige a las plataformas externas con
+  `target="_blank"` + `rel="noopener noreferrer"`.
+- Componente `DonationPlatformCard.astro` en `src/components/donations/`; iconos de marca en
+  `src/assets/icons/` (`logopatreon`, `logobmc`, `logopaypal`, `logomercadopago`, `logonequi`)
+  cargados por `Icon.astro`. Estilos en `src/styles/pages/_donations.scss` (por pagina).
+- Nota visible de transparencia: el apoyo es voluntario y no es requisito de pertenencia.
+
 ### Versionado y releases
 
 - Cada push a `master` dispara el workflow `release.yml`, que genera tag, release y patch bump de la version (inicia en `0.1.0`).
