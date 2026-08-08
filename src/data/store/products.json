@@ -1,0 +1,108 @@
+{
+  "timestamp": "2026-08-07T12:00:00.000Z",
+  "note": "El catalogo se actualiza de forma manual; el stock se refresca periodicamente.",
+  "productos": [
+    {
+      "slug": "parche-escuadron-71",
+      "nombre": "Parche bordado Escuadrón 71",
+      "precio": 25000,
+      "moneda": "COP",
+      "categoria": "Insignias",
+      "imagen": "assets/images/products/parche-71.svg",
+      "descripcion": "Parche bordado con el emblema del Escuadrón 71. Ideal para trajes de vuelo, chaquetas o exposicion en tu sim-pit.",
+      "especificaciones": [
+        { "label": "Material", "value": "Bordado en tela con respaldo termoadhesivo" },
+        { "label": "Dimensiones", "value": "8 cm de diametro" },
+        { "label": "Colores", "value": "Dorado y negro institucional" },
+        { "label": "Incluye", "value": "1 parche" }
+      ],
+      "disponible": true,
+      "whatsapp": {}
+    },
+    {
+      "slug": "stickers-escuadron-71",
+      "nombre": "Pack de stickers Escuadrón 71",
+      "precio": 12000,
+      "moneda": "COP",
+      "categoria": "Insignias",
+      "imagen": "assets/images/products/stickers-pack.svg",
+      "descripcion": "Pack de 5 stickers de vinilo con el emblema del escuadrón. Resistentes al agua, perfectos para el casco o el setup.",
+      "especificaciones": [
+        { "label": "Material", "value": "Vinilo resistente al agua" },
+        { "label": "Cantidad", "value": "5 stickers" },
+        { "label": "Tamano", "value": "Mezcla de 5 y 8 cm" },
+        { "label": "Acabado", "value": "Mate" }
+      ],
+      "disponible": true,
+      "whatsapp": {}
+    },
+    {
+      "slug": "camiseta-escuadron-71",
+      "nombre": "Camiseta Escuadrón 71",
+      "precio": 60000,
+      "moneda": "COP",
+      "categoria": "Textil",
+      "imagen": "assets/images/products/camiseta-71.svg",
+      "descripcion": "Camiseta de algodon con estampado del emblema en el pecho y el nombre del escuadrón en la espalda.",
+      "especificaciones": [
+        { "label": "Material", "value": "Algodon 100% peinado" },
+        { "label": "Talles", "value": "S, M, L, XL, XXL" },
+        { "label": "Estampado", "value": "Sublimado serigrafico" },
+        { "label": "Colores", "value": "Negro con emblema dorado" }
+      ],
+      "disponible": true,
+      "whatsapp": {}
+    },
+    {
+      "slug": "gorra-tactica-escuadron-71",
+      "nombre": "Gorra táctica Escuadrón 71",
+      "precio": 45000,
+      "moneda": "COP",
+      "categoria": "Textil",
+      "imagen": "assets/images/products/gorra-tactica.svg",
+      "descripcion": "Gorra tactica de perfil bajo con emblema bordado. Ajuste trasero de velcro para cualquier talla.",
+      "especificaciones": [
+        { "label": "Material", "value": "Poliester ripstop" },
+        { "label": "Ajuste", "value": "Velcro ajustable" },
+        { "label": "Emblema", "value": "Bordado en dorado" },
+        { "label": "Colores", "value": "Negro" }
+      ],
+      "disponible": false,
+      "whatsapp": {}
+    },
+    {
+      "slug": "llavero-escuadron-71",
+      "nombre": "Llavero Escuadrón 71",
+      "precio": 18000,
+      "moneda": "COP",
+      "categoria": "Accesorios",
+      "imagen": "assets/images/products/llavero-71.svg",
+      "descripcion": "Llavero metalico con el emblema del escuadrón grabado. Un detalle discreto para el dia a dia.",
+      "especificaciones": [
+        { "label": "Material", "value": "Metal con grabado laser" },
+        { "label": "Dimensiones", "value": "3.5 cm" },
+        { "label": "Acabado", "value": "Dorado" },
+        { "label": "Incluye", "value": "1 llavero con argolla" }
+      ],
+      "disponible": true,
+      "whatsapp": {}
+    },
+    {
+      "slug": "termo-tactico-escuadron-71",
+      "nombre": "Termo táctico Escuadrón 71",
+      "precio": 55000,
+      "moneda": "COP",
+      "categoria": "Accesorios",
+      "imagen": "assets/images/products/termo-tactico.svg",
+      "descripcion": "Termo de acero inoxidable con grabado del emblema. Mantiene la temperatura por horas, ideal para misiones largas.",
+      "especificaciones": [
+        { "label": "Material", "value": "Acero inoxidable" },
+        { "label": "Capacidad", "value": "500 ml" },
+        { "label": "Grabado", "value": "Laser del emblema" },
+        { "label": "Aislamiento", "value": "Doble pared" }
+      ],
+      "disponible": true,
+      "whatsapp": {}
+    }
+  ]
+}
