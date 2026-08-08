@@ -384,6 +384,25 @@ Cada PR hacia `master` debe incluir:
 - Ambas paginas muestran una nota "contenido de ejemplo": el contenido real llegara con el pipeline
   de sincronizacion (Discord/multimedia) y no debe depender de credenciales en el cliente.
 
+### Seccion Tienda
+
+- `/tienda` (catalogo) y `/tienda/[slug]` (vista por producto) reemplazaron el stub inicial.
+- **Catalogo build-time:** datos en `src/data/store/products.json` (tipados en `src/types/store.ts`):
+  slug, nombre, precio, moneda (COP/USD), categoria, imagen, descripcion, especificaciones,
+  disponible y `whatsapp` (numero/plantilla opcionales). Cada cambio de producto requiere rebuild.
+- Sin carrito ni eCommerce: el checkout es un deep link de **WhatsApp Business** (`wa.me`).
+  Helpers puros en `src/lib/store/whatsapp.ts` (`buildWhatsAppLink`, `buildProductMessage`,
+  `buildProductWhatsAppLink`, `formatPrice`) con test en `whatsapp.test.ts`.
+- El numero del escuadron se configura via `PUBLIC_WHATSAPP_NUMBER` en `.env` (ver
+  `src/lib/store/config.ts`); es un dato publico, no una clave.
+- El indice agrupa por categoria (Insignias, Textil, Accesorios); con menos de 10 productos no hay
+  filtro client-side. La vista por producto usa `getStaticPaths` desde `products.json` (leer el JSON
+  dentro de `getStaticPaths` como en flota) y muestra boton "Comprar por WhatsApp" con mensaje
+  prearmado; productos agotados muestran badge y ajustan el mensaje.
+- Componentes Astro puros: `ProductCard`, `ProductSpecsTable` en `src/components/store/`.
+- Imagenes placeholder SVG en `public/assets/images/products/` (reemplazar con fotos reales cuando
+  existan). Nota visible: el stock se gestiona de forma manual.
+
 ### Versionado y releases
 
 - Cada push a `master` dispara el workflow `release.yml`, que genera tag, release y patch bump de la version (inicia en `0.1.0`).
