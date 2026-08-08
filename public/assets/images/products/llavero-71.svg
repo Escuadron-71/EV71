@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Llavero Escuadrón 71">
+  <rect width="800" height="600" fill="#111826"/>
+  <circle cx="330" cy="190" r="42" fill="none" stroke="#E8B25C" stroke-width="8"/>
+  <circle cx="330" cy="190" r="16" fill="none" stroke="#E8B25C" stroke-width="5"/>
+  <path d="M300 150 L250 210 L330 260 L410 210 Z" fill="#0A0E17" stroke="#E8B25C" stroke-width="6"/>
+  <path d="M330 195 L350 230 L330 265 L310 230 Z" fill="#E8B25C"/>
+  <text x="400" y="520" text-anchor="middle" font-family="Oswald, Arial, sans-serif" font-size="36" font-weight="700" letter-spacing="6" fill="#E8B25C">ESCUADRÓN 71</text>
+</svg>

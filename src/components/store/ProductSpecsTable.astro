@@ -1,0 +1,23 @@
+---
+import type { Product } from "@/types/store";
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+---
+
+<section class="product-specs" aria-labelledby="product-specs-titulo">
+  <h2 id="product-specs-titulo" class="product-section-title">
+    Especificaciones
+  </h2>
+  <dl class="product-specs__table">
+    {product.especificaciones.map((spec) => (
+      <div>
+        <dt>{spec.label}</dt>
+        <dd>{spec.value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>

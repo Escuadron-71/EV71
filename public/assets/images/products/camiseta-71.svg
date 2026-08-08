@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Camiseta Escuadrón 71">
+  <rect width="800" height="600" fill="#111826"/>
+  <path d="M320 150 L260 200 L210 180 L150 260 L230 300 L230 460 L570 460 L570 300 L650 260 L590 180 L540 200 L480 150 Q400 110 320 150 Z" fill="#0A0E17" stroke="#E8B25C" stroke-width="5"/>
+  <circle cx="400" cy="330" r="46" fill="none" stroke="#E8B25C" stroke-width="4"/>
+  <text x="400" y="342" text-anchor="middle" font-family="Oswald, Arial, sans-serif" font-size="34" font-weight="700" fill="#E8B25C">71</text>
+  <text x="400" y="520" text-anchor="middle" font-family="Oswald, Arial, sans-serif" font-size="36" font-weight="700" letter-spacing="6" fill="#E8B25C">ESCUADRÓN 71</text>
+</svg>

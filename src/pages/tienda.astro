@@ -1,22 +1,81 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { resolvePath } from "@/lib/base-url";
-import "../styles/pages/_stub.scss";
+import { getBase, resolvePath } from "@/lib/base-url";
+import ProductCard from "@/components/store/ProductCard.astro";
+import type { Product, StoreData } from "@/types/store";
+import storeData from "@/data/store/products.json";
+import "../styles/pages/_store.scss";
+
+const { note, productos } = storeData as StoreData;
+const base = getBase();
+const heroImage = `${base}assets/images/Banner1.jpg`;
+
+const categories = [...new Set(productos.map((p) => p.categoria))];
+const grouped = categories.map((categoria) => ({
+  categoria,
+  items: productos.filter((p) => p.categoria === categoria),
+}));
 ---
 
 <BaseLayout
   title="Tienda | Escuadrón 71"
-  description="Tienda del Escuadrón 71: merchandising e insignias oficiales para la comunidad."
+  description="Tienda del Escuadrón 71: merchandising e insignias oficiales para la comunidad. Compra por WhatsApp Business."
 >
-  <main class="stub-page" role="main">
-    <div class="stub-panel">
-      <span class="stub-eyebrow">En construcción</span>
-      <h1 class="stub-title">Tienda</h1>
-      <p class="stub-description">
-        Próximamente: merchandising e insignias oficiales del escuadrón para
-        apoyar a la comunidad.
-      </p>
-      <a class="stub-back" href={resolvePath("/")}>Regresar al inicio</a>
-    </div>
+  <main role="main">
+    <section class="store-hero hero relative overflow-hidden">
+      <picture class="absolute top-0 left-0 right-0 bottom-0 w-full h-full z-0">
+        <img
+          src={heroImage}
+          alt="Emblema del Escuadrón 71"
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      </picture>
+      <div
+        class="store-hero__overlay absolute top-0 left-0 right-0 bottom-0 z-0"
+        aria-hidden="true"
+      ></div>
+      <div class="container z-1">
+        <div class="store-hero__content">
+          <span class="store-eyebrow">Merchandising oficial</span>
+          <h1 class="store-hero__title">Tienda</h1>
+          <p class="store-hero__description">
+            Insignias y accesorios del Escuadrón 71. Los pedidos se gestionan
+            por WhatsApp Business con mensaje prearmado.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section store-section" aria-labelledby="tienda-titulo">
+      <div class="container">
+        <span class="store-eyebrow">Catálogo del escuadrón</span>
+        <h2 id="tienda-titulo" class="store-section-title">
+          Productos disponibles
+        </h2>
+        <p class="store-note">{note}</p>
+
+        {grouped.map((group) => (
+          <section class="store-group" aria-label={group.categoria}>
+            <h3 class="store-group__title">{group.categoria}</h3>
+            <div class="store-grid">
+              {group.items.map((product: Product) => (
+                <ProductCard product={product} />
+              ))}
+            </div>
+          </section>
+        ))}
+
+        <div class="store-cta">
+          <p>
+            ¿Buscas algo en particular? Escríbenos por WhatsApp y coordinamos
+            tu pedido.
+          </p>
+          <a href={resolvePath("/operaciones")}>
+            Conoce nuestras operaciones
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 </BaseLayout>
