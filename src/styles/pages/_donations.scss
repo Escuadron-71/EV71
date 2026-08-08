@@ -1,0 +1,210 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ============================================
+// Donaciones
+// ============================================
+
+.donations-eyebrow {
+  @include eyebrow;
+  font-family: $font-heading;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+}
+
+// Hero
+.donations-hero {
+  min-height: 62vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 160px 0 100px;
+}
+
+.donations-hero__overlay {
+  background: linear-gradient(
+    180deg,
+    rgba($primary-dark, 0.82) 0%,
+    rgba($primary-dark, 0.5) 55%,
+    rgba($primary, 0.96) 100%
+  );
+}
+
+.donations-hero__content {
+  max-width: 900px;
+}
+
+.donations-hero__title {
+  font-size: clamp(3rem, 8vw, 6rem);
+  text-transform: uppercase;
+  line-height: 0.95;
+  text-shadow: 0 5px 25px rgba(0, 0, 0, 0.55);
+}
+
+.donations-hero__description {
+  font-size: 1.2rem;
+  max-width: 720px;
+  margin-top: 20px;
+  color: rgba($text-light, 0.9);
+}
+
+// Secciones
+.donations-section {
+  padding-top: 80px;
+
+  & + .donations-section {
+    padding-top: 40px;
+  }
+}
+
+.donations-section-title {
+  @include section-title;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: 16px;
+}
+
+.donations-note {
+  max-width: 760px;
+  color: $text-muted;
+  margin-bottom: 44px;
+}
+
+// Uso de fondos
+.donations-uses {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.donation-use {
+  @include panel;
+  padding: 24px;
+  background: rgba($primary, 0.92);
+
+  &:hover {
+    border-color: rgba($secondary, 0.6);
+  }
+}
+
+.donation-use__title {
+  font-family: $font-heading;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $secondary;
+  margin-bottom: 10px;
+}
+
+.donation-use__description {
+  font-size: 0.92rem;
+  color: $text-muted;
+  margin: 0;
+}
+
+// Grid de plataformas
+.donations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.donation-card {
+  @include panel;
+  padding: 26px;
+  background: rgba($primary, 0.92);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($secondary, 0.6);
+  }
+}
+
+.donation-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.donation-card__icon {
+  display: inline-flex;
+}
+
+.donation-card__badge {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $secondary;
+  background: rgba($primary-dark, 0.7);
+  border: 1px solid rgba($secondary, 0.4);
+  border-radius: 999px;
+}
+
+.donation-card__name {
+  font-family: $font-heading;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.donation-card__description {
+  font-size: 0.92rem;
+  color: $text-muted;
+  margin-bottom: 22px;
+  flex-grow: 1;
+}
+
+.donation-card__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include button-primary;
+}
+
+.donation-card__coming {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $text-muted;
+  border: 1px dashed $border;
+  border-radius: 4px;
+}
+
+// CTA inferior
+.donations-cta {
+  margin-top: 64px;
+  text-align: center;
+
+  p {
+    color: $text-muted;
+    margin-bottom: 20px;
+  }
+
+  a {
+    @include button-secondary;
+  }
+}
+
+// ============================================
+// Responsive
+// ============================================
+@include responsive($breakpoint-md) {
+  .donations-hero {
+    padding: 120px 0 70px;
+  }
+
+  .donations-hero__title {
+    font-size: 2.6rem;
+  }
+}

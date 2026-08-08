@@ -1,0 +1,34 @@
+---
+import Icon from "@/components/UI/Icon.astro";
+import type { DonationPlatform } from "@/types/donations";
+
+interface Props {
+  platform: DonationPlatform;
+}
+
+const { platform } = Astro.props;
+---
+
+<article class="donation-card">
+  <div class="donation-card__header">
+    <span class="donation-card__icon" aria-hidden="true">
+      <Icon name={platform.icono} size={44} />
+    </span>
+    <span class="donation-card__badge">{platform.badge}</span>
+  </div>
+  <h3 class="donation-card__name">{platform.nombre}</h3>
+  <p class="donation-card__description">{platform.descripcion}</p>
+
+  {platform.disponible && platform.url ? (
+    <a
+      class="donation-card__cta"
+      href={platform.url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Donar con {platform.nombre}
+    </a>
+  ) : (
+    <span class="donation-card__coming">Próximamente</span>
+  )}
+</article>
