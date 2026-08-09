@@ -50,8 +50,10 @@
 - El CR1 se modela como **2 cursos por aeronave** (F-16C Viper y F/A-18C Hornet), no un CR1 unico.
 - Sylabus extenso de los cursos CR1: **tablas colapsables por fase (vanilla, sin React)**, al
   estilo del patron JS de `/multimedia`.
-- Tienda: los filtros "Novedad" y "Mayor descuento" requieren campos nuevos `nuevo: boolean` y
-  `precioAnterior?: number` por producto.
+- Tienda: los filtros "Novedad" y "Mayor descuento" requieren campos nuevos `nuevo: boolean`,
+  `precioAnterior?: number` y `publicado?: string` (fecha ISO) por producto.
+- Tienda: catalogo **plano** (sin separadores por categoria; la categoria vive en el badge de la
+  card) y toggle grid/lista tipo **switch** (checkbox oculto + 2 labels con iconos SVG).
 - Postulacion: implementacion Supabase con **guia paso a paso** (el encargado es Frontend y esta
   aprendiendo Backend). Entregar tambien documentacion escrita.
 - Email: se mantiene la cuenta Gmail; solo se habilita **forwarding** de `hola@escuadron71.co`
@@ -63,10 +65,18 @@
 
 ## Work Packages
 
-- **WP2 — Tienda eCommerce-lite: COMPLETADO** (2026-08-09, commit en `dev` pendiente de publicar).
-  - Toolbar en `/tienda` (vanilla TS, sin React): buscador, select de orden (Alfabetico,
-    Precio asc/desc, Novedad, Mayor descuento) y toggle Cuadricula/Lista con `aria-pressed`.
-  - Vista grid agrupada por categoria y vista linea plana; contador de resultados y estado vacio.
+- **WP2 — Tienda eCommerce-lite: COMPLETADO y REDISEÑADO** (2026-08-09, commit en `dev`
+  pendiente de publicar).
+  - Catalogo **plano** (sin grupos por categoria): titulo "Todos los productos"; la categoria
+    se muestra en el badge de cada card.
+  - Toolbar rediseñado (vanilla TS, sin React): buscador con icono y etiqueta "Buscar" a la
+    izquierda; a la derecha grupo "Organizar por" (icono filtro + select) y **switch
+    grid/lista** (checkbox oculto con `role="switch"` + 2 labels con iconos SVG y tooltips CSS
+    via `data-tooltip`).
+  - Select de orden: Por defecto, Precio mayor/menor, Alfabetico A-Z/Z-A, Ultimos publicados
+    primero, Mayor descuento.
+  - Campo nuevo `publicado?: string` (ISO) en `Product` y `products.json`; comparadores Z-A y
+    por fecha; `ProductCard` expone `data-publicado` (se quito `data-nuevo`).
   - Campos `nuevo: boolean` y `precioAnterior?: number` en `Product` y `products.json`
     (parche y camiseta con descuento; stickers y gorra como novedad).
   - Helper `descuentoPct` en `src/lib/store/whatsapp.ts` (con tests) y precio anterior formateado.
