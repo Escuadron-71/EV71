@@ -68,19 +68,22 @@ export function buildNav(pathname: string): NavEntry[] {
       active: isCurrent(resolvePath("/operaciones"), pathname),
     },
     {
-      type: "dropdown",
+      type: "link",
       label: "Multimedia",
-      match: ["/multimedia"],
-      items: decorate(
-        [
-          link("Documentos", resolvePath("/multimedia#documentos")),
-          link("Galería", resolvePath("/multimedia#galeria")),
-          link("Videos", resolvePath("/multimedia#videos")),
-          link("Noticias", resolvePath("/multimedia#noticias")),
-          link("Blog", resolvePath("/multimedia#blog")),
-        ],
-        pathname,
-      ),
+      href: resolvePath("/multimedia"),
+      active: isCurrent(resolvePath("/multimedia"), pathname),
+    },
+    {
+      type: "link",
+      label: "Noticias",
+      href: resolvePath("/noticias"),
+      active: isCurrent(resolvePath("/noticias"), pathname),
+    },
+    {
+      type: "link",
+      label: "Blog",
+      href: resolvePath("/blog"),
+      active: isCurrent(resolvePath("/blog"), pathname),
     },
     {
       type: "dropdown",
