@@ -41,13 +41,8 @@ const heroImage = `${base}assets/images/Banner1.jpg`;
 
     <section class="section blog-section" aria-labelledby="blog-titulo">
       <div class="container">
-        <span class="blog-eyebrow">Contenido de ejemplo</span>
+        <span class="blog-eyebrow">Publicaciones</span>
         <h2 id="blog-titulo" class="blog-section-title">Últimas publicaciones</h2>
-        <p class="blog-note">
-          Estas entradas son contenido de ejemplo para validar la estructura.
-          El contenido real se publicará cuando la redacción del escuadrón lo
-          confirme.
-        </p>
         <div class="blog-grid">
           {posts.map((post) => (
             <PostCard post={post} />

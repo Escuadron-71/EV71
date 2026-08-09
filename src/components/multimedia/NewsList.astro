@@ -1,4 +1,6 @@
 ---
+import { resolvePath } from "@/lib/base-url";
+
 interface Item {
   id: string;
   title: string;
@@ -17,7 +19,7 @@ const { items } = Astro.props;
 <ul class="news-list" data-list>
   {items.map((item) => (
     <li class="news-item" data-search={`${item.title} ${item.summary}`.toLowerCase()} data-card>
-      <a href={item.url} class="news-item-link">
+      <a href={resolvePath(item.url)} class="news-item-link">
         <time class="news-item-date">{item.date}</time>
         <span class="news-item-body">
           <span class="news-item-title">{item.title}</span>

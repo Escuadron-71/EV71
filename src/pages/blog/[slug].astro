@@ -1,0 +1,48 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import { resolvePath } from "@/lib/base-url";
+import "../../styles/pages/_blog.scss";
+import "../../styles/pages/_nosotros.scss";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { data } = post;
+---
+
+<BaseLayout
+  title={`${data.title} | Blog | Escuadrón 71`}
+  description={data.summary}
+>
+  <main role="main">
+    <article class="article">
+      <header class="article-hero">
+        <div class="container article-hero__inner">
+          <span class="blog-eyebrow">{data.categoria ?? "Blog"}</span>
+          <h1 class="article-hero__title">{data.title}</h1>
+          <div class="article-hero__meta">
+            <time datetime={data.date}>{data.date}</time>
+            {data.autor && <span class="article-hero__author">{data.autor}</span>}
+          </div>
+        </div>
+      </header>
+
+      <div class="container article-body">
+        <div class="doc-content article-content">
+          <Content />
+        </div>
+        <a class="blog-back" href={resolvePath("/blog")}>
+          Volver al Blog
+        </a>
+      </div>
+    </article>
+  </main>
+</BaseLayout>

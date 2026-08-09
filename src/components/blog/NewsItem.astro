@@ -1,4 +1,5 @@
 ---
+import { resolvePath } from "@/lib/base-url";
 import type { NewsItem } from "@/types/multimedia";
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 }
 
 const { item } = Astro.props;
+const href = resolvePath(item.url);
 ---
 
 <article class="news-entry">
@@ -13,8 +15,10 @@ const { item } = Astro.props;
     {item.date}
   </time>
   <div class="news-entry__body">
-    <h2 class="news-entry__title">{item.title}</h2>
-    <p class="news-entry__summary">{item.summary}</p>
-    {item.fuente && <span class="news-entry__fuente">{item.fuente}</span>}
+    <a href={href} class="news-entry__link">
+      <h2 class="news-entry__title">{item.title}</h2>
+      <p class="news-entry__summary">{item.summary}</p>
+      {item.fuente && <span class="news-entry__fuente">{item.fuente}</span>}
+    </a>
   </div>
 </article>

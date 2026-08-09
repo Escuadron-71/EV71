@@ -1,4 +1,5 @@
 ---
+import { resolvePath } from "@/lib/base-url";
 import type { BlogItem } from "@/types/multimedia";
 
 interface Props {
@@ -6,16 +7,19 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const href = resolvePath(post.url);
 ---
 
 <article class="post-card">
-  <div class="post-card__header">
-    {post.categoria && (
-      <span class="post-card__category">{post.categoria}</span>
-    )}
-    <time class="post-card__date">{post.date}</time>
-  </div>
-  <h2 class="post-card__title">{post.title}</h2>
-  <p class="post-card__summary">{post.summary}</p>
-  {post.autor && <span class="post-card__author">{post.autor}</span>}
+  <a href={href} class="post-card__link">
+    <div class="post-card__header">
+      {post.categoria && (
+        <span class="post-card__category">{post.categoria}</span>
+      )}
+      <time class="post-card__date">{post.date}</time>
+    </div>
+    <h2 class="post-card__title">{post.title}</h2>
+    <p class="post-card__summary">{post.summary}</p>
+    {post.autor && <span class="post-card__author">{post.autor}</span>}
+  </a>
 </article>

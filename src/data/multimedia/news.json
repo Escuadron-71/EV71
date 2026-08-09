@@ -1,37 +1,13 @@
 {
-  "timestamp": "2026-08-07T12:00:00.000Z",
+  "timestamp": "2026-08-09T12:00:00.000Z",
   "news": [
     {
-      "id": "news-001",
-      "title": "El Escuadrón 71 será entrevistado por el Periódico La Hormiga",
-      "date": "2026-08-04",
-      "summary": "El escuadrón ha sido invitado a una entrevista especial donde compartiremos nuestra historia y proyectos para la comunidad.",
-      "url": "/noticias",
-      "fuente": "Medios de comunicación"
-    },
-    {
-      "id": "news-002",
-      "title": "Nueva cohorte de la Academia AVVA71",
-      "date": "2026-07-28",
-      "summary": "Abrimos inscripciones para el curso básico de formación de pilotos. Cupos limitados por trimestre.",
-      "url": "/noticias",
+      "id": "news-5ta-promocion-fr1",
+      "title": "AVVA-71 abre inscripciones para la 5.ª Promoción del FR-1 «Fly Ready 1»",
+      "date": "2026-08-08",
+      "summary": "La Academia de Vuelo Virtual AVVA-71 anuncia oficialmente la apertura de inscripciones para la 5.ª Promoción del FR-1 — Fly Ready 1, su programa de formación básica en T-45 Goshawk dentro de DCS World. El curso inicia el 10 de agosto de 2026.",
+      "url": "/noticias/avva71-abre-inscripciones-5ta-promocion-fr1",
       "fuente": "Academia AVVA71"
-    },
-    {
-      "id": "news-003",
-      "title": "Actualización de la flota: nuevos módulos en DCS World",
-      "date": "2026-07-15",
-      "summary": "El escuadrón incorpora nuevas aeronaves y ajusta su doctrina de empleo táctico.",
-      "url": "/noticias",
-      "fuente": "Comando de Misión"
-    },
-    {
-      "id": "news-004",
-      "title": "Torneo King of the Hill - Resultados de julio",
-      "date": "2026-07-08",
-      "summary": "Conoce el podio del torneo mensual de combate aéreo y los destacados de la temporada.",
-      "url": "/noticias",
-      "fuente": "Coordinación de eventos"
     }
   ]
 }

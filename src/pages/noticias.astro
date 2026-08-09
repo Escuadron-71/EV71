@@ -41,15 +41,10 @@ const heroImage = `${base}assets/images/ScreenF18.jpg`;
 
     <section class="section blog-section" aria-labelledby="noticias-titulo">
       <div class="container">
-        <span class="blog-eyebrow">Contenido de ejemplo</span>
+        <span class="blog-eyebrow">Novedades</span>
         <h2 id="noticias-titulo" class="blog-section-title">
           Últimas noticias
         </h2>
-        <p class="blog-note">
-          Estas notas son contenido de ejemplo para validar la estructura. El
-          contenido real llegará desde el pipeline de sincronización cuando se
-          active.
-        </p>
         <div class="news-timeline">
           {news.map((item) => (
             <NewsItem item={item} />

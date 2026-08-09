@@ -217,6 +217,87 @@
   @include button-secondary;
 }
 
+// Enlaces de tarjetas
+.post-card__link {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  color: inherit;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 2px solid $secondary;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+}
+
+.news-entry__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 2px solid $secondary;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+}
+
+// Detalle de articulo (blog / noticias)
+.article-hero {
+  padding: 160px 0 70px;
+  background: linear-gradient(180deg, $primary-dark 0%, $primary 100%);
+  border-bottom: 1px solid rgba($secondary, 0.35);
+}
+
+.article-hero__inner {
+  max-width: 900px;
+}
+
+.article-hero__title {
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin-top: 14px;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.4);
+}
+
+.article-hero__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 18px;
+  font-size: 0.82rem;
+  color: $text-muted;
+
+  time {
+    font-family: $font-heading;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $secondary;
+  }
+}
+
+.article-hero__author {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $secondary-light;
+}
+
+.article-body {
+  padding: 56px 0 90px;
+  max-width: 900px;
+}
+
+.article-content {
+  @include panel;
+  padding: 34px 40px;
+  background: rgba($primary, 0.92);
+}
+
 // ============================================
 // Responsive
 // ============================================
@@ -233,5 +314,13 @@
     grid-template-columns: 1fr;
     gap: 8px;
     padding-left: 20px;
+  }
+
+  .article-hero {
+    padding: 120px 0 50px;
+  }
+
+  .article-content {
+    padding: 24px 20px;
   }
 }

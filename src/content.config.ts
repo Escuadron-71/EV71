@@ -6,6 +6,27 @@ const docs = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/assets/docs" }),
 });
 
+const posts = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/assets/posts" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    summary: z.string(),
+    categoria: z.string().optional(),
+    autor: z.string().optional(),
+  }),
+});
+
+const news = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/assets/news" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    summary: z.string(),
+    fuente: z.string().optional(),
+  }),
+});
+
 const courses = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/assets/courses" }),
   schema: z.object({
@@ -26,4 +47,4 @@ const courses = defineCollection({
   }),
 });
 
-export const collections = { docs, courses };
+export const collections = { docs, courses, posts, news };
