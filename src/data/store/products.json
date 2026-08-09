@@ -17,6 +17,7 @@
         { "label": "Incluye", "value": "1 parche" }
       ],
       "disponible": true,
+      "precioAnterior": 30000,
       "whatsapp": {}
     },
     {
@@ -34,6 +35,7 @@
         { "label": "Acabado", "value": "Mate" }
       ],
       "disponible": true,
+      "nuevo": true,
       "whatsapp": {}
     },
     {
@@ -51,6 +53,7 @@
         { "label": "Colores", "value": "Negro con emblema dorado" }
       ],
       "disponible": true,
+      "precioAnterior": 72000,
       "whatsapp": {}
     },
     {
@@ -68,6 +71,7 @@
         { "label": "Colores", "value": "Negro" }
       ],
       "disponible": false,
+      "nuevo": true,
       "whatsapp": {}
     },
     {

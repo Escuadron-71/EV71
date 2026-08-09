@@ -55,16 +55,61 @@ const grouped = categories.map((categoria) => ({
         </h2>
         <p class="store-note">{note}</p>
 
-        {grouped.map((group) => (
-          <section class="store-group" aria-label={group.categoria}>
-            <h3 class="store-group__title">{group.categoria}</h3>
-            <div class="store-grid">
-              {group.items.map((product: Product) => (
-                <ProductCard product={product} />
-              ))}
-            </div>
-          </section>
-        ))}
+        <div class="store-toolbar" role="search" aria-label="Buscar y ordenar productos">
+          <input
+            type="search"
+            class="store-toolbar__search"
+            data-store-search
+            placeholder="Buscar producto..."
+            aria-label="Buscar producto"
+          />
+          <select
+            class="store-toolbar__select"
+            data-store-sort
+            aria-label="Ordenar productos"
+          >
+            <option value="relevancia">Relevancia</option>
+            <option value="alfabetico">Alfabético (A-Z)</option>
+            <option value="precio-asc">Precio: menor a mayor</option>
+            <option value="precio-desc">Precio: mayor a menor</option>
+            <option value="novedad">Novedad</option>
+            <option value="descuento">Mayor descuento</option>
+          </select>
+          <div class="store-view-toggle" role="group" aria-label="Cambiar vista">
+            <button
+              class="is-active"
+              type="button"
+              data-store-view="grid"
+              aria-pressed="true"
+            >
+              Cuadrícula
+            </button>
+            <button type="button" data-store-view="list" aria-pressed="false">
+              Lista
+            </button>
+          </div>
+        </div>
+
+        <p class="store-count" data-store-count aria-live="polite">
+          {productos.length} producto{productos.length === 1 ? "" : "s"}
+        </p>
+
+        <p class="store-empty" data-store-empty hidden>
+          No se encontraron productos con esos criterios.
+        </p>
+
+        <div class="store-catalog" data-store-catalog>
+          {grouped.map((group) => (
+            <section class="store-group" aria-label={group.categoria}>
+              <h3 class="store-group__title">{group.categoria}</h3>
+              <div class="store-grid">
+                {group.items.map((product: Product) => (
+                  <ProductCard product={product} />
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
 
         <div class="store-cta">
           <p>
@@ -79,3 +124,157 @@ const grouped = categories.map((categoria) => ({
     </section>
   </main>
 </BaseLayout>
+
+<script>
+  function requireEl<T extends HTMLElement>(el: T | null, name: string): T {
+    if (!el) throw new Error(`Falta el elemento: ${name}`);
+    return el;
+  }
+
+  const catalog = requireEl(
+    document.querySelector<HTMLElement>("[data-store-catalog]"),
+    "store-catalog",
+  );
+  const empty = requireEl(
+    document.querySelector<HTMLElement>("[data-store-empty]"),
+    "store-empty",
+  );
+  const countEl = requireEl(
+    document.querySelector<HTMLElement>("[data-store-count]"),
+    "store-count",
+  );
+  const searchInput = requireEl(
+    document.querySelector<HTMLInputElement>("[data-store-search]"),
+    "store-search",
+  );
+  const sortSelect = requireEl(
+    document.querySelector<HTMLSelectElement>("[data-store-sort]"),
+    "store-sort",
+  );
+  const viewButtons =
+    document.querySelectorAll<HTMLButtonElement>("[data-store-view]");
+
+  const cards = Array.from(catalog.querySelectorAll<HTMLElement>("[data-product]"));
+
+  let query = "";
+  let sortKey = sortSelect.value;
+  let view: "grid" | "list" = "grid";
+
+  function cardName(card: HTMLElement): string {
+    return card.dataset.nombre ?? "";
+  }
+
+  function cardPrecio(card: HTMLElement): number {
+    return Number(card.dataset.precio || 0);
+  }
+
+  function cardDescuento(card: HTMLElement): number {
+    return Number(card.dataset.descuento || 0);
+  }
+
+  function filteredCards(): HTMLElement[] {
+    const q = query.trim().toLowerCase();
+    return cards.filter(
+      (card) => !q || (card.dataset.search ?? "").includes(q),
+    );
+  }
+
+  function sortCards(list: HTMLElement[]): HTMLElement[] {
+    const sorted = [...list];
+    const byName = (a: HTMLElement, b: HTMLElement) =>
+      cardName(a).localeCompare(cardName(b), "es");
+    switch (sortKey) {
+      case "alfabetico":
+        sorted.sort(byName);
+        break;
+      case "precio-asc":
+        sorted.sort((a, b) => cardPrecio(a) - cardPrecio(b));
+        break;
+      case "precio-desc":
+        sorted.sort((a, b) => cardPrecio(b) - cardPrecio(a));
+        break;
+      case "novedad":
+        sorted.sort(
+          (a, b) =>
+            Number(Boolean(b.dataset.nuevo)) - Number(Boolean(a.dataset.nuevo)) ||
+            byName(a, b),
+        );
+        break;
+      case "descuento":
+        sorted.sort((a, b) => cardDescuento(b) - cardDescuento(a));
+        break;
+      default:
+        break;
+    }
+    return sorted;
+  }
+
+  function renderGroups(items: HTMLElement[]) {
+    const byCategory = new Map<string, HTMLElement[]>();
+    items.forEach((card) => {
+      const cat = card.dataset.categoria ?? "General";
+      if (!byCategory.has(cat)) byCategory.set(cat, []);
+      byCategory.get(cat)!.push(card);
+    });
+
+    const content = document.createElement("div");
+    byCategory.forEach((categoryCards, cat) => {
+      const group = document.createElement("section");
+      group.className = "store-group";
+      group.setAttribute("aria-label", cat);
+
+      const title = document.createElement("h3");
+      title.className = "store-group__title";
+      title.textContent = cat;
+
+      const grid = document.createElement("div");
+      grid.className = "store-grid";
+      categoryCards.forEach((card) => grid.appendChild(card));
+
+      group.append(title, grid);
+      content.appendChild(group);
+    });
+    return content;
+  }
+
+  function renderList(items: HTMLElement[]) {
+    const list = document.createElement("div");
+    list.className = "store-list";
+    items.forEach((card) => list.appendChild(card));
+    return list;
+  }
+
+  function render() {
+    const sorted = sortCards(filteredCards());
+    const content =
+      view === "list" ? renderList(sorted) : renderGroups(sorted);
+    catalog.replaceChildren(content);
+    catalog.hidden = sorted.length === 0;
+    empty.hidden = sorted.length > 0;
+    countEl.textContent = `${sorted.length} producto${
+      sorted.length === 1 ? "" : "s"
+    }`;
+  }
+
+  searchInput.addEventListener("input", () => {
+    query = searchInput.value;
+    render();
+  });
+
+  sortSelect.addEventListener("change", () => {
+    sortKey = sortSelect.value;
+    render();
+  });
+
+  viewButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      view = btn.dataset.storeView === "list" ? "list" : "grid";
+      viewButtons.forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-pressed", String(active));
+      });
+      render();
+    });
+  });
+</script>

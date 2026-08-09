@@ -3,7 +3,11 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { resolvePath } from "@/lib/base-url";
 import ProductSpecsTable from "@/components/store/ProductSpecsTable.astro";
 import type { StoreData } from "@/types/store";
-import { formatPrice, buildProductWhatsAppLink } from "@/lib/store/whatsapp";
+import {
+  formatPrice,
+  buildProductWhatsAppLink,
+  descuentoPct,
+} from "@/lib/store/whatsapp";
 import storeData from "@/data/store/products.json";
 import "../../styles/pages/_store.scss";
 
@@ -19,6 +23,9 @@ const { product: current } = Astro.props;
 const productImage = resolvePath(current.imagen);
 const stockLabel = current.disponible ? "Disponible" : "Agotado";
 const whatsappLink = buildProductWhatsAppLink(current);
+const discount = descuentoPct(current);
+const hasPrevious =
+  current.precioAnterior !== undefined && current.precioAnterior > current.precio;
 ---
 
 <BaseLayout
@@ -44,51 +51,74 @@ const whatsappLink = buildProductWhatsAppLink(current);
           <span class="store-eyebrow">{current.categoria}</span>
           <h1 class="product-hero__title">{current.nombre}</h1>
           <p class="product-hero__price">
+            {hasPrevious && (
+              <s class="product-hero__price-old">
+                {formatPrice(current.precioAnterior!, current.moneda)}
+              </s>
+            )}
             {formatPrice(current.precio, current.moneda)}
           </p>
-          <span
-            class={`product-hero__status ${current.disponible ? "is-available" : "is-out"}`}
-          >
-            {stockLabel}
-          </span>
+          <div class="product-hero__badges">
+            {current.nuevo && <span class="product-hero__badge is-new">Nuevo</span>}
+            {discount !== null && (
+              <span class="product-hero__badge is-off">-{discount}%</span>
+            )}
+            <span
+              class={`product-hero__status ${current.disponible ? "is-available" : "is-out"}`}
+            >
+              {stockLabel}
+            </span>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="section product-section">
-      <div class="container product-layout">
-        <div class="product-main">
-          <div class="product-media">
-            <img
-              src={productImage}
-              alt={current.nombre}
-              class="product-media__image"
-              loading="lazy"
-            />
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Ruta de navegación">
+          <a href={resolvePath("/tienda")}>Tienda</a>
+          <span class="breadcrumb__sep" aria-hidden="true">/</span>
+          <span class="breadcrumb__item">{current.categoria}</span>
+          <span class="breadcrumb__sep" aria-hidden="true">/</span>
+          <span class="breadcrumb__item is-current" aria-current="page">
+            {current.nombre}
+          </span>
+        </nav>
+
+        <div class="product-layout">
+          <div class="product-main">
+            <div class="product-media">
+              <img
+                src={productImage}
+                alt={current.nombre}
+                class="product-media__image"
+                loading="lazy"
+              />
+            </div>
           </div>
-        </div>
 
-        <div class="product-info">
-          <h2 class="product-section-title">Descripción</h2>
-          <p class="product-description">{current.descripcion}</p>
+          <div class="product-info">
+            <h2 class="product-section-title">Descripción</h2>
+            <p class="product-description">{current.descripcion}</p>
 
-          <ProductSpecsTable product={current} />
+            <ProductSpecsTable product={current} />
 
-          <a
-            class="product-buy"
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Comprar por WhatsApp
-          </a>
-          <p class="product-note">
-            Los productos se gestionan de forma manual; el stock se actualiza
-            periódicamente.
-          </p>
-          <a class="product-back" href={resolvePath("/tienda")}>
-            Volver al catálogo
-          </a>
+            <a
+              class="product-buy"
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Comprar por WhatsApp
+            </a>
+            <p class="product-note">
+              Los productos se gestionan de forma manual; el stock se actualiza
+              periódicamente.
+            </p>
+            <a class="product-back" href={resolvePath("/tienda")}>
+              Volver al catálogo
+            </a>
+          </div>
         </div>
       </div>
     </section>

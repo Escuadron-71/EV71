@@ -3,6 +3,7 @@ import {
   buildProductMessage,
   buildProductWhatsAppLink,
   buildWhatsAppLink,
+  descuentoPct,
   formatPrice,
   sanitizePhone,
 } from "./whatsapp";
@@ -30,6 +31,22 @@ describe("sanitizePhone", () => {
 describe("formatPrice", () => {
   it("formats COP with es-CO grouping", () => {
     expect(formatPrice(25000, "COP")).toBe("COP 25.000");
+  });
+});
+
+describe("descuentoPct", () => {
+  it("returns null when there is no previous price", () => {
+    expect(descuentoPct(product)).toBeNull();
+  });
+
+  it("returns null when the previous price is not higher", () => {
+    expect(descuentoPct({ ...product, precioAnterior: product.precio })).toBeNull();
+    expect(descuentoPct({ ...product, precioAnterior: 20000 })).toBeNull();
+  });
+
+  it("computes the rounded discount percentage", () => {
+    expect(descuentoPct({ ...product, precioAnterior: 30000 })).toBe(17);
+    expect(descuentoPct({ ...product, precioAnterior: 100000 })).toBe(75);
   });
 });
 

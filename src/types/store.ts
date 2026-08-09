@@ -20,6 +20,8 @@ export interface Product {
   descripcion: string;
   especificaciones: ProductSpecs[];
   disponible: boolean;
+  nuevo?: boolean;
+  precioAnterior?: number;
   whatsapp?: ProductWhatsApp;
 }
 
