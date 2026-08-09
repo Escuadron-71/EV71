@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-08-09T12:00:00.000Z",
+  "blog": [
+    {
+      "id": "blog-primeros-pasos-en-dcs-world",
+      "title": "Primeros pasos en DCS World: guía para aspirantes",
+      "date": "2026-07-20",
+      "summary": "Todo lo que necesitas saber antes de postularte: requisitos de hardware, módulos recomendados y preparación.",
+      "url": "/blog/primeros-pasos-en-dcs-world",
+      "categoria": "Guías",
+      "autor": "Staff AVVA71"
+    }
+  ]
+}

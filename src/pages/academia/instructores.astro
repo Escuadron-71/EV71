@@ -1,0 +1,68 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getBase, resolvePath } from "@/lib/base-url";
+import InstructorCard from "@/components/academia/InstructorCard.astro";
+import type { InstructorsData } from "@/types/academia";
+import instructorsData from "@/data/academia/instructors.json";
+import "../../styles/pages/_academia.scss";
+
+const { note, instructors } = instructorsData as InstructorsData;
+const base = getBase();
+const heroImage = `${base}assets/images/ScreenF18.jpg`;
+---
+
+<BaseLayout
+  title="Instructores | Academia | Escuadrón 71"
+  description="Equipo de instructores de la Academia de Vuelo Virtual AVVA71: pilotos con experiencia certificada del Escuadrón 71."
+>
+  <main role="main">
+    <section class="academia-hero academia-hero--instructors hero relative overflow-hidden">
+      <picture class="absolute top-0 left-0 right-0 bottom-0 w-full h-full z-0">
+        <img
+          src={heroImage}
+          alt="Formación de pilotos en vuelo"
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      </picture>
+      <div
+        class="academia-hero__overlay absolute top-0 left-0 right-0 bottom-0 z-0"
+        aria-hidden="true"
+      ></div>
+      <div class="container z-1">
+        <div class="academia-hero__content">
+          <span class="academia-eyebrow">Academia AVVA71</span>
+          <h1 class="academia-hero__title">Instructores</h1>
+          <p class="academia-hero__description">
+            El staff de la academia guía la formación de cada piloto con
+            doctrina, experiencia y dedicación.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section academia-instructors" aria-labelledby="instructores-titulo">
+      <div class="container">
+        <span class="academia-eyebrow">Equipo de formación</span>
+        <h2 id="instructores-titulo" class="academia-section-title">
+          Instructores del escuadrón
+        </h2>
+        <p class="academia-section-description">{note}</p>
+        <div class="academia-instructor-grid">
+          {instructors.map((instructor) => (
+            <InstructorCard instructor={instructor} />
+          ))}
+        </div>
+        <div class="academia-join__panel academia-join__panel--instructors">
+          <h2>¿Quieres ser parte del equipo?</h2>
+          <p>
+            Postúlate y forma parte del cuerpo de pilotos del Escuadrón 71.
+          </p>
+          <a class="academia-join__cta" href={resolvePath("/postulacion")}>
+            Quiero ser parte del equipo
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

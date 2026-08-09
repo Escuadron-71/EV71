@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-08-07T12:00:00.000Z",
+  "note": "El apoyo es voluntario y no es un requisito para ser parte del escuadrón. Los métodos se actualizan manualmente cuando la dirección confirma las cuentas activas.",
+  "platforms": [
+    {
+      "id": "patreon",
+      "nombre": "Patreon",
+      "descripcion": "Apoyo mensual recurrente que sostiene el hosting, los servidores y los servicios de la comunidad.",
+      "url": "https://www.patreon.com/Escuadron71",
+      "icono": "logopatreon",
+      "badge": "Recurrente",
+      "disponible": true
+    },
+    {
+      "id": "buymeacoffee",
+      "nombre": "Buy Me a Coffee",
+      "descripcion": "Apoyo puntual de un café para los proyectos y herramientas del escuadrón.",
+      "url": "",
+      "icono": "logobmc",
+      "badge": "Única",
+      "disponible": false
+    },
+    {
+      "id": "paypal",
+      "nombre": "PayPal",
+      "descripcion": "Donación única internacional para miembros fuera de Colombia.",
+      "url": "",
+      "icono": "logopaypal",
+      "badge": "Única",
+      "disponible": false
+    },
+    {
+      "id": "mercadopago",
+      "nombre": "Mercado Pago",
+      "descripcion": "Pago local con tarjeta, PSE o saldo disponible.",
+      "url": "",
+      "icono": "logomercadopago",
+      "badge": "Única",
+      "disponible": false
+    },
+    {
+      "id": "nequi",
+      "nombre": "Nequi",
+      "descripcion": "Transferencia local desde Colombia con la aplicación Nequi.",
+      "url": "",
+      "icono": "logonequi",
+      "badge": "Local",
+      "disponible": false
+    }
+  ]
+}

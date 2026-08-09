@@ -1,0 +1,125 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getBase, resolvePath } from "@/lib/base-url";
+import DonationPlatformCard from "@/components/donations/DonationPlatformCard.astro";
+import type { DonationPlatform, DonationsData } from "@/types/donations";
+import donationsData from "@/data/donations/platforms.json";
+import "../styles/pages/_donations.scss";
+
+const { note, platforms } = donationsData as DonationsData;
+const base = getBase();
+const heroImage = `${base}assets/images/Screen_260523_235322.jpg`;
+
+const uses = [
+  {
+    id: "servidores",
+    titulo: "Servidores",
+    descripcion:
+      "Mantenimiento del hosting, los servidores de voz y las herramientas que mantienen a la comunidad conectada.",
+  },
+  {
+    id: "equipos",
+    titulo: "Equipos",
+    descripcion:
+      "Reposición y soporte del equipamiento de los instructores y del material de entrenamiento.",
+  },
+  {
+    id: "herramientas",
+    titulo: "Herramientas",
+    descripcion:
+      "Licencias y software de misión, edición y simulación que usamos para preparar cada operación.",
+  },
+  {
+    id: "comunidad",
+    titulo: "Comunidad",
+    descripcion:
+      "Organización de eventos, torneos y contenidos abiertos para toda la comunidad de simulación.",
+  },
+];
+---
+
+<BaseLayout
+  title="Donaciones | Escuadrón 71"
+  description="Apoya al Escuadrón 71: donaciones voluntarias para servidores, equipos y herramientas de la comunidad de simulación aérea."
+>
+  <main role="main">
+    <section class="donations-hero hero relative overflow-hidden">
+      <picture class="absolute top-0 left-0 right-0 bottom-0 w-full h-full z-0">
+        <img
+          src={heroImage}
+          alt="Aeronaves del Escuadrón 71 en formación"
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      </picture>
+      <div
+        class="donations-hero__overlay absolute top-0 left-0 right-0 bottom-0 z-0"
+        aria-hidden="true"
+      ></div>
+      <div class="container z-1">
+        <div class="donations-hero__content">
+          <span class="donations-eyebrow">Apoyo voluntario</span>
+          <h1 class="donations-hero__title">Donaciones</h1>
+          <p class="donations-hero__description">
+            El Escuadrón 71 se sostiene gracias a una comunidad voluntaria. Si
+            quieres ayudar a mantener los servidores, las herramientas y los
+            proyectos del escuadrón, tu apoyo hace la diferencia.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section donations-section" aria-labelledby="uso-titulo">
+      <div class="container">
+        <span class="donations-eyebrow">Transparencia</span>
+        <h2 id="uso-titulo" class="donations-section-title">
+          En qué se usa tu apoyo
+        </h2>
+        <p class="donations-note">
+          Todo el aporte se destina a mantener y mejorar la infraestructura y
+          las actividades de la comunidad. El escuadrón no obtiene beneficio
+          económico de ninguna operación.
+        </p>
+
+        <div class="donations-uses">
+          {uses.map((use) => (
+            <article class="donation-use">
+              <h3 class="donation-use__title">{use.titulo}</h3>
+              <p class="donation-use__description">{use.descripcion}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section donations-section" aria-labelledby="plataformas-titulo">
+      <div class="container">
+        <span class="donations-eyebrow">Métodos de pago</span>
+        <h2 id="plataformas-titulo" class="donations-section-title">
+          Plataformas disponibles
+        </h2>
+        <p class="donations-note">{note}</p>
+
+        <div class="donations-grid">
+          {platforms.map((platform: DonationPlatform) => (
+            <DonationPlatformCard platform={platform} />
+          ))}
+        </div>
+
+        <div class="donations-cta">
+          <p>
+            ¿Prefieres coordinar tu apoyo de otra forma? Escríbenos por
+            correo o redes y lo gestionamos.
+          </p>
+          <a
+            href="mailto:dcsescuadron71@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Contactar al escuadrón
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

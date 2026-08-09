@@ -1,0 +1,27 @@
+---
+interface Props {
+  title: string;
+  url: string;
+  image: string;
+  date: string;
+}
+
+const { title, url, image, date } = Astro.props;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="media-card"
+  data-search={title.toLowerCase()}
+  data-card
+>
+  <span class="media-card-image">
+    <img src={image} alt={title} loading="lazy" />
+  </span>
+  <span class="media-card-body">
+    <span class="media-card-title">{title}</span>
+    <time class="media-card-date">{date}</time>
+  </span>
+</a>

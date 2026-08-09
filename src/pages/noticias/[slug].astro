@@ -1,0 +1,50 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import { resolvePath } from "@/lib/base-url";
+import "../../styles/pages/_blog.scss";
+import "../../styles/pages/_nosotros.scss";
+
+export async function getStaticPaths() {
+  const news = await getCollection("news");
+  return news.map((item) => ({
+    params: { slug: item.id },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+const { data } = item;
+---
+
+<BaseLayout
+  title={`${data.title} | Noticias | Escuadrón 71`}
+  description={data.summary}
+>
+  <main role="main">
+    <article class="article">
+      <header class="article-hero">
+        <div class="container article-hero__inner">
+          <span class="blog-eyebrow">Noticia</span>
+          <h1 class="article-hero__title">{data.title}</h1>
+          <div class="article-hero__meta">
+            <time datetime={data.date}>{data.date}</time>
+            {data.fuente && (
+              <span class="article-hero__author">{data.fuente}</span>
+            )}
+          </div>
+        </div>
+      </header>
+
+      <div class="container article-body">
+        <div class="doc-content article-content">
+          <Content />
+        </div>
+        <a class="blog-back" href={resolvePath("/noticias")}>
+          Volver a Noticias
+        </a>
+      </div>
+    </article>
+  </main>
+</BaseLayout>

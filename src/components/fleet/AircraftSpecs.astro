@@ -1,0 +1,45 @@
+---
+import type { Aircraft } from "@/types/fleet";
+
+interface Props {
+  aircraft: Aircraft;
+}
+
+const { aircraft } = Astro.props;
+---
+
+<section class="aircraft-specs" aria-labelledby="specs-titulo">
+  <h2 id="specs-titulo" class="aircraft-section-title">Especificaciones</h2>
+  <dl class="aircraft-specs__grid">
+    <div>
+      <dt>Rol</dt>
+      <dd>{aircraft.tareas.join(", ")}</dd>
+    </div>
+    <div>
+      <dt>País</dt>
+      <dd>{aircraft.pais}</dd>
+    </div>
+    <div>
+      <dt>Velocidad máxima</dt>
+      <dd>{aircraft.velocidadMax}</dd>
+    </div>
+    <div>
+      <dt>Radio de combate</dt>
+      <dd>{aircraft.radio}</dd>
+    </div>
+    <div>
+      <dt>Tripulación</dt>
+      <dd>{aircraft.tripulacion}</dd>
+    </div>
+    <div>
+      <dt>Armamento</dt>
+      <dd>
+        <ul class="aircraft-specs__list">
+          {aircraft.armamento.map((weapon) => (
+            <li>{weapon}</li>
+          ))}
+        </ul>
+      </dd>
+    </div>
+  </dl>
+</section>

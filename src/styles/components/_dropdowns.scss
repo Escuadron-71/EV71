@@ -161,7 +161,7 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    height: 72px;
+    height: 48px;
     padding: 0 16px;
     color: $text-light;
     text-decoration: none;
@@ -191,7 +191,8 @@
     }
 
     &:hover,
-    &:focus-visible {
+    &:focus-visible,
+    &.is-active {
       color: $secondary;
 
       &::after {
@@ -208,9 +209,9 @@
     }
   }
 
-  // Panel positioned below header
+  // Panel positioned below the 48px subnav trigger
   .nav-dropdown-panel {
-    top: 90px;
+    top: 52px;
     min-width: 220px;
   }
 
@@ -304,7 +305,7 @@
 // Responsive - Mobile
 // ============================================
 
-@include responsive($breakpoint-md) {
+@include responsive($breakpoint-lg) {
   .nav-dropdown .nav-dropdown-panel {
     top: auto;
     position: static;

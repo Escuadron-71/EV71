@@ -1,0 +1,97 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import { resolvePath } from "@/lib/base-url";
+import "../../styles/pages/_academia.scss";
+import "../../styles/pages/_nosotros.scss";
+
+export async function getStaticPaths() {
+  const courses = await getCollection("courses");
+  return courses.map((course) => ({
+    params: { slug: course.id },
+    props: { course },
+  }));
+}
+
+const { course } = Astro.props;
+const { Content } = await render(course);
+const { data } = course;
+const backHref = resolvePath("/academia/avva71");
+---
+
+<BaseLayout
+  title={`${data.title} | Academia | Escuadrón 71`}
+  description={data.summary}
+>
+  <main role="main">
+    <section class="course-hero hero relative overflow-hidden">
+      <div class="course-hero__content container">
+        <span class="academia-eyebrow">Academia AVVA71</span>
+        <h1 class="course-hero__title">{data.title}</h1>
+        <p class="course-hero__summary">{data.summary}</p>
+        <ul class="course-hero__badges">
+          <li class="course-hero__badge">Nivel {data.level}</li>
+          <li class="course-hero__badge">{data.duration}</li>
+          <li class="course-hero__badge course-hero__badge--code">
+            Código {data.code}
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section course-section">
+      <div class="container course-layout">
+        <article class="course-main">
+          <div class="course-panel">
+            <div class="doc-content course-content">
+              <Content />
+            </div>
+          </div>
+          <div class="course-actions">
+            <a
+              class="course-actions__primary"
+              href={resolvePath("/postulacion")}
+            >
+              Postúlate a este curso
+            </a>
+            <a class="course-actions__back" href={backHref}>
+              Volver a los cursos
+            </a>
+          </div>
+        </article>
+
+        <aside class="course-aside" aria-label="Información del curso">
+          <section class="course-box">
+            <h2>Prerrequisitos</h2>
+            <ul class="course-prereq">
+              {data.prerequisites.map((requirement) => (
+                <li>{requirement}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section class="course-box">
+            <h2>Temario</h2>
+            <ol class="course-modules">
+              {data.modules.map((mod, index) => (
+                <li>
+                  <span class="course-modules__index">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span>
+                    <span class="course-modules__name">{mod.name}</span>
+                    {mod.aircraft && (
+                      <span class="course-modules__aircraft">
+                        {mod.aircraft}
+                      </span>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        </aside>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

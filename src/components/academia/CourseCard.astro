@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { resolvePath } from "@/lib/base-url";
+
+interface Props {
+  course: CollectionEntry<"courses">;
+}
+
+const { course } = Astro.props;
+const { data } = course;
+const href = resolvePath(`/academia/${course.id}`);
+---
+
+<article class="course-card">
+  <a href={href} class="course-card__link">
+    <div class="course-card__header">
+      <span class="course-card__code">{data.code}</span>
+      <span
+        class={`course-card__status course-card__status--${data.status}`}
+      >
+        {data.status === "activo" ? "Activo" : "Próximamente"}
+      </span>
+    </div>
+    <h2 class="course-card__title">{data.title}</h2>
+    <p class="course-card__summary">{data.summary}</p>
+    <dl class="course-card__meta">
+      <div>
+        <dt>Nivel</dt>
+        <dd>{data.level}</dd>
+      </div>
+      <div>
+        <dt>Duración</dt>
+        <dd>{data.duration}</dd>
+      </div>
+    </dl>
+    <span class="course-card__cta">Ver curso</span>
+  </a>
+</article>

@@ -1,0 +1,57 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getBase, resolvePath } from "@/lib/base-url";
+import PostCard from "@/components/blog/PostCard.astro";
+import { multimediaService } from "@/lib/services/multimedia-service";
+import "../styles/pages/_blog.scss";
+
+const posts = multimediaService.getBlog();
+const base = getBase();
+const heroImage = `${base}assets/images/Banner1.jpg`;
+---
+
+<BaseLayout
+  title="Blog | Escuadrón 71"
+  description="Blog del Escuadrón 71: artículos, guías y crónicas de la comunidad de simulación aérea."
+>
+  <main role="main">
+    <section class="blog-hero hero relative overflow-hidden">
+      <picture class="absolute top-0 left-0 right-0 bottom-0 w-full h-full z-0">
+        <img
+          src={heroImage}
+          alt="Capitán del Escuadrón 71 en cabina"
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      </picture>
+      <div
+        class="blog-hero__overlay absolute top-0 left-0 right-0 bottom-0 z-0"
+        aria-hidden="true"
+      ></div>
+      <div class="container z-1">
+        <div class="blog-hero__content">
+          <span class="blog-eyebrow">Publicaciones del escuadrón</span>
+          <h1 class="blog-hero__title">Blog</h1>
+          <p class="blog-hero__description">
+            Guías, doctrina y crónicas de la comunidad del Escuadrón 71.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section blog-section" aria-labelledby="blog-titulo">
+      <div class="container">
+        <span class="blog-eyebrow">Publicaciones</span>
+        <h2 id="blog-titulo" class="blog-section-title">Últimas publicaciones</h2>
+        <div class="blog-grid">
+          {posts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+        <a class="blog-back" href={resolvePath("/multimedia?tab=blog")}>
+          Ver tab de Blog en Multimedia
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

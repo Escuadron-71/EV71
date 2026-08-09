@@ -1,0 +1,30 @@
+---
+import type { Aircraft } from "@/types/fleet";
+
+interface Props {
+  aircraft: Aircraft;
+  note?: string;
+}
+
+const { aircraft, note } = Astro.props;
+---
+
+<section class="aircraft-pilots" aria-labelledby="pilotos-titulo">
+  <h2 id="pilotos-titulo" class="aircraft-section-title">
+    Pilotos del escuadrón
+  </h2>
+  {aircraft.pilotos.length > 0 ? (
+    <>
+      <ul class="aircraft-pilots__grid">
+        {aircraft.pilotos.map((pilot) => (
+          <li class="aircraft-pilots__chip">{pilot}</li>
+        ))}
+      </ul>
+      {note && <p class="aircraft-pilots__note">{note}</p>}
+    </>
+  ) : (
+    <p class="aircraft-pilots__empty">
+      Lista de pilotos pendiente de confirmación por el equipo.
+    </p>
+  )}
+</section>

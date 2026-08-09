@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath } from "@/lib/base-url";
+import "../styles/pages/_stub.scss";
+---
+
+<BaseLayout
+  title="Planificador | Herramientas | Escuadrón 71"
+  description="Planificador de misiones del Escuadrón 71: preparación y planificación táctica de vuelos en DCS World."
+>
+  <main class="stub-page" role="main">
+    <div class="stub-panel">
+      <span class="stub-eyebrow">En construcción</span>
+      <h1 class="stub-title">Planificador</h1>
+      <p class="stub-description">
+        Próximamente: planificador de misiones del escuadrón para preparar
+        vuelos y rutas tácticas en DCS World.
+      </p>
+      <a class="stub-back" href={resolvePath("/")}>Regresar al inicio</a>
+    </div>
+  </main>
+</BaseLayout>

@@ -212,9 +212,31 @@ pnpm dev              # Servidor de desarrollo
 pnpm build            # Build de produccion
 pnpm preview          # Preview del build
 pnpm check            # Verificacion de tipos y errores
+pnpm test             # Tests unitarios (Vitest)
 pnpm sync:events      # Ejecutar sincronizacion manual de eventos Discord
 pnpm legacy:server    # Backend legacy (scripts/server.js - temporal)
 ```
+
+## Roadmap de desarrollo (web)
+
+- El roadmap se ejecuta por ramas `feat/*` creadas desde `dev`. Cada rama tiene su plan
+  detallado en `.opencode/plans/<NOMBRE>.md` (fases, archivos, criterios de validacion).
+- Orden de entrega: `testing` -> `header-navigation` -> contenido (multimedia-hub, academia,
+  fleet, blog-news, store, donations) -> `postulacion` -> `i18n` (fase final).
+- Ramas y planes:
+  - `feat/testing` -> `.opencode/plans/TESTING.md` (Vitest + tests de `src/lib/**`). Se fusiona primero.
+  - `feat/header-navigation` -> `.opencode/plans/HEADER.md` (subheader 2 niveles + rutas stub).
+  - `feat/multimedia-hub` -> `.opencode/plans/MULTIMEDIA.md`
+  - `feat/academia` -> `.opencode/plans/ACADEMIA.md`
+  - `feat/fleet` -> `.opencode/plans/FLEET.md`
+  - `feat/blog-news` -> `.opencode/plans/BLOG-NEWS.md`
+  - `feat/store` -> `.opencode/plans/STORE.md`
+  - `feat/donations` -> `.opencode/plans/DONATIONS.md`
+  - `feat/postulacion` -> `.opencode/plans/POSTULACION.md` (Supabase)
+  - `feat/i18n` -> `.opencode/plans/I18N.md`
+- Cada rama debe validar `pnpm check`, `pnpm build` y `pnpm test` antes de mergear a `dev`.
+- Decisiones de diseno/arquitectura ya tomadas quedan fijadas en su plan y en esta guia;
+  no revertirlas sin decision explicita del equipo.
 
 ## Pull requests
 
@@ -236,6 +258,17 @@ Cada PR hacia `master` debe incluir:
 - Verificar que las imagenes existan en `public/assets/images/` antes de referenciarlas.
 - No usar `window`, `document` o APIs del navegador en componentes Astro (solo en React Islands).
 - Ejecutar `pnpm check` despues de cambios significativos para verificar tipos.
+- La validacion completa antes de mergear a `dev` es `pnpm check && pnpm build && pnpm test`.
+
+### Testing (Vitest)
+
+- Los tests unitarios corren con **Vitest** (`pnpm test` para una pasada, `pnpm test:watch` para desarrollo).
+- Configuracion en `vitest.config.ts` (alias `@/` → `src/`, environment node).
+- Los tests se co-localizan junto al modulo bajo test (`src/**/*.test.ts`).
+- Cubren logica pura SSR-safe: `base-url`, `services/event-service` y el pipeline de `sync/**`
+  (normalizador, transformador Discord, storage JSON, adaptador con retries, sync service).
+- `EventService` acepta una ruta de archivo opcional en el constructor para testear sin tocar `latest.json`.
+- Los modulos del planner (`src/lib/planner/**`) se testearan cuando `plannerDCS` se fusione a `dev`.
 
 ### Sistema de eventos
 
@@ -275,6 +308,116 @@ Cada PR hacia `master` debe incluir:
 - Los IDs de la coleccion son el slug sin extension y en minusculas (ej: `Mision.md` -> `mision`).
 - Las paginas usan el componente compartido `DocPage.astro` y los estilos de `src/styles/pages/_nosotros.scss` (importado por pagina, no en `main.scss`).
 - El dropdown "Nosotros" del header enlaza a estas paginas siguiendo el patron `nav-dropdown` de Academia/Actividades.
+
+### Seccion Academia (AVVA71)
+
+- Las paginas `/academia/avva71` (landing), `/academia/curso-*` (4 cursos) y `/academia/instructores`
+  reemplazaron los stubs iniciales.
+- Los cursos se cargan como content collection `courses` (`src/content.config.ts`) desde
+  `src/assets/courses/*.md`, con schema zod tipado: `title`, `code` (FR1/CR1/CR2/CR3), `level`
+  (Basico/Avanzado), `duration`, `summary`, `status`, `order`, `prerequisites`, `modules`.
+  El `z` se importa de `astro/zod` (no de `astro:content`, deprecado en Astro 7).
+- Para modificar el contenido de un curso, editar el `.md` correspondiente; NO hardcodear el texto
+  en la pagina. Los IDs de la coleccion son el nombre del archivo (ej: `curso-fr1.md` -> `/academia/curso-fr1`).
+- La vista individual usa la ruta dinamica `src/pages/academia/[slug].astro` con `getStaticPaths`
+  (el archivo debe llamarse `[slug].astro`, no `curso-[slug].astro`, porque el id ya incluye el prefijo).
+- Los `.md` de cursos empiezan con `##` (no `#`) para evitar dos H1: el titulo ya esta en el hero de la pagina.
+- Instructores en `src/data/academia/instructors.json` (tipado en `src/types/academia.ts`); los datos
+  actuales son placeholder marcados con `pending: true` hasta que la direccion confirme los reales.
+- Componentes Astro puros: `CourseCard`, `InstructorCard` en `src/components/academia/`.
+- Estilos en `src/styles/pages/_academia.scss` (importado por pagina, no en `main.scss`); la vista de
+  curso reutiliza la tipografia markdown de `_nosotros.scss` (clase `.doc-content`).
+
+### Seccion Flota
+
+- Las paginas `/flota` (indice) y `/flota/[slug]` (vista por aeronave) reemplazaron el stub inicial.
+- Datos curados en `src/data/fleet/aircraft.json` (tipados en `src/types/fleet.ts`): slug, codigo, rol
+  (caza/ataque/transporte/helo), pais, tareas, specs, armamento, imagen, moduloOficialUrl y pilotos.
+  Sin libreria runtime de datos; los enlaces a modulos oficiales DCS estan verificados
+  (`digitalcombatsimulator.com/en/shop/modules/...`).
+- El indice agrupa por rol (orden: caza, ataque, transporte, helo). Con menos de 10 aeronaves no hay
+  filtro client-side; si la flota crece, anadir filtro con el patron vanilla TS de `/multimedia`.
+- La vista por aeronave usa `getStaticPaths` desde `aircraft.json`. Nota: si el frontmatter declara
+  `const { note, aircraft } = fleetData` y la variable se usa en el template, Astro la mueve dentro de
+  la funcion de render y `getStaticPaths` (scope de modulo) no puede verla; leer el JSON dentro de
+  `getStaticPaths` (`fleetData as FleetData`).
+- Componentes Astro puros: `AircraftCard`, `AircraftSpecs`, `PilotList` en `src/components/fleet/`.
+- Pilotos por aeronave son placeholder hasta que la direccion confirme la lista real.
+- Estilos en `src/styles/pages/_fleet.scss` (importado por pagina, no en `main.scss`).
+
+### Header y navegacion (2 niveles)
+
+- El header usa **2 filas**: `.header-top` (logo + CTA POSTULATE + UserDropdown, no sticky) y `.header-subnav` (navbar sticky con `top: 0`).
+- En movil (`max-width: 1024px`) el subnav deja de ser sticky y se muestra el hamburguesa; el menu completo se despliega bajo `.header-top` incluyendo dropdowns en acordeon.
+- La configuracion central del menu vive en `src/lib/navigation.ts` (`buildNav(pathname)`), SSR-safe; el componente `Header.astro` la renderiza con `resolvePath()` en todos los hrefs.
+- Los dropdowns usan el patron `nav-dropdown` (`_dropdowns.scss`): trigger con `aria-haspopup`/`aria-expanded`, cierre con Escape o click fuera, y clase `.is-active` en el padre cuando una sub-ruta coincide.
+- Rutas planas: Inicio (`/`), Operaciones (`/operaciones`). Dropdowns: Multimedia, Nosotros, Academia, Herramientas, Comunidad.
+- El CTA "POSTULATE" vive solo en `.header-top` (oculto en movil); no hay CTA duplicado en el subnav ni en el menu movil.
+- Paginas placeholder de rutas pendientes usan `src/styles/pages/_stub.scss` (importado por cada stub).
+
+### Pagina Multimedia (tabs + buscador)
+
+- La pagina `/multimedia` usa **5 tabs accesibles**: Documentos, Galeria, Videos, Noticias, Blog.
+- El estado activo se maneja por query param (`?tab=galeria`) para deep-linking; los tabs se renderizan
+  en `MultimediaTabs.astro` y el cambio de tab + busqueda se hace con vanilla TS en el `<script>` de la pagina.
+- Datos dummy en `src/data/multimedia/*.json` (documents, gallery, videos, news, blog); se importan via
+  `@/data/...` en build-time, sin `fs` ni APIs runtime.
+- `src/lib/services/multimedia-service.ts` expone getters por categoria y `searchAll(query)` (filtrado
+  client-side sobre los JSON ya cargados). Test en `multimedia-service.test.ts`.
+- Componentes Astro puros (sin React): `MultimediaTabs`, `MediaGrid`, `DocumentCard`, `MediaCard`,
+  `NewsList`, `SearchInput` en `src/components/multimedia/`.
+- Estilos en `src/styles/pages/_multimedia.scss` importados solo en la pagina.
+- Cuando llegue el pipeline real (Drive/Discord), los JSON de `src/data/multimedia/` se generaran en
+  build-time siguiendo el patron `sync-events`; la UI no debe depender de credenciales en el cliente.
+
+### Paginas Blog y Noticias
+
+- Las paginas `/blog` y `/noticias` reemplazaron los stubs y comparten `src/styles/pages/_blog.scss`
+  (importado por cada pagina, no en `main.scss`).
+- **Fuente unica de datos:** reutilizan `src/data/multimedia/blog.json` y `news.json` (los mismos de la
+  pagina `/multimedia`), NO se duplican en `src/data/blog/`. Para editar contenido, tocar esos JSON.
+- El servicio es `src/lib/services/multimedia-service.ts`: `getBlog()` y `getNews()`.
+- Tipos extendidos en `src/types/multimedia.ts`: `BlogItem.categoria?`, `BlogItem.autor?`,
+  `NewsItem.fuente?`.
+- Componentes Astro puros en `src/components/blog/`: `PostCard` (grid de articulos con badge de
+  categoria, fecha, summary y autor) y `NewsItem` (timeline con fecha, titulo, summary y fuente).
+- Ambas paginas muestran una nota "contenido de ejemplo": el contenido real llegara con el pipeline
+  de sincronizacion (Discord/multimedia) y no debe depender de credenciales en el cliente.
+
+### Seccion Tienda
+
+- `/tienda` (catalogo) y `/tienda/[slug]` (vista por producto) reemplazaron el stub inicial.
+- **Catalogo build-time:** datos en `src/data/store/products.json` (tipados en `src/types/store.ts`):
+  slug, nombre, precio, moneda (COP/USD), categoria, imagen, descripcion, especificaciones,
+  disponible y `whatsapp` (numero/plantilla opcionales). Cada cambio de producto requiere rebuild.
+- Sin carrito ni eCommerce: el checkout es un deep link de **WhatsApp Business** (`wa.me`).
+  Helpers puros en `src/lib/store/whatsapp.ts` (`buildWhatsAppLink`, `buildProductMessage`,
+  `buildProductWhatsAppLink`, `formatPrice`) con test en `whatsapp.test.ts`.
+- El numero del escuadron se configura via `PUBLIC_WHATSAPP_NUMBER` en `.env` (ver
+  `src/lib/store/config.ts`); es un dato publico, no una clave.
+- El indice agrupa por categoria (Insignias, Textil, Accesorios); con menos de 10 productos no hay
+  filtro client-side. La vista por producto usa `getStaticPaths` desde `products.json` (leer el JSON
+  dentro de `getStaticPaths` como en flota) y muestra boton "Comprar por WhatsApp" con mensaje
+  prearmado; productos agotados muestran badge y ajustan el mensaje.
+- Componentes Astro puros: `ProductCard`, `ProductSpecsTable` en `src/components/store/`.
+- Imagenes placeholder SVG en `public/assets/images/products/` (reemplazar con fotos reales cuando
+  existan). Nota visible: el stock se gestiona de forma manual.
+
+### Pagina Donaciones
+
+- `/donaciones` reemplazo el stub: hero institucional, seccion "En que se usa tu apoyo"
+  (servidores, equipos, herramientas, comunidad) y grid de plataformas de donacion.
+- **Datos en `src/data/donations/platforms.json`** (tipados en `src/types/donations.ts`): nombre,
+  descripcion, url, icono, badge (Recurrente/Unica/Local) y `disponible`. Solo Patreon
+  (`https://www.patreon.com/Escuadron71`, verificado en el footer) tiene URL activa; las demas
+  plataformas (BuyMeACoffee, PayPal, MercadoPago, Nequi) estan marcadas `disponible: false` y se
+  renderizan como "Proximamente" hasta que la direccion confirme las cuentas.
+- Sin integracion de pagos: esta fase solo redirige a las plataformas externas con
+  `target="_blank"` + `rel="noopener noreferrer"`.
+- Componente `DonationPlatformCard.astro` en `src/components/donations/`; iconos de marca en
+  `src/assets/icons/` (`logopatreon`, `logobmc`, `logopaypal`, `logomercadopago`, `logonequi`)
+  cargados por `Icon.astro`. Estilos en `src/styles/pages/_donations.scss` (por pagina).
+- Nota visible de transparencia: el apoyo es voluntario y no es requisito de pertenencia.
 
 ### Versionado y releases
 

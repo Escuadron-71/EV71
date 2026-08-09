@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-08-07T12:00:00.000Z",
+  "videos": [
+    {
+      "id": "vid-001",
+      "title": "Recorrido por la base del Escuadrón 71",
+      "url": "https://www.youtube.com/@dcsescuadron71",
+      "thumbnail": "/assets/images/Banner1.jpg",
+      "date": "2026-06-15"
+    },
+    {
+      "id": "vid-002",
+      "title": "Academia AVVA71 - Vuelo básico",
+      "url": "https://www.youtube.com/@dcsescuadron71",
+      "thumbnail": "/assets/images/entrenamiento.png",
+      "date": "2026-06-30"
+    },
+    {
+      "id": "vid-003",
+      "title": "Operación nocturna - Resumen de misión",
+      "url": "https://www.youtube.com/@dcsescuadron71",
+      "thumbnail": "/assets/images/Screen_260523_235322.jpg",
+      "date": "2026-07-12"
+    },
+    {
+      "id": "vid-004",
+      "title": "Dogfight King of the Hill - Final",
+      "url": "https://www.youtube.com/@dcsescuadron71",
+      "thumbnail": "/assets/images/ScreenF18.jpg",
+      "date": "2026-07-22"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Pack de stickers Escuadrón 71">
+  <rect width="800" height="600" fill="#111826"/>
+  <rect x="250" y="150" width="150" height="150" rx="16" fill="#0A0E17" stroke="#E8B25C" stroke-width="5" transform="rotate(-8 325 225)"/>
+  <rect x="320" y="220" width="150" height="150" rx="16" fill="#0A0E17" stroke="#E8B25C" stroke-width="5"/>
+  <rect x="420" y="150" width="150" height="150" rx="16" fill="#0A0E17" stroke="#E8B25C" stroke-width="5" transform="rotate(10 495 225)"/>
+  <path d="M395 260 L420 310 L395 360 L370 310 Z" fill="#E8B25C"/>
+  <text x="400" y="500" text-anchor="middle" font-family="Oswald, Arial, sans-serif" font-size="36" font-weight="700" letter-spacing="6" fill="#E8B25C">ESCUADRÓN 71</text>
+</svg>

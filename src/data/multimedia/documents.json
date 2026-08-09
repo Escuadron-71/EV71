@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-08-07T12:00:00.000Z",
+  "documents": [
+    {
+      "id": "doc-001",
+      "name": "Carta de navegacion - Caucasus (M-38)",
+      "mimeType": "application/pdf",
+      "folderPath": "Documentos / Cartas de navegacion",
+      "webViewLink": "https://drive.google.com/file/d/doc-001/view",
+      "modifiedTime": "2026-07-10T10:00:00.000Z"
+    },
+    {
+      "id": "doc-002",
+      "name": "Manual de procedimientos del escuadron",
+      "mimeType": "application/pdf",
+      "folderPath": "Documentos / Manuales",
+      "webViewLink": "https://drive.google.com/file/d/doc-002/view",
+      "modifiedTime": "2026-06-22T15:30:00.000Z"
+    },
+    {
+      "id": "doc-003",
+      "name": "Checklist despegue F-16C Viper",
+      "mimeType": "application/pdf",
+      "folderPath": "Aeronaves / F-16C",
+      "webViewLink": "https://drive.google.com/file/d/doc-003/view",
+      "modifiedTime": "2026-07-01T08:45:00.000Z"
+    },
+    {
+      "id": "doc-004",
+      "name": "Guia de radiofraseologia (brevity)",
+      "mimeType": "application/pdf",
+      "folderPath": "Documentos / Guias",
+      "webViewLink": "https://drive.google.com/file/d/doc-004/view",
+      "modifiedTime": "2026-05-18T20:10:00.000Z"
+    },
+    {
+      "id": "doc-005",
+      "name": "Mapa táctico - Syria (SVG)",
+      "mimeType": "image/svg+xml",
+      "folderPath": "Cartas de navegacion / Syria",
+      "webViewLink": "https://drive.google.com/file/d/doc-005/view",
+      "modifiedTime": "2026-07-25T12:00:00.000Z"
+    },
+    {
+      "id": "doc-006",
+      "name": "Plan de vuelo tipo - Training",
+      "mimeType": "application/pdf",
+      "folderPath": "Documentos / Planes de vuelo",
+      "webViewLink": "https://drive.google.com/file/d/doc-006/view",
+      "modifiedTime": "2026-08-01T09:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "note": "Catalogo curado de aeronaves del Escuadron 71. Las listas de pilotos por aeronave seran confirmadas por la direccion.",
+  "aircraft": [
+    {
+      "slug": "f-16c",
+      "nombre": "Fighting Falcon",
+      "codigo": "F-16C",
+      "rol": "caza",
+      "pais": "Estados Unidos",
+      "tareas": ["CAP", "CAS", "SEAD"],
+      "velocidadMax": "Mach 2+",
+      "radio": "550 km",
+      "tripulacion": "1",
+      "armamento": [
+        "M61A1 Vulcan 20mm",
+        "AIM-9 Sidewinder",
+        "AIM-120 AMRAAM",
+        "AGM-65 Maverick",
+        "Bombas guiadas JDAM"
+      ],
+      "imagen": "assets/images/F16.png",
+      "moduloOficialUrl": "https://www.digitalcombatsimulator.com/en/shop/modules/viper/",
+      "pilotos": ["Mirage", "Raptor"]
+    },
+    {
+      "slug": "f-18c",
+      "nombre": "Hornet",
+      "codigo": "F/A-18C",
+      "rol": "caza",
+      "pais": "Estados Unidos",
+      "tareas": ["CAP", "CAS", "Strike"],
+      "velocidadMax": "Mach 1.8",
+      "radio": "700 km",
+      "tripulacion": "1",
+      "armamento": [
+        "M61A1 Vulcan 20mm",
+        "AIM-9 Sidewinder",
+        "AIM-120 AMRAAM",
+        "AGM-88 HARM",
+        "Bombas guiadas y no guiadas"
+      ],
+      "imagen": "assets/images/ScreenF18.jpg",
+      "moduloOficialUrl": "https://www.digitalcombatsimulator.com/en/shop/modules/hornet/",
+      "pilotos": ["Apache", "Vulture"]
+    },
+    {
+      "slug": "f-14b",
+      "nombre": "Tomcat",
+      "codigo": "F-14B",
+      "rol": "caza",
+      "pais": "Estados Unidos",
+      "tareas": ["CAP", "Escolta"],
+      "velocidadMax": "Mach 2.34",
+      "radio": "700 km",
+      "tripulacion": "2",
+      "armamento": [
+        "M61A1 Vulcan 20mm",
+        "AIM-54 Phoenix",
+        "AIM-7 Sparrow",
+        "AIM-9 Sidewinder"
+      ],
+      "imagen": "assets/images/F14.jpg",
+      "moduloOficialUrl": "https://www.digitalcombatsimulator.com/en/shop/modules/tomcat/",
+      "pilotos": ["Raptor"]
+    },
+    {
+      "slug": "a-10c",
+      "nombre": "Warthog",
+      "codigo": "A-10C",
+      "rol": "ataque",
+      "pais": "Estados Unidos",
+      "tareas": ["CAS", "SEAD"],
+      "velocidadMax": "833 km/h",
+      "radio": "460 km",
+      "tripulacion": "1",
+      "armamento": [
+        "GAU-8 Avenger 30mm",
+        "AGM-65 Maverick",
+        "Cohetes",
+        "Bombas guiadas y no guiadas"
+      ],
+      "imagen": "assets/images/A10.jpg",
+      "moduloOficialUrl": "https://www.digitalcombatsimulator.com/en/shop/modules/dcs_a10c_warthog/",
+      "pilotos": ["Vulture"]
+    },
+    {
+      "slug": "ah-64d",
+      "nombre": "Apache",
+      "codigo": "AH-64D",
+      "rol": "helo",
+      "pais": "Estados Unidos",
+      "tareas": ["CAS", "Reconocimiento"],
+      "velocidadMax": "293 km/h",
+      "radio": "480 km",
+      "tripulacion": "2",
+      "armamento": [
+        "M230 Chain Gun 30mm",
+        "AGM-114 Hellfire",
+        "Cohetes Hydra 70"
+      ],
+      "imagen": "assets/images/APACHE.jpg",
+      "moduloOficialUrl": "https://www.digitalcombatsimulator.com/en/shop/modules/ah-64d/",
+      "pilotos": ["Apache"]
+    },
+    {
+      "slug": "uh-1h",
+      "nombre": "Huey",
+      "codigo": "UH-1H",
+      "rol": "helo",
+      "pais": "Estados Unidos",
+      "tareas": ["Transporte", "CASEVAC", "SAR"],
+      "velocidadMax": "220 km/h",
+      "radio": "500 km",
+      "tripulacion": "2",
+      "armamento": [
+        "Ametralladoras M60D",
+        "Cohetes de 2.75 pulgadas"
+      ],
+      "imagen": "assets/images/HUEY.png",
+      "moduloOficialUrl": "https://www.digitalcombatsimulator.com/en/shop/modules/dcs_uh1h_huey/",
+      "pilotos": ["Mirage"]
+    }
+  ]
+}

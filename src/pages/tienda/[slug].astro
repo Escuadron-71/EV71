@@ -1,0 +1,96 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { resolvePath } from "@/lib/base-url";
+import ProductSpecsTable from "@/components/store/ProductSpecsTable.astro";
+import type { StoreData } from "@/types/store";
+import { formatPrice, buildProductWhatsAppLink } from "@/lib/store/whatsapp";
+import storeData from "@/data/store/products.json";
+import "../../styles/pages/_store.scss";
+
+export function getStaticPaths() {
+  const store = storeData as StoreData;
+  return store.productos.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product: current } = Astro.props;
+const productImage = resolvePath(current.imagen);
+const stockLabel = current.disponible ? "Disponible" : "Agotado";
+const whatsappLink = buildProductWhatsAppLink(current);
+---
+
+<BaseLayout
+  title={`${current.nombre} | Tienda | Escuadrón 71`}
+  description={`${current.nombre} del Escuadrón 71: ${current.descripcion}`}
+>
+  <main role="main">
+    <section class="product-hero hero relative overflow-hidden">
+      <picture class="absolute top-0 left-0 right-0 bottom-0 w-full h-full z-0">
+        <img
+          src={productImage}
+          alt={current.nombre}
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      </picture>
+      <div
+        class="product-hero__overlay absolute top-0 left-0 right-0 bottom-0 z-0"
+        aria-hidden="true"
+      ></div>
+      <div class="container z-1">
+        <div class="product-hero__content">
+          <span class="store-eyebrow">{current.categoria}</span>
+          <h1 class="product-hero__title">{current.nombre}</h1>
+          <p class="product-hero__price">
+            {formatPrice(current.precio, current.moneda)}
+          </p>
+          <span
+            class={`product-hero__status ${current.disponible ? "is-available" : "is-out"}`}
+          >
+            {stockLabel}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section product-section">
+      <div class="container product-layout">
+        <div class="product-main">
+          <div class="product-media">
+            <img
+              src={productImage}
+              alt={current.nombre}
+              class="product-media__image"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="product-info">
+          <h2 class="product-section-title">Descripción</h2>
+          <p class="product-description">{current.descripcion}</p>
+
+          <ProductSpecsTable product={current} />
+
+          <a
+            class="product-buy"
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Comprar por WhatsApp
+          </a>
+          <p class="product-note">
+            Los productos se gestionan de forma manual; el stock se actualiza
+            periódicamente.
+          </p>
+          <a class="product-back" href={resolvePath("/tienda")}>
+            Volver al catálogo
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

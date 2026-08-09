@@ -2,25 +2,42 @@
 @use '../abstracts/mixins' as *;
 
 // ============================================
-// Header / Navegacion
+// Header / Navegacion (2 niveles)
 // ============================================
 
+// Wrapper: relative para posicionar el menu movil absoluto
 .site-header {
+  position: relative;
+}
+
+// Fila superior: brand + acciones (no sticky, se va con el scroll)
+.header-top {
+  @include flex-between;
+  position: relative;
+  max-width: 1280px;
+  width: min(92%, 1280px);
+  margin-inline: auto;
+  padding: 0 24px;
+  height: 72px;
+}
+
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+// Segunda fila: navegacion sticky
+.header-subnav {
   position: sticky;
   top: 0;
   z-index: $z-header;
   background: rgba($primary-dark, 0.92);
   border-bottom: 1px solid $border;
   backdrop-filter: blur(14px);
-}
-
-.header-inner {
-  @include flex-between;
-  max-width: 1280px;
-  width: min(92%, 1280px);
-  margin-inline: auto;
-  padding: 0 24px;
-  height: 72px;
+  border-top: 0.0315rem solid rgba($secondary, .25);
+  background: $primary;
 }
 
 // ============================================
@@ -87,13 +104,18 @@
 .main-nav {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
+  max-width: 1280px;
+  width: min(92%, 1280px);
+  margin-inline: auto;
+  padding: 0 24px;
 
   a {
     position: relative;
     display: inline-flex;
     align-items: center;
-    height: 72px;
+    height: 48px;
     padding: 0 16px;
     color: $text-light;
     text-decoration: none;
@@ -214,10 +236,10 @@
 }
 
 // ============================================
-// Responsive - Mobile
+// Responsive - Mobile / Tablet (<= lg)
 // ============================================
-@include responsive($breakpoint-md) {
-  .header-inner {
+@include responsive($breakpoint-lg) {
+  .header-top {
     height: 64px;
     padding: 0 16px;
   }
@@ -244,19 +266,30 @@
     display: flex;
   }
 
-  // Mobile nav - dropdown below header
+  // El subnav deja de ser sticky y cede el espacio al menu desplegable
+  .header-subnav {
+    position: static;
+    background: transparent;
+    border-bottom: none;
+    backdrop-filter: none;
+  }
+
+  // Mobile nav - dropdown below header-top
   .main-nav {
     display: none;
     position: absolute;
-    top: 64px;
+    top: 100%;
     left: 0;
     right: 0;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 8px 0;
     background: $primary-dark;
     border-bottom: 1px solid $border;
-    padding: 8px 0;
     z-index: 100;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 
@@ -279,33 +312,6 @@
         background: rgba($secondary, 0.08);
         color: $secondary;
       }
-    }
-  }
-
-  // Mobile CTA button as last link
-  .main-nav::after {
-    content: "POSTULATE";
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 44px;
-    margin: 8px 24px 8px;
-    padding: 0 22px;
-    color: $secondary;
-    background: transparent;
-    border: 1px solid $secondary;
-    border-radius: 4px;
-    font-family: $font-heading;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.25s ease;
-
-    &:hover {
-      background: rgba($secondary, 0.12);
     }
   }
 }
