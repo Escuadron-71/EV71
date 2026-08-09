@@ -129,7 +129,7 @@ jobs:
         run: |
           git add package.json CHANGELOG.md
           git commit -m "chore(release): v$NEXT_VERSION [skip release]"
-          git push origin "release/v$NEXT_VERSION"
+          git push --force-with-lease origin "release/v$NEXT_VERSION"
 
       - name: Open and merge release PR
         if: steps.tagcheck.outputs.skip == 'false'
