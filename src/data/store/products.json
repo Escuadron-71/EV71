@@ -17,6 +17,8 @@
         { "label": "Incluye", "value": "1 parche" }
       ],
       "disponible": true,
+      "publicado": "2026-06-01",
+      "precioAnterior": 30000,
       "whatsapp": {}
     },
     {
@@ -34,6 +36,8 @@
         { "label": "Acabado", "value": "Mate" }
       ],
       "disponible": true,
+      "publicado": "2026-08-05",
+      "nuevo": true,
       "whatsapp": {}
     },
     {
@@ -51,6 +55,8 @@
         { "label": "Colores", "value": "Negro con emblema dorado" }
       ],
       "disponible": true,
+      "publicado": "2026-07-01",
+      "precioAnterior": 72000,
       "whatsapp": {}
     },
     {
@@ -68,6 +74,8 @@
         { "label": "Colores", "value": "Negro" }
       ],
       "disponible": false,
+      "publicado": "2026-08-06",
+      "nuevo": true,
       "whatsapp": {}
     },
     {
@@ -85,6 +93,7 @@
         { "label": "Incluye", "value": "1 llavero con argolla" }
       ],
       "disponible": true,
+      "publicado": "2026-05-01",
       "whatsapp": {}
     },
     {
@@ -102,6 +111,7 @@
         { "label": "Aislamiento", "value": "Doble pared" }
       ],
       "disponible": true,
+      "publicado": "2026-07-15",
       "whatsapp": {}
     }
   ]

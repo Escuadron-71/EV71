@@ -65,26 +65,202 @@
   margin-bottom: 44px;
 }
 
-// Grupos por categoria
-.store-group {
-  & + .store-group {
-    margin-top: 56px;
+// Toolbar (busqueda, orden, vista)
+.store-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 18px;
+  margin-bottom: 22px;
+  padding: 18px;
+  border: 1px solid $border;
+  border-radius: 6px;
+  background: rgba($primary, 0.92);
+}
+
+.store-toolbar__search {
+  flex: 1 1 260px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.store-toolbar__sort {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.store-toolbar__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $secondary;
+}
+
+.store-toolbar__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.store-toolbar__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .store-toolbar__icon {
+    position: absolute;
+    left: 12px;
+    color: rgba($text-light, 0.5);
+    pointer-events: none;
   }
 }
 
-.store-group__title {
-  @include section-title;
-  display: inline-block;
-  font-size: 1rem;
-  color: $secondary;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
-  padding: 8px 16px;
-  border: 1px solid rgba($secondary, 0.35);
+.store-toolbar__input {
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  font-size: 0.95rem;
+  color: $text-light;
+  background: rgba($primary-dark, 0.6);
+  border: 1px solid $border;
   border-radius: 4px;
-  background: rgba($secondary, 0.05);
+
+  &::placeholder {
+    color: rgba($text-light, 0.5);
+  }
+
+  &:focus-visible {
+    @include focus-visible;
+  }
 }
 
+.store-toolbar__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.store-toolbar__select {
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  color: $text-light;
+  background: rgba($primary-dark, 0.6);
+  border: 1px solid $border;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:focus-visible {
+    @include focus-visible;
+  }
+}
+
+// Switch cuadricula/lista
+.store-switch {
+  display: flex;
+  align-items: center;
+}
+
+.store-switch__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.store-switch__labels {
+  display: flex;
+  border: 1px solid $border;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.store-switch__label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 12px;
+  color: $text-muted;
+  background: rgba($primary-dark, 0.6);
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    color: $text-light;
+  }
+
+  &:focus-visible {
+    @include focus-visible;
+  }
+
+  svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.store-switch__input:checked + .store-switch__labels .is-grid,
+.store-switch__input:not(:checked) + .store-switch__labels .is-list {
+  color: $primary-dark;
+  background: $secondary;
+}
+
+// Tooltips (solo en los iconos del switch)
+.store-switch__label[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: $text-light;
+  background: $primary-dark;
+  border: 1px solid $border;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.2s ease;
+}
+
+.store-switch__label[data-tooltip]:hover::after,
+.store-switch__label[data-tooltip]:focus-visible::after {
+  opacity: 1;
+}
+
+.sr-only {
+  @include sr-only;
+}
+
+.store-count {
+  font-size: 0.85rem;
+  color: $text-muted;
+  margin-bottom: 18px;
+}
+
+.store-empty {
+  padding: 28px;
+  text-align: center;
+  color: $text-muted;
+  border: 1px dashed $border;
+  border-radius: 6px;
+  margin-bottom: 24px;
+}
+
+// Grid de productos
 .store-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -145,10 +321,6 @@
 }
 
 .product-card__status {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 1;
   padding: 4px 10px;
   font-size: 0.7rem;
   font-weight: 800;
@@ -166,6 +338,38 @@
     color: $warn;
     background: rgba($primary-dark, 0.7);
     border: 1px solid rgba($warn, 0.4);
+  }
+}
+
+.product-card__badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.product-card__badge {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 999px;
+
+  &.is-new {
+    color: $secondary;
+    background: rgba($primary-dark, 0.7);
+    border: 1px solid rgba($secondary, 0.5);
+  }
+
+  &.is-off {
+    color: $ok;
+    background: rgba($primary-dark, 0.7);
+    border: 1px solid rgba($ok, 0.5);
   }
 }
 
@@ -192,10 +396,21 @@
 }
 
 .product-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
   font-family: $font-heading;
   font-size: 1.05rem;
   color: $secondary-light;
   margin-bottom: 16px;
+}
+
+.product-card__price-old {
+  font-family: $font-heading;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: $text-muted;
+  text-decoration: line-through;
 }
 
 .product-card__cta {
@@ -207,6 +422,36 @@
   color: $secondary;
   border-bottom: 1px solid rgba($secondary, 0.4);
   padding-bottom: 2px;
+}
+
+// Vista en linea
+.store-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.store-list .product-card__link {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.store-list .product-card__media {
+  width: 200px;
+  height: 140px;
+  flex-shrink: 0;
+}
+
+.store-list .product-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.store-list .product-card__cta {
+  margin-top: auto;
+  align-self: flex-start;
 }
 
 // CTA inferior
@@ -256,15 +501,54 @@
 }
 
 .product-hero__price {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
   font-family: $font-heading;
   font-size: clamp(1.4rem, 3.5vw, 2.2rem);
   color: $secondary-light;
   margin: 16px 0 0;
 }
 
+.product-hero__price-old {
+  font-family: $font-heading;
+  font-size: 1rem;
+  font-weight: 400;
+  color: $text-muted;
+  text-decoration: line-through;
+}
+
+.product-hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.product-hero__badge {
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 999px;
+
+  &.is-new {
+    color: $secondary;
+    border: 1px solid rgba($secondary, 0.5);
+    background: rgba($primary-dark, 0.55);
+  }
+
+  &.is-off {
+    color: $ok;
+    border: 1px solid rgba($ok, 0.5);
+    background: rgba($primary-dark, 0.55);
+  }
+}
+
 .product-hero__status {
   display: inline-block;
-  margin-top: 14px;
   padding: 6px 14px;
   font-size: 0.78rem;
   font-weight: 800;
@@ -287,6 +571,41 @@
 
 .product-section {
   padding-top: 70px;
+}
+
+// Breadcrumb
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  font-size: 0.85rem;
+  color: $text-muted;
+
+  a {
+    color: $secondary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      @include focus-visible;
+    }
+  }
+
+  &__sep {
+    color: rgba($text-muted, 0.6);
+  }
+
+  &__item {
+    &.is-current {
+      color: $text-light;
+      font-weight: 700;
+    }
+  }
 }
 
 .product-layout {
@@ -391,6 +710,10 @@
     padding: 120px 0 70px;
   }
 
+  .store-toolbar__search {
+    flex-basis: 100%;
+  }
+
   .store-hero__title {
     font-size: 2.6rem;
   }
@@ -402,5 +725,14 @@
   .product-specs__table > div {
     grid-template-columns: 1fr;
     gap: 6px;
+  }
+
+  .store-list .product-card__link {
+    flex-direction: column;
+  }
+
+  .store-list .product-card__media {
+    width: 100%;
+    height: 180px;
   }
 }

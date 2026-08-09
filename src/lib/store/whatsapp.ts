@@ -12,6 +12,15 @@ export function formatPrice(precio: number, moneda: string): string {
   return `${moneda} ${formatted}`;
 }
 
+export function descuentoPct(product: Product): number | null {
+  if (!product.precioAnterior || product.precioAnterior <= product.precio) {
+    return null;
+  }
+  return Math.round(
+    ((product.precioAnterior - product.precio) / product.precioAnterior) * 100,
+  );
+}
+
 export function buildWhatsAppLink(phone: string, message: string): string {
   return `https://wa.me/${sanitizePhone(phone)}?text=${encodeURIComponent(message)}`;
 }

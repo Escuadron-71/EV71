@@ -9,12 +9,6 @@ import "../styles/pages/_store.scss";
 const { note, productos } = storeData as StoreData;
 const base = getBase();
 const heroImage = `${base}assets/images/Banner1.jpg`;
-
-const categories = [...new Set(productos.map((p) => p.categoria))];
-const grouped = categories.map((categoria) => ({
-  categoria,
-  items: productos.filter((p) => p.categoria === categoria),
-}));
 ---
 
 <BaseLayout
@@ -51,20 +45,122 @@ const grouped = categories.map((categoria) => ({
       <div class="container">
         <span class="store-eyebrow">Catálogo del escuadrón</span>
         <h2 id="tienda-titulo" class="store-section-title">
-          Productos disponibles
+          Todos los productos
         </h2>
         <p class="store-note">{note}</p>
 
-        {grouped.map((group) => (
-          <section class="store-group" aria-label={group.categoria}>
-            <h3 class="store-group__title">{group.categoria}</h3>
-            <div class="store-grid">
-              {group.items.map((product: Product) => (
-                <ProductCard product={product} />
-              ))}
+        <div class="store-toolbar" aria-label="Buscar y ordenar productos">
+          <form class="store-toolbar__search" role="search">
+            <label class="store-toolbar__label" for="store-search">Buscar</label>
+            <div class="store-toolbar__field">
+              <svg
+                class="store-toolbar__icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="M16.5 16.5 21 21"></path>
+              </svg>
+              <input
+                type="search"
+                id="store-search"
+                class="store-toolbar__input"
+                data-store-search
+                placeholder="Buscar producto..."
+                aria-label="Buscar producto"
+              />
             </div>
-          </section>
-        ))}
+          </form>
+
+          <div class="store-toolbar__controls">
+            <form class="store-toolbar__sort">
+              <label class="store-toolbar__label" for="store-sort">
+                <svg
+                  class="store-toolbar__icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M3 5h18l-7 8v5l-4 2v-7L3 5z"></path>
+                </svg>
+                Organizar por
+              </label>
+              <select
+                id="store-sort"
+                class="store-toolbar__select"
+                data-store-sort
+                aria-label="Ordenar productos"
+              >
+                <option value="default">Por defecto</option>
+                <option value="precio-desc">De mayor a menor</option>
+                <option value="precio-asc">De menor a mayor</option>
+                <option value="alfabetico">Alfabético (A-Z)</option>
+                <option value="alfabetico-desc">Alfabético (Z-A)</option>
+                <option value="publicado">Últimos publicados primero</option>
+                <option value="descuento">Mayor descuento</option>
+              </select>
+            </form>
+
+            <div class="store-switch">
+              <input
+                type="checkbox"
+                id="store-view"
+                class="store-switch__input"
+                role="switch"
+                aria-checked="true"
+                checked
+                data-store-view-input
+                aria-label="Cambiar entre vista cuadrícula y lista"
+              />
+              <div class="store-switch__labels">
+                <label
+                  for="store-view"
+                  class="store-switch__label is-grid"
+                  data-tooltip="Vista cuadrícula"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                  </svg>
+                  <span class="sr-only">Vista cuadrícula</span>
+                </label>
+                <label
+                  for="store-view"
+                  class="store-switch__label is-list"
+                  data-tooltip="Vista lista"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="4" rx="1"></rect>
+                    <rect x="3" y="10" width="18" height="4" rx="1"></rect>
+                    <rect x="3" y="16" width="18" height="4" rx="1"></rect>
+                  </svg>
+                  <span class="sr-only">Vista lista</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="store-count" data-store-count aria-live="polite">
+          {productos.length} producto{productos.length === 1 ? "" : "s"}
+        </p>
+
+        <p class="store-empty" data-store-empty hidden>
+          No se encontraron productos con esos criterios.
+        </p>
+
+        <div class="store-catalog" data-store-catalog>
+          <div class="store-grid">
+            {productos.map((product: Product) => (
+              <ProductCard product={product} />
+            ))}
+          </div>
+        </div>
 
         <div class="store-cta">
           <p>
@@ -79,3 +175,137 @@ const grouped = categories.map((categoria) => ({
     </section>
   </main>
 </BaseLayout>
+
+<script>
+  function requireEl<T extends HTMLElement>(el: T | null, name: string): T {
+    if (!el) throw new Error(`Falta el elemento: ${name}`);
+    return el;
+  }
+
+  const catalog = requireEl(
+    document.querySelector<HTMLElement>("[data-store-catalog]"),
+    "store-catalog",
+  );
+  const empty = requireEl(
+    document.querySelector<HTMLElement>("[data-store-empty]"),
+    "store-empty",
+  );
+  const countEl = requireEl(
+    document.querySelector<HTMLElement>("[data-store-count]"),
+    "store-count",
+  );
+  const searchInput = requireEl(
+    document.querySelector<HTMLInputElement>("[data-store-search]"),
+    "store-search",
+  );
+  const sortSelect = requireEl(
+    document.querySelector<HTMLSelectElement>("[data-store-sort]"),
+    "store-sort",
+  );
+  const viewInput = requireEl(
+    document.querySelector<HTMLInputElement>("[data-store-view-input]"),
+    "store-view-input",
+  );
+
+  const cards = Array.from(catalog.querySelectorAll<HTMLElement>("[data-product]"));
+
+  let query = "";
+  let sortKey = sortSelect.value;
+  let view: "grid" | "list" = "grid";
+
+  function cardName(card: HTMLElement): string {
+    return card.dataset.nombre ?? "";
+  }
+
+  function cardPrecio(card: HTMLElement): number {
+    return Number(card.dataset.precio || 0);
+  }
+
+  function cardDescuento(card: HTMLElement): number {
+    return Number(card.dataset.descuento || 0);
+  }
+
+  function cardPublicado(card: HTMLElement): string {
+    return card.dataset.publicado ?? "";
+  }
+
+  function filteredCards(): HTMLElement[] {
+    const q = query.trim().toLowerCase();
+    return cards.filter(
+      (card) => !q || (card.dataset.search ?? "").includes(q),
+    );
+  }
+
+  function sortCards(list: HTMLElement[]): HTMLElement[] {
+    const sorted = [...list];
+    const byName = (a: HTMLElement, b: HTMLElement) =>
+      cardName(a).localeCompare(cardName(b), "es");
+    switch (sortKey) {
+      case "alfabetico":
+        sorted.sort(byName);
+        break;
+      case "alfabetico-desc":
+        sorted.sort((a, b) => byName(b, a));
+        break;
+      case "precio-asc":
+        sorted.sort((a, b) => cardPrecio(a) - cardPrecio(b));
+        break;
+      case "precio-desc":
+        sorted.sort((a, b) => cardPrecio(b) - cardPrecio(a));
+        break;
+      case "publicado":
+        sorted.sort((a, b) =>
+          cardPublicado(b).localeCompare(cardPublicado(a)),
+        );
+        break;
+      case "descuento":
+        sorted.sort((a, b) => cardDescuento(b) - cardDescuento(a));
+        break;
+      default:
+        break;
+    }
+    return sorted;
+  }
+
+  function renderGrid(items: HTMLElement[]) {
+    const grid = document.createElement("div");
+    grid.className = "store-grid";
+    items.forEach((card) => grid.appendChild(card));
+    return grid;
+  }
+
+  function renderList(items: HTMLElement[]) {
+    const list = document.createElement("div");
+    list.className = "store-list";
+    items.forEach((card) => list.appendChild(card));
+    return list;
+  }
+
+  function render() {
+    const sorted = sortCards(filteredCards());
+    const content =
+      view === "list" ? renderList(sorted) : renderGrid(sorted);
+    catalog.replaceChildren(content);
+    catalog.hidden = sorted.length === 0;
+    empty.hidden = sorted.length > 0;
+    countEl.textContent = `${sorted.length} producto${
+      sorted.length === 1 ? "" : "s"
+    }`;
+  }
+
+  searchInput.addEventListener("input", () => {
+    query = searchInput.value;
+    render();
+  });
+
+  sortSelect.addEventListener("change", () => {
+    sortKey = sortSelect.value;
+    render();
+  });
+
+  viewInput.addEventListener("change", () => {
+    view = viewInput.checked ? "grid" : "list";
+    viewInput.setAttribute("aria-checked", String(viewInput.checked));
+    render();
+  });
+</script>

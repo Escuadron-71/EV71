@@ -9,13 +9,20 @@
 - Proyecto: sitio oficial del Escuadron 71 (Astro 7 + TailwindCSS/SCSS + React Islands, TS estricto).
 - Cadencia de publicacion: **2 publicaciones por semana (martes y viernes)**, en porciones
   verificadas y pequenas.
-- Estrategia de publicacion: **merge `dev` → `master` por fast-forward**. `master` es ancestro
-  de `dev` (verificado: `git merge-base --is-ancestor master dev`), por lo que el merge no
-  genera conflictos. Al pushear `master` corren automaticamente:
+- Estrategia de publicacion: **PR `dev` → `master`** (el ruleset "Protección de Master" exige
+  que los cambios pasen por pull request; push directo esta bloqueado, incluido el de Actions).
+  Al mergear a `master` corren automaticamente:
   - `deploy.yml`: build con `BASE_PATH=/` y `SITE_URL=https://escuadron71.co`, despliega a
     GitHub Pages (secrets `DISCORD_BOT_TOKEN`/`DISCORD_GUILD_ID` ya configurados).
-  - `release.yml`: patch bump de `package.json` + tag `vX.Y.Z` + CHANGELOG + commit
-    `chore(release): vX.Y.Z [skip release]`.
+  - `release.yml`: patch bump de `package.json` + tag `vX.Y.Z` + CHANGELOG, publicados via
+    rama `release/vX.Y.Z` + PR con squash (titulo `chore(release): vX.Y.Z [skip release]`
+    para evitar loops) + GitHub Release + Milestone. Requiere que la org tenga habilitado
+    "Allow GitHub Actions to create and approve pull requests".
+- Version actual en `master`: **v0.1.1** (tag + release + milestone creados 09-ago-2026).
+  `dev` sigue en 0.1.0; si un merge re-bumpea desde 0.1.0, el guard de "tag ya existe" en
+  release.yml omite la publicacion. Conviene alinear `dev` a 0.1.1 en algun PR futuro.
+- `master` ya NO es ancestro de `dev` (tiene merge commits); los merges futuros son recursivos
+  y limpios mientras `dev` este adelante.
 - Validacion obligatoria antes de mergear: `pnpm check` (0 errores), `pnpm build`, `pnpm test`.
 - Convenciones: UI en espanol neutro, commits en ingles (Conventional Commits), rutas internas
   con `resolvePath()`, preferir componentes Astro sobre Islands, cada pagina importa su propio
@@ -43,8 +50,10 @@
 - El CR1 se modela como **2 cursos por aeronave** (F-16C Viper y F/A-18C Hornet), no un CR1 unico.
 - Sylabus extenso de los cursos CR1: **tablas colapsables por fase (vanilla, sin React)**, al
   estilo del patron JS de `/multimedia`.
-- Tienda: los filtros "Novedad" y "Mayor descuento" requieren campos nuevos `nuevo: boolean` y
-  `precioAnterior?: number` por producto.
+- Tienda: los filtros "Novedad" y "Mayor descuento" requieren campos nuevos `nuevo: boolean`,
+  `precioAnterior?: number` y `publicado?: string` (fecha ISO) por producto.
+- Tienda: catalogo **plano** (sin separadores por categoria; la categoria vive en el badge de la
+  card) y toggle grid/lista tipo **switch** (checkbox oculto + 2 labels con iconos SVG).
 - Postulacion: implementacion Supabase con **guia paso a paso** (el encargado es Frontend y esta
   aprendiendo Backend). Entregar tambien documentacion escrita.
 - Email: se mantiene la cuenta Gmail; solo se habilita **forwarding** de `hola@escuadron71.co`
@@ -56,33 +65,26 @@
 
 ## Work Packages
 
-### WP2 — Tienda eCommerce-lite  [PROXIMO]
+- **WP2 — Tienda eCommerce-lite: COMPLETADO y REDISEÑADO** (2026-08-09, commit en `dev`
+  pendiente de publicar).
+  - Catalogo **plano** (sin grupos por categoria): titulo "Todos los productos"; la categoria
+    se muestra en el badge de cada card.
+  - Toolbar rediseñado (vanilla TS, sin React): buscador con icono y etiqueta "Buscar" a la
+    izquierda; a la derecha grupo "Organizar por" (icono filtro + select) y **switch
+    grid/lista** (checkbox oculto con `role="switch"` + 2 labels con iconos SVG y tooltips CSS
+    via `data-tooltip`).
+  - Select de orden: Por defecto, Precio mayor/menor, Alfabetico A-Z/Z-A, Ultimos publicados
+    primero, Mayor descuento.
+  - Campo nuevo `publicado?: string` (ISO) en `Product` y `products.json`; comparadores Z-A y
+    por fecha; `ProductCard` expone `data-publicado` (se quito `data-nuevo`).
+  - Campos `nuevo: boolean` y `precioAnterior?: number` en `Product` y `products.json`
+    (parche y camiseta con descuento; stickers y gorra como novedad).
+  - Helper `descuentoPct` en `src/lib/store/whatsapp.ts` (con tests) y precio anterior formateado.
+  - `/tienda/[slug]`: breadcrumb `Tienda / Categoria / Producto`, precio anterior tachado y
+    badges "Nuevo"/"-X%".
+  - `ProductCard` con badges (Nuevo, % off, Disponible/Agotado) y data attrs para busqueda/orden.
 
-Objetivo: evolucionar `/tienda` hacia un catalogo con experiencia eCommerce-lite, manteniendo
-el checkout por WhatsApp (sin carrito ni pasarela).
-
-Requisitos (confirmados):
-- **Vista grid / vista linea** (toggle sin librerias, vanilla TS como `/multimedia`).
-- **Buscador** por coincidencia (nombre, descripcion, categoria, especificaciones).
-- **Filtros**: Alfabetico (A-Z), Precio (asc/desc), Novedad, Mayor descuento.
-- **Breadcrumb** en `/tienda/[slug]`: `Tienda / Categoria / Producto`.
-- Campos nuevos por producto: `nuevo: boolean`, `precioAnterior?: number` (para Novedad y
-  Mayor descuento). Poblarlos en `src/data/store/products.json`.
-
-Archivos:
-- `src/types/store.ts` (extender `Product`).
-- `src/data/store/products.json` (nuevos campos).
-- `src/lib/store/whatsapp.ts` + `whatsapp.test.ts` (helper de descuento/`descuentoPct`,
-  precio anterior formateado).
-- `src/pages/tienda.astro` (toolbar: buscador + filtro + toggle grid/linea; grid agrupada por
-  categoria, vista linea plana).
-- `src/pages/tienda/[slug].astro` (breadcrumb + precio anterior tachado + badge "Nuevo").
-- `src/components/store/ProductCard.astro` (badges, precio tachado, clase de vista linea).
-- `src/styles/pages/_store.scss` (toolbar, toggle, select, lista, breadcrumb).
-
-Validacion: `pnpm check`, `pnpm test`, `pnpm build`; commit en ingles y push a `dev`.
-
-### WP3 — Cursos CR1 por aeronave
+### WP3 — Cursos CR1 por aeronave  [PROXIMO]
 
 Objetivo: dividir el curso CR1 unico en **2 cursos por aeronave** (F-16C Viper y F/A-18C
 Hornet) usando el contenido de `docs/CR1-F16c.md` y `docs/CR1-FA-18c.md` (sin emojis).
@@ -158,6 +160,5 @@ pnpm sync:events                   # sync manual de eventos Discord (local)
 
 1. Trabajar y commitear en `dev`.
 2. Validar `pnpm check && pnpm build && pnpm test`.
-3. Para publicar: `git fetch origin`, stash de cambios ajenos, `git checkout master`,
-   `git merge --ff-only dev`, `git push origin master` (dispara deploy + release), volver a `dev`
-   y `git stash pop`.
+3. Para publicar: `git fetch origin`, abrir PR `dev → master` y mergearlo
+   (dispara deploy + release), volver a `dev`.
