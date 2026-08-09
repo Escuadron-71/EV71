@@ -7,9 +7,13 @@ name: Release and Version
 #   1. Lee la version actual de package.json (ej: 0.1.0)
 #   2. Aplica patch bump (0.1.1)
 #   3. Actualiza package.json y genera las entradas de CHANGELOG.md
-#   4. Hace commit + push (GITHUB_TOKEN no re-dispara workflows, evita loops)
-#   5. Crea el tag vX.Y.Z y el GitHub Release con las notas generadas
+#   4. Publica el bump via rama release/vX.Y.Z + PR a master con squash merge.
+#      El titulo del PR incluye "[skip release]" para que el merge no re-dispare
+#      este workflow (los cambios a master deben pasar por pull request).
+#   5. Crea el tag vX.Y.Z sobre el commit mergeado y el GitHub Release con las notas
 #   6. Crea el Milestone vX.Y.Z (best effort) para el seguimiento de la version
+#
+# Guard: si el tag vX.Y.Z ya existe, se omite la publicacion (evita duplicados).
 
 on:
   push:
@@ -18,6 +22,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: "release"
@@ -69,7 +74,7 @@ jobs:
             /^chore/   { chore[++nc]=$0; next }
             /^ci/      { ci[++nci]=$0; next }
             /^data/    { data[++nda]=$0; next }
-                         { other[++no]=$0 }
+                          { other[++no]=$0 }
             END {
               if (na)  { print "### Agregado";            for(i=1;i<=na;i++)  print "- " added[i];  print "" }
               if (nf)  { print "### Corregido";           for(i=1;i<=nf;i++)  print "- " fixed[i];  print "" }
@@ -98,22 +103,68 @@ jobs:
             printf '%s\n' "$CHANGELOG_NOTES"
           } >> CHANGELOG.md
 
-      - name: Commit and push version bump
+      - name: Check tag does not already exist
+        id: tagcheck
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.next }}
+        run: |
+          if git rev-parse -q --verify "refs/tags/v$NEXT_VERSION" >/dev/null; then
+            echo "Tag v$NEXT_VERSION already exists; skipping publication."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create release branch
+        if: steps.tagcheck.outputs.skip == 'false'
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.next }}
+        run: |
+          git checkout -b "release/v$NEXT_VERSION"
+
+      - name: Commit version bump on release branch
+        if: steps.tagcheck.outputs.skip == 'false'
         env:
           NEXT_VERSION: ${{ steps.version.outputs.next }}
         run: |
           git add package.json CHANGELOG.md
           git commit -m "chore(release): v$NEXT_VERSION [skip release]"
-          git push origin master
+          git push origin "release/v$NEXT_VERSION"
 
-      - name: Create tag
+      - name: Open and merge release PR
+        if: steps.tagcheck.outputs.skip == 'false'
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.next }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "Version v$NEXT_VERSION del sitio web EV71"
+            echo
+            cat /tmp/notes.md
+          } > /tmp/pr-body.md
+          PR_URL=$(gh pr create \
+            --base master \
+            --head "release/v$NEXT_VERSION" \
+            --title "chore(release): v$NEXT_VERSION [skip release]" \
+            --body-file /tmp/pr-body.md \
+            --repo "${{ github.repository }}")
+          echo "PR: $PR_URL"
+          PR_NUMBER=$(echo "$PR_URL" | sed 's#.*/##')
+          gh pr merge --squash --delete-branch \
+            --repo "${{ github.repository }}" \
+            "$PR_NUMBER"
+
+      - name: Create tag on merged master
+        if: steps.tagcheck.outputs.skip == 'false'
         env:
           NEXT_VERSION: ${{ steps.version.outputs.next }}
         run: |
-          git tag "v$NEXT_VERSION"
+          git fetch origin master
+          git tag "v$NEXT_VERSION" origin/master
           git push origin "v$NEXT_VERSION"
 
       - name: Create GitHub Release
+        if: steps.tagcheck.outputs.skip == 'false'
         env:
           NEXT_VERSION: ${{ steps.version.outputs.next }}
           GH_TOKEN: ${{ github.token }}
@@ -123,6 +174,7 @@ jobs:
             --notes "$(cat /tmp/notes.md)"
 
       - name: Create Milestone (best effort)
+        if: steps.tagcheck.outputs.skip == 'false'
         env:
           NEXT_VERSION: ${{ steps.version.outputs.next }}
           GH_TOKEN: ${{ github.token }}

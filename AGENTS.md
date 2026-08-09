@@ -219,8 +219,12 @@ pnpm legacy:server    # Backend legacy (scripts/server.js - temporal)
 
 ## Roadmap de desarrollo (web)
 
-- El roadmap se ejecuta por ramas `feat/*` creadas desde `dev`. Cada rama tiene su plan
-  detallado en `.opencode/plans/<NOMBRE>.md` (fases, archivos, criterios de validacion).
+- **El plan vigente de trabajo se documenta por Work Packages en
+  `.opencode/plans/WP-ROADMAP.md`** (estado actual, decisiones fijadas, detalle de cada WP
+  pendiente y flujo de publicacion). Mantenerlo actualizado al terminar cada WP.
+- El trabajo se realiza en la rama `dev` y se publica con merge `dev -> master` (fast-forward).
+- Planes de referencia por rama/feature en `.opencode/plans/<NOMBRE>.md`
+  (fases, archivos, criterios de validacion).
 - Orden de entrega: `testing` -> `header-navigation` -> contenido (multimedia-hub, academia,
   fleet, blog-news, store, donations) -> `postulacion` -> `i18n` (fase final).
 - Ramas y planes:
