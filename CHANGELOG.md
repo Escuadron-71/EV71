@@ -165,3 +165,13 @@ Las entradas de cada release se generan automaticamente a partir de los commits 
 - init: init project
 - Initial commit
 
+
+## [0.1.2] - 2026-08-09
+
+### Agregado
+- feat(store): redesign catalog with flat layout and friendly toolbar
+- feat(store): add catalog toolbar with search, sorting and grid/list toggle
+
+### Otros
+- Merge pull request #19 from Escuadron-71/dev
+
