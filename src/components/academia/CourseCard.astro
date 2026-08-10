@@ -32,6 +32,12 @@ const href = resolvePath(`/academia/${course.id}`);
         <dt>Duración</dt>
         <dd>{data.duration}</dd>
       </div>
+      {data.aircraft && (
+        <div class="course-card__meta--full">
+          <dt>Aeronave</dt>
+          <dd>{data.aircraft}</dd>
+        </div>
+      )}
     </dl>
     <span class="course-card__cta">Ver curso</span>
   </a>

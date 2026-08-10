@@ -47,9 +47,9 @@ Al completar satisfactoriamente ambas fases, el alumno obtiene la calificación 
 
 ## Contenido del Curso
 
-<details>
-  <summary class="p-5 border border-amber-400/50"> <strong>Fase 1:</strong> Evaluación teórica</summary>
-  <ul class="p-5 border border-amber-400/50">
+<details class="course-phase">
+  <summary><strong>Fase 1:</strong> Evaluación teórica</summary>
+  <ul class="course-phase__list">
     <li>Fundamentos del vuelo y aerodinámica.</li>
     <li>Meteorología.</li>
     <li>Navegación visual e instrumental.</li>
@@ -59,11 +59,12 @@ Al completar satisfactoriamente ambas fases, el alumno obtiene la calificación 
     <li>Procedimientos normales, anormales y de emergencia.</li>
     <li>Principios de formación y operación de escuadrón.</li>
     <li>Conocimientos básicos de operación del T-45 Goshawk.</li>
-  </ul>  
+  </ul>
 </details>
-<details>
-  <summary class="p-5 border border-amber-400/50"> <strong>Fase 2:</strong> Evaluación práctica de vuelo</summary>
-  <ul class="p-5 border border-amber-400/50">
+
+<details class="course-phase">
+  <summary><strong>Fase 2:</strong> Evaluación práctica de vuelo</summary>
+  <ul class="course-phase__list">
     <li>Procedimientos de cabina y checklist.</li>
     <li>Trabajo de pista.</li>
     <li>Despegue, circuito y aterrizaje.</li>
@@ -79,18 +80,16 @@ Al completar satisfactoriamente ambas fases, el alumno obtiene la calificación 
     <li>Ejecución de una misión integradora FR-1.</li>
   </ul>
 </details>
-<details>
-  <summary class="p-5 border border-amber-400/50"> <strong>Fase 1:</strong> Evaluación de disciplina y desempeño operacional</summary>
-  <ul class="p-5 border border-amber-400/50">
-  <li>Fundamentos del vuelo y aerodinámica.</li>
-  <li>Meteorología.</li>
-  <li>Navegación visual e instrumental.</li>
-  <li>Instrumentos de vuelo y aproximaciones CAT I y CAT II.</li>
-  <li>Comunicaciones aeronáuticas.</li>
-  <li>CRM, conciencia situacional y toma de decisiones.</li>
-  <li>Procedimientos normales, anormales y de emergencia.</li>
-  <li>Principios de formación y operación de escuadrón.</li>
-  <li>Conocimientos básicos de operación del T-45 Goshawk.</li>
+
+<details class="course-phase">
+  <summary><strong>Fase 3:</strong> Evaluación de disciplina y desempeño operacional</summary>
+  <ul class="course-phase__list">
+    <li>Disciplina de vuelo y cumplimiento de normas y procedimientos del escuadrón.</li>
+    <li>Conducta operacional y comportamiento profesional durante la instrucción.</li>
+    <li>Asistencia, puntualidad y preparación de las sesiones.</li>
+    <li>Participación activa en briefings y debriefings.</li>
+    <li>Actitud frente a la instrucción, las correcciones y el trabajo en equipo.</li>
+    <li>Responsabilidad y cumplimiento de los compromisos adquiridos dentro del escuadrón.</li>
   </ul>
 </details>
 

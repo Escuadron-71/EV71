@@ -5,7 +5,7 @@ level: "Avanzado"
 duration: "10 semanas"
 summary: "Especialización táctica y liderazgo: coordinación de escuadrilla, CAS, SEAD y empleo en campañas."
 status: "activo"
-order: 4
+order: 5
 prerequisites:
   - "Haber aprobado el Curso Avanzado CR2"
   - "Mínimo 60 horas de vuelo registradas en la academia"

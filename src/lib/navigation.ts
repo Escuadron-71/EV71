@@ -112,7 +112,14 @@ export function buildNav(pathname: string): NavEntry[] {
           link("AVVA71", resolvePath("/academia/avva71")),
           { separator: true as const },
           link("Curso Básico FR1", resolvePath("/academia/curso-fr1")),
-          link("Curso Básico CR1", resolvePath("/academia/curso-cr1")),
+          link(
+            "Curso Básico CR1 F-16C",
+            resolvePath("/academia/curso-cr1-f16c"),
+          ),
+          link(
+            "Curso Básico CR1 F/A-18C",
+            resolvePath("/academia/curso-cr1-fa18c"),
+          ),
           link("Curso Avanzado CR2", resolvePath("/academia/curso-cr2")),
           link("Curso Avanzado CR3", resolvePath("/academia/curso-cr3")),
           { separator: true as const },

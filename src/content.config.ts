@@ -33,6 +33,7 @@ const courses = defineCollection({
     title: z.string(),
     code: z.enum(["FR1", "CR1", "CR2", "CR3"]),
     level: z.enum(["Basico", "Avanzado"]),
+    aircraft: z.string().optional(),
     duration: z.string(),
     summary: z.string(),
     status: z.enum(["activo", "proximamente"]),
