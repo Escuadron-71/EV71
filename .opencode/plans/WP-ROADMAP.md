@@ -18,9 +18,11 @@
     rama `release/vX.Y.Z` + PR con squash (titulo `chore(release): vX.Y.Z [skip release]`
     para evitar loops) + GitHub Release + Milestone. Requiere que la org tenga habilitado
     "Allow GitHub Actions to create and approve pull requests".
-- Version actual en `master`: **v0.1.1** (tag + release + milestone creados 09-ago-2026).
-  `dev` sigue en 0.1.0; si un merge re-bumpea desde 0.1.0, el guard de "tag ya existe" en
-  release.yml omite la publicacion. Conviene alinear `dev` a 0.1.1 en algun PR futuro.
+- Version actual en `master`: **v0.1.2** (tag + release + milestone creados el 09-ago-2026,
+  tras el merge del PR #19 con la store rediseñada). `dev` sigue en 0.1.0; el guard de "tag
+  ya existe" en release.yml omitiria la publicacion si se mergea sin alinear. **Alinear `dev`
+  a v0.1.2 en el proximo PR** (bump manual de `package.json`, excepcion documentada) para
+  que el workflow publique v0.1.3.
 - `master` ya NO es ancestro de `dev` (tiene merge commits); los merges futuros son recursivos
   y limpios mientras `dev` este adelante.
 - Validacion obligatoria antes de mergear: `pnpm check` (0 errores), `pnpm build`, `pnpm test`.
@@ -38,6 +40,9 @@
     (`PostCard`, `NewsItem`, `NewsList`), estilos de detalle en `_blog.scss`.
   - Publicado a `master` el 09-ago-2026 (fast-forward) para que la noticia "5.ª Promocion FR-1"
     (inicio 10 ago 2026) saliera a tiempo.
+  - **WP2 — Tienda rediseñada: COMPLETADO y PUBLICADO** (PR #19 → v0.1.2).
+  - **WP3 — Cursos CR1 por aeronave: COMPLETADO** (commit `7c024cc`, sin push aun).
+  - **WP4 — Planificador DCS: PORTADO (Fases 1-3)**, pendiente de commit y push.
 - **Pendiente en working tree (NO commitear en los WPs):**
   - `src/styles/pages/_nosotros.scss` (cambio manual del equipo).
   - `src/data/events/latest.json` + `src/data/events/history/*` (salida local del sync de eventos).
@@ -60,13 +65,14 @@
   → Gmail (guia paso a paso, sin migracion).
 - Dashboards (admin/usuario): **React SPA standalone (Vite)** en repos privados del org; en el
   repo web solo se deja un archivo explicativo.
-- **WP4 (planificador DCS): STANDBY.** NO mergear la rama `plannerDCS` hasta terminar el
-  desarrollo. El stub `/planificador` queda como esta.
+- **WP4 (planificador DCS): REACTIVADO.** Se porta la feature desde `plannerDCS` (files only,
+  sin merge crudo) con alcance **Fases 1-3** (B1/B3/B6/B7/B8/B9). Fases 4-8 quedan pendientes
+  y se detallan en `.opencode/plans/PLANNER.md`.
 
 ## Work Packages
 
-- **WP2 — Tienda eCommerce-lite: COMPLETADO y REDISEÑADO** (2026-08-09, commit en `dev`
-  pendiente de publicar).
+- **WP2 — Tienda eCommerce-lite: COMPLETADO y PUBLICADO** (2026-08-09; commits `07fc895`
+  y `d691f5f` en `dev`, publicado a `master` via PR #19 → v0.1.2).
   - Catalogo **plano** (sin grupos por categoria): titulo "Todos los productos"; la categoria
     se muestra en el badge de cada card.
   - Toolbar rediseñado (vanilla TS, sin React): buscador con icono y etiqueta "Buscar" a la
@@ -84,7 +90,7 @@
     badges "Nuevo"/"-X%".
   - `ProductCard` con badges (Nuevo, % off, Disponible/Agotado) y data attrs para busqueda/orden.
 
-### WP3 — Cursos CR1 por aeronave  [PROXIMO]
+### WP3 — Cursos CR1 por aeronave  [COMPLETADO]
 
 Objetivo: dividir el curso CR1 unico en **2 cursos por aeronave** (F-16C Viper y F/A-18C
 Hornet) usando el contenido de `docs/CR1-F16c.md` y `docs/CR1-FA-18c.md` (sin emojis).
@@ -104,11 +110,22 @@ Archivos:
 
 Validacion: `pnpm check`, `pnpm build`, `pnpm test`.
 
-### WP4 — Planificador DCS  [STANDBY]
+**Estado:** COMPLETADO (commit `7c024cc` — "feat(academia): split CR1 into F-16C and F/A-18C
+courses"; 10 archivos: 2 cursos nuevos, `curso-cr1.md` borrado, `order` de CR2/CR3 ajustado,
+colapsables `.course-phase` rediseñados en `curso-fr1.md`). Build 41 paginas. **Sin push aun.**
+Scripts scratch (`backend/scripts/gen-cr1-*.mjs` + `.gen-*`) NO se commitean.
 
-- No desarrollar ahora. No mergear `plannerDCS`.
-- Cuando se retome: revisar `.opencode/plans/` y la rama `plannerDCS` (21 commits unicos,
-  FlightPlanner, plugins de airfields). El stub `/planificador` queda publicado.
+### WP4 — Planificador DCS  [COMPLETADO - Fases 1-3]
+
+- Port de la feature desde `plannerDCS` (files only, sin merge crudo) + fix de hidratacion
+  de `DogfightApp`.
+- Entrega: `/planificador` con React Island `FlightPlanner` (Leaflet), plugins SAM rings /
+  bullseye / comms / brevity / airfields / map-layers y export kneeboard (Canvas).
+  Deps: `leaflet@^1.9.4`, `@types/leaflet@^1.9.22`.
+- Fases 4-8 (B10, B4, A1, E1, C1, B5, B2, C2, D1) pendientes; detalle en
+  `.opencode/plans/PLANNER.md`.
+- Validacion: `pnpm check` 0 errores, `pnpm test` 64/64, `pnpm build` 41 paginas
+  (incluye `/planificador`).
 
 ### WP5 — Postulacion con Supabase
 
