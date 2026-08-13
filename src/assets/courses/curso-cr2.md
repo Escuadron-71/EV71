@@ -5,7 +5,7 @@ level: "Avanzado"
 duration: "8 semanas"
 summary: "Combate aéreo avanzado: BVR, ACM, armamento guiado y procedimientos de escolta y ataque."
 status: "activo"
-order: 3
+order: 4
 prerequisites:
   - "Haber aprobado el Curso Básico CR1"
   - "Mínimo 30 horas de vuelo registradas en la academia"

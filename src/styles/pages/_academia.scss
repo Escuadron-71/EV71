@@ -182,6 +182,10 @@
     margin: 0;
     font-size: 0.9rem;
   }
+
+  .course-card__meta--full {
+    grid-column: 1 / -1;
+  }
 }
 
 .course-card__cta {
@@ -415,6 +419,118 @@
   font-size: 0.82rem;
   color: $text-muted;
   margin-top: 2px;
+}
+
+// Colapsables de fases del programa de formacion
+.course-phase {
+  margin: 0 0 18px;
+  border: 1px solid $border;
+  border-radius: 8px;
+  background: rgba($primary, 0.92);
+  overflow: hidden;
+  transition: border-color 0.25s ease;
+
+  &[open] {
+    border-color: rgba($secondary, 0.45);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    cursor: pointer;
+    list-style: none;
+    font-family: $font-heading;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: $text-light;
+    background: linear-gradient(
+      90deg,
+      rgba($secondary, 0.08),
+      rgba($primary-light, 0.5)
+    );
+    transition: background 0.25s ease;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: "+";
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: $secondary;
+      border: 1px solid rgba($secondary, 0.5);
+      border-radius: 4px;
+      transition: transform 0.25s ease;
+    }
+
+    strong {
+      color: $secondary;
+    }
+
+    &:hover {
+      background: linear-gradient(
+        90deg,
+        rgba($secondary, 0.14),
+        rgba($primary-light, 0.6)
+      );
+    }
+
+    &:focus-visible {
+      @include focus-visible;
+    }
+  }
+
+  &[open] summary {
+    border-bottom: 1px solid $border;
+
+    &::after {
+      transform: rotate(45deg);
+    }
+  }
+
+  .course-phase__list {
+    list-style: none;
+    margin: 0;
+    padding: 20px 24px;
+
+    li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 8px;
+      line-height: 1.7;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.6em;
+        width: 7px;
+        height: 7px;
+        background: $secondary;
+        border-radius: 1px;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  .course-phase__table {
+    padding: 4px 22px 22px;
+
+    .course-phase & table {
+      margin: 8px 0 0;
+    }
+  }
 }
 
 // ============================================

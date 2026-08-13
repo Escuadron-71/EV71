@@ -1,0 +1,1679 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// ============================================
+// Flight Planner - Planificador de Vuelo
+// ============================================
+
+.planner-page {
+  background: $primary-dark;
+}
+
+.planner-page-head {
+  padding: 56px 0 28px;
+  text-align: center;
+
+  h1 {
+    font-family: $font-heading;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $secondary;
+    margin: 0 0 12px;
+  }
+
+  p {
+    max-width: 640px;
+    margin: 0 auto;
+    color: $text-muted;
+    font-size: 1.05rem;
+  }
+}
+
+.planner-app {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: calc(100vh - 232px);
+  min-height: 520px;
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  padding: 0 14px 14px;
+}
+
+.planner-map {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  border-radius: 10px;
+  border: 1px solid $border;
+  overflow: hidden;
+  background: #10161f;
+}
+
+// ----------- HUD izquierda (flex columna) -----------
+.planner-hud {
+  flex: 0 0 280px;
+  min-height: 0;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  background: rgba($primary, 0.94);
+  border: 1px solid $border;
+  border-radius: 10px;
+  box-shadow: $shadow-panel;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.planner-hud-group {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.planner-hud-field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: $text-muted;
+
+  select {
+    width: 100%;
+    background: $primary-light;
+    color: $text-light;
+    border: 1px solid $border;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    font-family: $font-body;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: $secondary;
+    }
+  }
+}
+
+.planner-speed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: $primary-light;
+  border: 1px solid $border;
+  border-radius: 6px;
+  padding: 0 10px;
+
+  input[type="number"] {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: $text-light;
+    font-size: 0.85rem;
+    font-family: $font-body;
+    padding: 8px 0;
+    outline: none;
+  }
+
+  .planner-speed-unit {
+    font-size: 0.72rem;
+    color: $secondary;
+    text-transform: uppercase;
+  }
+}
+
+.planner-hud-seg {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  button {
+    width: 100%;
+    background: transparent;
+    color: $text-muted;
+    border: 1px solid $border;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      background: rgba($secondary, 0.08);
+      color: $text-light;
+    }
+
+    &.is-active {
+      background: $secondary;
+      color: $primary-dark;
+      font-weight: 700;
+    }
+  }
+}
+
+.planner-tools {
+  display: flex;
+  gap: 6px;
+
+  .planner-tool {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 4px 7px;
+    background: transparent;
+    color: $text-muted;
+    border: 1px solid $border;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    svg {
+      flex: none;
+    }
+
+    &:hover {
+      background: rgba($secondary, 0.08);
+      color: $text-light;
+    }
+
+    &:focus-visible {
+      outline: 1px solid $secondary;
+      outline-offset: 1px;
+    }
+
+    &.is-active {
+      background: $secondary;
+      border-color: $secondary;
+      color: $primary-dark;
+    }
+  }
+
+  .planner-tool-label {
+    font-size: 0.52rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.planner-hud-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba($secondary, 0.35);
+  border-radius: 8px;
+  background: rgba($secondary, 0.05);
+}
+
+.planner-hud-toolbar-label {
+  font-family: $font-heading;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: $secondary;
+}
+
+.planner-hud-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.planner-hud-action {
+  flex: 1;
+  background: transparent;
+  color: $danger;
+  border: 1px solid rgba($danger, 0.45);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: rgba($danger, 0.12);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.planner-hud-action--focus {
+  color: $secondary;
+  border-color: rgba($secondary, 0.45);
+
+  &:hover:not(:disabled) {
+    background: rgba($secondary, 0.12);
+  }
+}
+
+// ----------- Panel (waypoints + tramos) -----------
+.planner-panel {
+  flex: 0 0 320px;
+  min-height: 0;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  background: rgba($primary, 0.94);
+  border: 1px solid $border;
+  border-radius: 10px;
+  box-shadow: $shadow-panel;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.planner-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 14px;
+  text-align: center;
+  border: 1px dashed $border;
+  border-radius: 8px;
+
+  span {
+    color: $text-light;
+    font-weight: 600;
+  }
+
+  small {
+    color: $text-muted;
+  }
+}
+
+.planner-wp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.planner-wp-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: rgba($primary-light, 0.55);
+  border: 1px solid $border;
+  border-radius: 8px;
+}
+
+.planner-wp-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.planner-wp-index {
+  font-family: $font-heading;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: $secondary;
+  white-space: nowrap;
+}
+
+.planner-wp-coords {
+  font-size: 0.74rem;
+  font-family: "Roboto Mono", monospace;
+  color: $text-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.planner-wp-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.planner-wp-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid $border;
+  background: transparent;
+  color: $text-muted;
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    color: $secondary;
+    border-color: $secondary;
+  }
+
+  &--danger:hover {
+    color: $danger;
+    border-color: $danger;
+  }
+}
+
+.planner-legs {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.planner-leg-card {
+  padding: 8px 10px;
+  background: rgba($primary-light, 0.55);
+  border: 1px solid $border;
+  border-radius: 8px;
+}
+
+.planner-leg-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.planner-leg-pair {
+  font-family: $font-heading;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: $secondary;
+  white-space: nowrap;
+}
+
+.planner-leg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
+  gap: 6px;
+}
+
+.planner-leg-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.planner-leg-label {
+  font-size: 0.56rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: $text-muted;
+  white-space: nowrap;
+}
+
+.planner-leg-value {
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $text-light;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.planner-leg-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px 0;
+  border-top: 1px solid rgba($secondary, 0.35);
+  color: $secondary;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.planner-leg-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+
+  th {
+    text-align: left;
+    padding: 6px 5px;
+    color: $text-muted;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.64rem;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid $border;
+  }
+
+  td {
+    padding: 7px 5px;
+    color: $text-light;
+    border-bottom: 1px solid rgba($border, 0.5);
+    font-variant-numeric: tabular-nums;
+  }
+
+  td.planner-leg-eta {
+    color: $secondary;
+    font-family: "Roboto Mono", monospace;
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+
+  tr.planner-leg-total td {
+    color: $secondary;
+    font-weight: 700;
+    border-bottom: none;
+    border-top: 1px solid rgba($secondary, 0.35);
+  }
+}
+
+.planner-panel-foot {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid $border;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.7rem;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// ----------- Ayuda -----------
+.planner-help {
+  padding: 14px;
+  background: rgba($primary-light, 0.55);
+  border: 1px solid $border;
+  border-radius: 8px;
+
+  h4 {
+    margin: 0 0 10px;
+    font-family: $font-heading;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: $secondary;
+    text-transform: uppercase;
+  }
+
+  ol {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.8rem;
+    color: $text-muted;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+// ----------- Toast -----------
+.planner-toast {
+  position: fixed;
+  top: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1200;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: rgba($primary, 0.96);
+  border: 1px solid rgba($secondary, 0.4);
+  color: $secondary-light;
+  font-size: 0.85rem;
+  box-shadow: $shadow-panel;
+  animation: planner-toast-in 0.25s ease-out;
+}
+
+@keyframes planner-toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+// ----------- Bloques desplegables (details/summary nativos) -----------
+.planner-block {
+  border: 1px solid $border;
+  border-radius: 8px;
+  background: rgba($primary-light, 0.28);
+}
+
+.planner-block-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 12px;
+  background: transparent;
+  border: none;
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  text-align: left;
+  list-style: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:hover {
+    background: rgba($secondary, 0.06);
+    border-left-color: rgba($secondary, 0.5);
+  }
+
+  &:focus-visible {
+    outline: 1px solid $secondary;
+    outline-offset: -1px;
+  }
+}
+
+.planner-block[open] .planner-block-toggle {
+  border-left-color: $secondary;
+}
+
+.planner-block-title {
+  font-family: $font-heading;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: $secondary;
+  white-space: nowrap;
+}
+
+.planner-block-badge {
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.68rem;
+  color: $text-muted;
+  background: rgba($primary-light, 0.6);
+  border: 1px solid $border;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.planner-block-chevron {
+  font-size: 0.7rem;
+  color: $text-muted;
+  transition: transform 0.25s ease;
+}
+
+.planner-block[open] .planner-block-chevron {
+  transform: rotate(180deg);
+}
+
+.planner-block-content {
+  padding: 0 12px 12px;
+}
+
+// ----------- Marker Leaflet -----------
+.planner-marker-wrap {
+  background: transparent;
+  border: none;
+}
+
+.planner-marker {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba($primary, 0.88);
+  border: 2px solid $secondary;
+  box-shadow: 0 0 10px rgba($secondary, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-family: $font-heading;
+    font-size: 10px;
+    font-weight: 700;
+    color: $secondary;
+  }
+}
+
+// ----------- Tiempos (TOT / despegue) -----------
+.planner-times {
+  margin-top: 4px;
+}
+
+.planner-times-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.planner-times-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: $text-muted;
+
+  select,
+  input[type="text"],
+  input[type="time"] {
+    width: 100%;
+    min-width: 0;
+    background: $primary-light;
+    color: $text-light;
+    border: 1px solid $border;
+    border-radius: 6px;
+    padding: 7px 9px;
+    font-size: 0.85rem;
+    font-family: "Roboto Mono", monospace;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: $secondary;
+    }
+  }
+
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+}
+
+.planner-times-field--wide {
+  grid-column: 1 / -1;
+}
+
+.planner-times-out {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: rgba($primary-light, 0.55);
+  border: 1px solid $border;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.78rem;
+
+  span {
+    color: $text-muted;
+    text-transform: uppercase;
+    font-size: 0.66rem;
+    letter-spacing: 0.6px;
+  }
+
+  strong {
+    color: $secondary;
+    font-family: "Roboto Mono", monospace;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  button {
+    background: transparent;
+    color: $secondary;
+    border: 1px solid rgba($secondary, 0.5);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba($secondary, 0.12);
+    }
+  }
+}
+
+// ----------- Amenazas -----------
+.planner-threat-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.planner-threat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: rgba($primary-light, 0.55);
+  border: 1px solid rgba($danger, 0.28);
+  border-radius: 8px;
+}
+
+.planner-threat-badge {
+  font-family: $font-heading;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: $danger;
+  background: rgba($danger, 0.12);
+  border: 1px solid rgba($danger, 0.4);
+  border-radius: 4px;
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+
+.planner-legend {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  background: rgba($primary-light, 0.4);
+  border: 1px dashed $border;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.planner-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.planner-legend-swatch {
+  width: 18px;
+  height: 10px;
+  border-radius: 2px;
+  flex: none;
+
+  &--detect {
+    border: 1px dashed $warn;
+    background: rgba($warn, 0.15);
+  }
+
+  &--engage {
+    border: 1px solid $danger;
+    background: rgba($danger, 0.2);
+  }
+}
+
+// ----------- Fase 2 (B9): Bullseye, Frecuencias, Brevity -----------
+.planner-bullseye-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  background: rgba($primary-light, 0.55);
+  border: 1px solid rgba($secondary, 0.3);
+  border-radius: 8px;
+}
+
+.planner-braa-table td:first-child {
+  font-family: $font-heading;
+  font-weight: 700;
+  color: $secondary;
+  white-space: nowrap;
+}
+
+.planner-bullseye-note {
+  margin: 10px 0 0;
+  font-size: 0.68rem;
+  color: $text-muted;
+  line-height: 1.5;
+}
+
+.planner-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.planner-list-add {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  background: rgba($primary-light, 0.4);
+  border: 1px solid $border;
+  border-radius: 8px;
+
+  input {
+    width: 100%;
+    min-width: 0;
+    background: $primary-light;
+    color: $text-light;
+    border: 1px solid $border;
+    border-radius: 6px;
+    padding: 7px 9px;
+    font-size: 0.82rem;
+    font-family: $font-body;
+    outline: none;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: $secondary;
+    }
+  }
+
+  button {
+    background: transparent;
+    color: $secondary;
+    border: 1px solid rgba($secondary, 0.5);
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba($secondary, 0.12);
+    }
+  }
+}
+
+.planner-list-error {
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 0.72rem;
+  color: $danger;
+  background: rgba($danger, 0.1);
+  border: 1px solid rgba($danger, 0.35);
+  border-radius: 6px;
+}
+
+.planner-list-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.planner-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: rgba($primary-light, 0.55);
+  border: 1px solid $border;
+  border-radius: 8px;
+  cursor: grab;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &.is-over {
+    border-color: $secondary;
+    background: rgba($secondary, 0.1);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &.planner-list-item--edit {
+    flex-wrap: wrap;
+    cursor: default;
+    border-color: rgba($secondary, 0.5);
+
+    input {
+      flex: 1;
+      min-width: 90px;
+      background: $primary-light;
+      color: $text-light;
+      border: 1px solid $border;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      font-family: $font-body;
+      outline: none;
+
+      &:focus {
+        border-color: $secondary;
+      }
+    }
+  }
+}
+
+.planner-drag-grip {
+  flex: none;
+  color: $text-muted;
+  font-size: 0.9rem;
+  line-height: 1;
+  user-select: none;
+}
+
+.planner-item-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.planner-item-sub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.planner-list-label {
+  min-width: 0;
+  font-size: 0.8rem;
+  color: $text-light;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.planner-freq-value {
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.8rem;
+  color: $secondary;
+  white-space: nowrap;
+}
+
+.planner-band {
+  flex: none;
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  border-radius: 4px;
+  padding: 2px 6px;
+  white-space: nowrap;
+
+  &--vhf {
+    color: $ok;
+    background: rgba($ok, 0.12);
+    border: 1px solid rgba($ok, 0.4);
+  }
+
+  &--uhf {
+    color: $secondary;
+    background: rgba($secondary, 0.1);
+    border: 1px solid rgba($secondary, 0.35);
+  }
+
+  &--fm {
+    color: $warn;
+    background: rgba($warn, 0.1);
+    border: 1px solid rgba($warn, 0.35);
+  }
+}
+
+.planner-brev-code {
+  flex: none;
+  font-family: $font-heading;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: $secondary;
+  background: rgba($secondary, 0.1);
+  border: 1px solid rgba($secondary, 0.35);
+  border-radius: 4px;
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+
+.planner-brev-meaning {
+  min-width: 0;
+  font-size: 0.76rem;
+  color: $text-muted;
+  line-height: 1.35;
+}
+
+// ----------- Marker Bullseye (Leaflet) -----------
+.planner-bullseye-wrap {
+  background: transparent;
+  border: none;
+}
+
+.planner-bullseye-marker {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($primary, 0.9);
+  border: 2px solid $secondary;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba($secondary, 0.55);
+  color: $secondary;
+  font-family: $font-heading;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+// ----------- Marker SAM (Leaflet) -----------
+.planner-sam-wrap {
+  background: transparent;
+  border: none;
+}
+
+.planner-sam-marker {
+  width: 42px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($danger, 0.22);
+  border: 1px solid $danger;
+  border-radius: 4px;
+  font-family: $font-heading;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: $danger;
+  white-space: nowrap;
+  box-shadow: 0 0 8px rgba($danger, 0.35);
+  cursor: default;
+}
+
+// ----------- Fase 3 (B3): Bases aéreas -----------
+.planner-tools-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.planner-tool--toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  color: $text-muted;
+  border: 1px dashed rgba($secondary, 0.45);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  svg {
+    flex: none;
+  }
+
+  &:hover {
+    background: rgba($secondary, 0.08);
+    color: $text-light;
+  }
+
+  &:focus-visible {
+    outline: 1px solid $secondary;
+    outline-offset: 1px;
+  }
+
+  &.is-active {
+    background: rgba($secondary, 0.16);
+    border-color: $secondary;
+    border-style: solid;
+    color: $secondary;
+  }
+
+  .planner-tool-label {
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+}
+
+.planner-bases {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.planner-bases-search {
+  width: 100%;
+  background: $primary-light;
+  color: $text-light;
+  border: 1px solid $border;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  font-family: $font-body;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &:focus {
+    border-color: $secondary;
+  }
+}
+
+.planner-bases-note {
+  margin: 0;
+  font-size: 0.72rem;
+  color: $text-muted;
+
+  strong {
+    color: $secondary;
+  }
+}
+
+.planner-bases-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid $border;
+  border-radius: 6px;
+}
+
+.planner-bases-item {
+  border-bottom: 1px solid $border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.planner-bases-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  background: transparent;
+  color: $text-light;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: $font-body;
+  font-size: 0.8rem;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba($secondary, 0.08);
+  }
+
+  &:focus-visible {
+    outline: 1px solid $secondary;
+    outline-offset: -1px;
+  }
+}
+
+.planner-bases-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.planner-bases-meta {
+  flex: none;
+  font-size: 0.66rem;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+// ----------- Fase 3 (B7): Kneeboard -----------
+.planner-kneeboard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.planner-kneeboard-desc {
+  margin: 0;
+  font-size: 0.74rem;
+  color: $text-muted;
+  line-height: 1.5;
+}
+
+.planner-kneeboard-gen {
+  color: $secondary;
+  border-color: rgba($secondary, 0.5);
+
+  &:hover:not(:disabled) {
+    background: rgba($secondary, 0.12);
+  }
+}
+
+.planner-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba($primary-dark, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.planner-modal {
+  width: min(880px, 100%);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px;
+  background: $primary;
+  border: 1px solid $border;
+  border-radius: 12px;
+  box-shadow: $shadow-panel;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.planner-modal-head {
+  h3 {
+    margin: 0 0 6px;
+    font-family: $font-heading;
+    color: $secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  p {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    color: $text-muted;
+
+    code {
+      color: $text-light;
+      background: $primary-light;
+      border: 1px solid $border;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 0.72rem;
+    }
+  }
+}
+
+.planner-modal-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.planner-modal-btn {
+  background: transparent;
+  color: $text-light;
+  border: 1px solid $border;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  font-family: $font-heading;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: rgba($secondary, 0.08);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &--primary {
+    color: $primary-dark;
+    background: $secondary;
+    border-color: $secondary;
+    font-weight: 700;
+
+    &:hover:not(:disabled) {
+      background: lighten($secondary, 6%);
+    }
+  }
+
+  &--small {
+    padding: 5px 10px;
+    font-size: 0.64rem;
+  }
+}
+
+.planner-kneeboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 14px;
+}
+
+.planner-kneeboard-card {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  img {
+    width: 100%;
+    height: auto;
+    border: 1px solid $border;
+    border-radius: 8px;
+    display: block;
+  }
+
+  figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-family: $font-heading;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: $secondary;
+  }
+}
+
+// ----------- Marker Base Aérea (Leaflet) -----------
+.planner-airfield-wrap {
+  background: transparent;
+  border: none;
+}
+
+.planner-airfield-marker {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $secondary;
+  background: rgba($primary, 0.92);
+  border: 1px solid rgba($secondary, 0.85);
+  border-radius: 6px 6px 6px 2px;
+  box-shadow: 0 0 8px rgba($secondary, 0.3);
+  transform: rotate(45deg);
+
+  svg {
+    transform: rotate(-45deg);
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.planner-airfield-popup-wrap {
+  .leaflet-popup-content-wrapper {
+    background: $primary;
+    color: $text-light;
+    border: 1px solid $border;
+    border-radius: 8px;
+    box-shadow: $shadow-panel;
+  }
+
+  .leaflet-popup-tip {
+    background: $primary;
+    border: 1px solid $border;
+  }
+
+  .leaflet-popup-close-button {
+    color: $text-muted;
+  }
+
+  .leaflet-popup-content {
+    margin: 12px 14px;
+  }
+}
+
+.planner-airfield-popup {
+  font-family: $font-body;
+  font-size: 0.8rem;
+
+  h4 {
+    font-family: $font-heading;
+    color: $secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .planner-airfield-tag {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: $text-muted;
+    border: 1px solid $border;
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+
+  .planner-airfield-coords {
+    margin: 0 0 8px;
+    color: $text-muted;
+    font-size: 0.72rem;
+  }
+
+  .planner-airfield-tacan {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 8px;
+
+    strong {
+      color: $secondary;
+    }
+  }
+
+  .planner-airfield-freqs {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 10px;
+
+    th,
+    td {
+      text-align: left;
+      padding: 3px 6px;
+      border-bottom: 1px solid $border;
+      font-size: 0.74rem;
+      font-weight: 400;
+    }
+
+    th {
+      color: $text-muted;
+    }
+
+    td {
+      color: $text-light;
+    }
+
+    small {
+      color: $secondary;
+    }
+  }
+
+  .planner-airfield-runways {
+    strong {
+      color: $secondary;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .planner-airfield-rw {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 3px 0;
+      border-bottom: 1px solid $border;
+      font-size: 0.74rem;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      span {
+        color: $text-muted;
+      }
+    }
+  }
+
+  .planner-airfield-empty {
+    color: $text-muted;
+    font-size: 0.74rem;
+  }
+}
+
+// ----------- Responsive -----------
+@include responsive($breakpoint-xl) {
+  .planner-hud {
+    flex: 0 0 244px;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .planner-panel {
+    flex: 0 0 304px;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .planner-tool-label {
+    font-size: 0.5rem;
+  }
+}
+
+@include responsive($breakpoint-md) {
+  .planner-page-head {
+    padding: 40px 0 20px;
+  }
+
+  .planner-app {
+    height: auto;
+    flex-direction: column;
+    padding: 0 14px 30px;
+  }
+
+  .planner-hud {
+    flex: none;
+    width: 100%;
+    max-height: 320px;
+  }
+
+  .planner-map {
+    flex: none;
+    height: 62vh;
+    min-height: 380px;
+  }
+
+  .planner-panel {
+    flex: none;
+    width: 100%;
+    max-height: 340px;
+  }
+}
+
+// ----------- Focus mode -----------
+body.planner-focus {
+
+  .site-header,
+  .site-footer,
+  .planner-page-head {
+    display: none;
+  }
+
+  .planner-app {
+    height: 100vh;
+    min-height: 0;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .planner-map {
+    border: none;
+    border-radius: 0;
+  }
+}
+
+.planner-focus-exit {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba($primary, 0.92);
+  color: $secondary;
+  border: 1px solid rgba($secondary, 0.6);
+  border-radius: 6px;
+  font-family: $font-heading;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  box-shadow: $shadow-panel;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba($secondary, 0.18);
+  }
+
+  &:focus-visible {
+    outline: 1px solid $secondary;
+    outline-offset: 1px;
+  }
+}
+
+@include responsive($breakpoint-md) {
+  body.planner-focus {
+    .planner-app {
+      height: auto;
+      padding: 0 14px 30px;
+    }
+
+    .planner-map {
+      height: 62vh;
+      min-height: 380px;
+    }
+  }
+}
