@@ -175,3 +175,19 @@ Las entradas de cada release se generan automaticamente a partir de los commits 
 ### Otros
 - Merge pull request #19 from Escuadron-71/dev
 
+
+## [0.1.3] - 2026-08-13
+
+### Agregado
+- feat(planner): port DCS flight planner from plannerDCS branch
+- feat(academia): split CR1 into F-16C and F/A-18C courses
+
+### Documentacion
+- docs(plans): add planner work package and update roadmap state
+
+### Mantenimiento
+- chore(version): align dev package.json to v0.1.2
+
+### Otros
+- Merge pull request #21 from Escuadron-71/dev
+
